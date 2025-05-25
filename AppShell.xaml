@@ -20,12 +20,33 @@
         ContentTemplate="{DataTemplate pages:ProjectListPage}"
         Route="projects" />
 
+     <ShellContent
+        Title="Translate"
+        Icon="{StaticResource IconTranslate}"
+        ContentTemplate="{DataTemplate pages:TranslatePage}"
+        Route="translate" />
+    
+     <ShellContent
+        Title="Transcribe"
+        Icon="{StaticResource IconTranscribe}"
+        ContentTemplate="{DataTemplate pages:TranscribePage}"
+        Route="transcribe" />
+     <ShellContent
+        Title="Prompts Management"
+        Icon="{StaticResource IconPrompt}"
+        ContentTemplate="{DataTemplate pages:PromptsManagementPage}"
+        Route="promptsmanagement" />   
+
+    <ShellContent
+        Title="Settings"
+        Icon="{StaticResource IconSettings}"
+        ContentTemplate="{DataTemplate pages:SettingsPage}"
+        Route="settings" />
     <ShellContent
         Title="Manage Meta"
         Icon="{StaticResource IconMeta}"
         ContentTemplate="{DataTemplate pages:ManageMetaPage}"
         Route="manage" />
-
     <Shell.FlyoutFooter>
         <Grid Padding="15">
             <sf:SfSegmentedControl x:Name="ThemeSegmentedControl" 
