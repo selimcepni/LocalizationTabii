@@ -1,4 +1,4 @@
-using LocalizationTabii.Views.Settings;
+using LocalizationTabii.Pages;
 namespace LocalizationTabii
 {
     public partial class App : Application

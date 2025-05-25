@@ -4,370 +4,403 @@
              x:Class="LocalizationTabii.Pages.SettingsPage"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
              xmlns:switch="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-             xmlns:controls="clr-namespace:LocalizationTabii.Controls" Title="">
+             xmlns:controls="clr-namespace:LocalizationTabii.Controls"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:settings="clr-namespace:LocalizationTabii.Pages.Settings"
+             Title="">
    <ContentPage.Content>
-      <ScrollView>
-         <StackLayout Background="Transparent"
-                      Spacing="0">
+      <Grid ColumnDefinitions="*, 3*">
+         <!-- Sol Menü -->
+         <ScrollView Grid.Column="0">
+            <StackLayout Background="Transparent"
+                         Spacing="0">
 
-            <Grid RowDefinitions="Auto, Auto"
-                  ColumnDefinitions="Auto, .8*, .2*"
-                  HeightRequest="70"
-                  Margin="10,0,0,0">
-               <Border Grid.Row="0"
-                       Grid.Column="0"
-                       Grid.RowSpan="2"
-                       StrokeThickness="0"
-                       StrokeShape="RoundRectangle 50"
-                       HeightRequest="50"
-                       WidthRequest="50">
-                  <Image x:Name="profileImage"/>
-               </Border>
-               <Label Grid.Row="0"
-                      Grid.Column="1"
-                      Margin="10,10,0,5"
-                      Text="John Chris"
-                      FontFamily="Roboto-Medium"
-                      TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}"
-                      FontSize="16"/>
-               <Label Grid.Row="1"
-                      Grid.Column="1"
-                      Margin="10,10,0,5"
-                      Text="Be Happy"
-                      FontFamily="Roboto-Regular"
-                      TextColor="{AppThemeBinding Light={DynamicResource SecondaryTextColorLight}, Dark={DynamicResource SecondaryTextColorDark}}"
-                      FontSize="14"/>
-               <!--  Edit button  -->
-               <buttons:SfButton HorizontalOptions="End"
-                                 Grid.RowSpan="2"
-                                 Grid.Column="2"
-                                 Margin="8,0"
-                                 Padding="0"
-                                 FontSize="20"
-                                 HeightRequest="-1"
-                                 Style="{DynamicResource IconButtonStyle}"
-                                 Text="{DynamicResource Edit}"
-                                 WidthRequest="-1"/>
-            </Grid>
+               <Grid RowDefinitions="Auto, Auto"
+                     ColumnDefinitions="Auto, .8*, .2*"
+                     HeightRequest="70"
+                     Margin="10,0,0,0">
+                  <Border Grid.Row="0"
+                          Grid.Column="0"
+                          Grid.RowSpan="2"
+                          StrokeThickness="0"
+                          StrokeShape="RoundRectangle 50"
+                          HeightRequest="50"
+                          WidthRequest="50">
+                     <Image x:Name="profileImage"/>
+                  </Border>
+                  <Label Grid.Row="0"
+                         Grid.Column="1"
+                         Margin="10,10,0,5"
+                         Text="John Chris"
+                         FontFamily="Roboto-Medium"
+                         TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}"
+                         FontSize="16"/>
+                  <Label Grid.Row="1"
+                         Grid.Column="1"
+                         Margin="10,10,0,5"
+                         Text="Be Happy"
+                         FontFamily="Roboto-Regular"
+                         TextColor="{AppThemeBinding Light={DynamicResource SecondaryTextColorLight}, Dark={DynamicResource SecondaryTextColorDark}}"
+                         FontSize="14"/>
+                  <!--  Edit button  -->
+                  <buttons:SfButton HorizontalOptions="End"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="2"
+                                    Margin="8,0"
+                                    Padding="0"
+                                    FontSize="20"
+                                    HeightRequest="-1"
+                                    Style="{DynamicResource IconButtonStyle}"
+                                    Text="{DynamicResource Edit}"
+                                    WidthRequest="-1"/>
+               </Grid>
 
-            <!--  Header label for account setting  -->
-            <Label
-               Margin="16,24,0,16"
-               FontFamily="Roboto-Medium"
-               FontSize="12"
-               HorizontalOptions="Fill"
-               LineHeight="{OnPlatform Default=-1,
-                                         Android=1.25}"
-               Text="ACCOUNT"
-               TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}"
-               VerticalOptions="Center"
-               VerticalTextAlignment="Center"/>
-
-            <!--  Grid for Edit profile label and navigation bar icon  -->
-            <controls:TapAnimationGrid
-               ColumnDefinitions="Auto, *, Auto"
-               ColumnSpacing="0"
-               RowSpacing="0"
-               Tapped="False">
-
-               <!--  Edit profile icon  -->
+               <!--  Header label for account setting  -->
                <Label
-                  Grid.Column="0"
-                  Margin="16,0,0,0"
-                  Text="{DynamicResource Account}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-               <!--  Edit profile label  -->
-               <Label
-                  Grid.Column="1"
-                  Margin="16,12"
-                  FontFamily="Roboto-Regular"
-                  HorizontalOptions="Start"
-                  Text="Edit Profile"
-                  VerticalOptions="Center"/>
-               <!--  Navigation icon  -->
-               <Label
-                  Grid.Column="2"
-                  Margin="16,8"
-                  Text="{DynamicResource Next}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-            </controls:TapAnimationGrid>
-            <BoxView/>
+                  Margin="16,24,0,16"
+                  FontFamily="Roboto-Medium"
+                  FontSize="12"
+                  HorizontalOptions="Fill"
+                  LineHeight="{OnPlatform Default=-1,
+                                            Android=1.25}"
+                  Text="ACCOUNT"
+                  TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}"
+                  VerticalOptions="Center"
+                  VerticalTextAlignment="Center"/>
 
-            <!--  Grid for Change password label and navigation bar icon  -->
-            <controls:TapAnimationGrid
-               ColumnDefinitions="Auto, *, Auto"
-               ColumnSpacing="0"
-               RowSpacing="0"
-               Tapped="False">
+               <!--  Grid for Edit profile label and navigation bar icon  -->
+               <controls:TapAnimationGrid
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Tapped="False">
 
-               <!--  Change password icon  -->
-               <Label
-                  Grid.Column="0"
-                  Margin="16,0,0,0"
-                  Text="{DynamicResource Account}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-               <!--  Change password label  -->
-               <Label
-                  Grid.Column="1"
-                  Margin="16,12"
-                  FontFamily="Roboto-Regular"
-                  HorizontalOptions="Start"
-                  Text="Change Password"
-                  VerticalOptions="Center"/>
-               <!--  Navigation icon  -->
-               <Label
-                  Grid.Column="2"
-                  Margin="16,8"
-                  Text="{DynamicResource Next}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-            </controls:TapAnimationGrid>
-            <BoxView/>
+                  <!--  Edit profile icon  -->
+                  <Label
+                     Grid.Column="0"
+                     Margin="16,0,0,0"
+                     Text="{DynamicResource Account}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+                  <!--  Edit profile label  -->
+                  <Label
+                     Grid.Column="1"
+                     Margin="16,12"
+                     FontFamily="Roboto-Regular"
+                     HorizontalOptions="Start"
+                     Text="Edit Profile"
+                     VerticalOptions="Center"/>
+                  <!--  Navigation icon  -->
+                  <Label
+                     Grid.Column="2"
+                     Margin="16,8"
+                     Text="{DynamicResource Next}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+               </controls:TapAnimationGrid>
+               <BoxView/>
 
-            <!--  Grid for Account link label and navigation bar icon  -->
-            <controls:TapAnimationGrid
-               ColumnDefinitions="Auto, *, Auto"
-               ColumnSpacing="0"
-               RowSpacing="0"
-               Tapped="False">
+               <!--  Grid for Change password label and navigation bar icon  -->
+               <controls:TapAnimationGrid
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Tapped="False">
 
-               <!--  Link account icon  -->
+                  <!--  Change password icon  -->
+                  <Label
+                     Grid.Column="0"
+                     Margin="16,0,0,0"
+                     Text="{DynamicResource Account}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+                  <!--  Change password label  -->
+                  <Label
+                     Grid.Column="1"
+                     Margin="16,12"
+                     FontFamily="Roboto-Regular"
+                     HorizontalOptions="Start"
+                     Text="Change Password"
+                     VerticalOptions="Center"/>
+                  <!--  Navigation icon  -->
+                  <Label
+                     Grid.Column="2"
+                     Margin="16,8"
+                     Text="{DynamicResource Next}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+               </controls:TapAnimationGrid>
+               <BoxView/>
+
+               <!--  Grid for API Keys label and navigation bar icon  -->
+               <controls:TapAnimationGrid
+                  x:Name="ApiKeysMenuGrid"
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="0"
+                  RowSpacing="0">
+                  <Grid.GestureRecognizers>
+                     <TapGestureRecognizer Tapped="ApiKeysMenuGrid_Tapped" />
+                  </Grid.GestureRecognizers>
+                  <!--  API Keys icon  -->
+                  <Label
+                     Grid.Column="0"
+                     Margin="16,0,0,0"
+                     Text="{DynamicResource Share}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+                  <!--  API Keys label  -->
+                  <Label
+                     Grid.Column="1"
+                     Margin="16,12"
+                     FontFamily="Roboto-Regular"
+                     HorizontalOptions="Start"
+                     Text="API Keys"
+                     VerticalOptions="Center"/>
+                  <!--  Navigation icon  -->
+                  <Label
+                     Grid.Column="2"
+                     Margin="16,8"
+                     Text="{DynamicResource Next}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+               </controls:TapAnimationGrid>
+               <BoxView/>
+
+               <!--  Header lable for notifications  -->
                <Label
-                  Grid.Column="0"
-                  Margin="16,0,0,0"
-                  Text="{DynamicResource Share}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-               <!--  Link account label  -->
+                  Margin="16,40,0,16"
+                  FontFamily="Roboto-Medium"
+                  FontSize="12"
+                  HorizontalOptions="Fill"
+                  LineHeight="{OnPlatform Default=-1,
+                                            Android=1.25}"
+                  Text="NOTIFICATIONS"
+                  TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}"
+                  VerticalOptions="Center"
+                  VerticalTextAlignment="Center"/>
+
+               <!--  Grid for Notifications label and switch  -->
+               <Grid
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="0"
+                  RowSpacing="0">
+
+                  <!--  Notifications icon  -->
+                  <Label
+                     Grid.Column="0"
+                     Margin="16,0,0,0"
+                     Text="{DynamicResource Notification}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+                  <!--  Notification label  -->
+                  <Label
+                     Grid.Column="1"
+                     Margin="16,12"
+                     FontFamily="Roboto-Regular"
+                     HorizontalOptions="Start"
+                     Text="Notifications"
+                     VerticalOptions="Center"/>
+                  <!--  Notifications switch  -->
+                  <switch:SfSwitch
+                     Grid.Column="2"
+                     Margin="8,0"
+                     AllowIndeterminateState="False"
+                     VerticalOptions="Center">
+                  </switch:SfSwitch>
+               </Grid>
+               <BoxView/>
+
+               <!--  Grid for Email notifications and switch  -->
+               <Grid
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="0"
+                  RowSpacing="0">
+
+                  <!--  Email notification icon  -->
+                  <Label
+                     Grid.Column="0"
+                     Margin="16,0,0,0"
+                     Text="{DynamicResource Account}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+                  <!--  Email notification label  -->
+                  <Label
+                     Grid.Column="1"
+                     Margin="16,12"
+                     FontFamily="Roboto-Regular"
+                     HorizontalOptions="Start"
+                     Text="Email Notifications"
+                     VerticalOptions="Center"/>
+                  <!--  Email notification switch  -->
+                  <switch:SfSwitch
+                     Grid.Column="2"
+                     Margin="8,0"
+                     AllowIndeterminateState="False">
+                  </switch:SfSwitch>
+               </Grid>
+
+               <BoxView/>
+
+               <!--  Header label for Support setting  -->
                <Label
-                  Grid.Column="1"
-                  Margin="16,12"
-                  FontFamily="Roboto-Regular"
-                  HorizontalOptions="Start"
-                  Text="Link Account"
-                  VerticalOptions="Center"/>
-               <!--  Navigation icon  -->
-               <Label
-                  Grid.Column="2"
-                  Margin="16,8"
-                  Text="{DynamicResource Next}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-            </controls:TapAnimationGrid>
+                  Margin="16,40,0,16"
+                  FontFamily="Roboto-Medium"
+                  FontSize="12"
+                  HorizontalOptions="Fill"
+                  LineHeight="{OnPlatform Default=-1,
+                                            Android=1.25}"
+                  Text="SUPPORT"
+                  TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}"
+                  VerticalOptions="Center"
+                  VerticalTextAlignment="Center"/>
 
-            <BoxView/>
+               <!--  Grid for Help label and navigation bar icon  -->
+               <controls:TapAnimationGrid
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Tapped="False">
 
-            <!--  Header lable for notifications  -->
-            <Label
-               Margin="16,40,0,16"
-               FontFamily="Roboto-Medium"
-               FontSize="12"
-               HorizontalOptions="Fill"
-               LineHeight="{OnPlatform Default=-1,
-                                         Android=1.25}"
-               Text="NOTIFICATIONS"
-               TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}"
-               VerticalOptions="Center"
-               VerticalTextAlignment="Center"/>
+                  <!--  help icon  -->
+                  <Label
+                     Grid.Column="0"
+                     Margin="16,0,0,0"
+                     Text="{DynamicResource Help}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+                  <!--  Help text label  -->
+                  <Label
+                     Grid.Column="1"
+                     Margin="16,12"
+                     FontFamily="Roboto-Regular"
+                     HorizontalOptions="Start"
+                     Text="Help"
+                     VerticalOptions="Center"/>
+                  <!--  Navigation icon  -->
+                  <Label
+                     Grid.Column="2"
+                     Margin="16,8"
+                     Text="{DynamicResource Next}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+               </controls:TapAnimationGrid>
+               <BoxView/>
 
-            <!--  Grid for Notifications label and switch  -->
-            <Grid
-               ColumnDefinitions="Auto, *, Auto"
-               ColumnSpacing="0"
-               RowSpacing="0">
+               <!--  Grid for Terms of service label and navigation bar icon  -->
+               <controls:TapAnimationGrid
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Tapped="False">
 
-               <!--  Notifications icon  -->
-               <Label
-                  Grid.Column="0"
-                  Margin="16,0,0,0"
-                  Text="{DynamicResource Notification}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-               <!--  Notification label  -->
-               <Label
-                  Grid.Column="1"
-                  Margin="16,12"
-                  FontFamily="Roboto-Regular"
-                  HorizontalOptions="Start"
-                  Text="Notifications"
-                  VerticalOptions="Center"/>
-               <!--  Notifications switch  -->
-               <switch:SfSwitch
-                  Grid.Column="2"
-                  Margin="8,0"
-                  AllowIndeterminateState="False"
-                  VerticalOptions="Center">
-               </switch:SfSwitch>
-            </Grid>
-            <BoxView/>
+                  <!--  Terms of service icon  -->
+                  <Label
+                     Grid.Column="0"
+                     Margin="16,0,0,0"
+                     Text="{DynamicResource Account}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+                  <!--  Terms of service label  -->
+                  <Label
+                     Grid.Column="1"
+                     Margin="16,12"
+                     FontFamily="Roboto-Regular"
+                     HorizontalOptions="Start"
+                     Text="Terms of Service"
+                     VerticalOptions="Center"/>
+                  <!--  Navigation icon  -->
+                  <Label
+                     Grid.Column="2"
+                     Margin="16,8"
+                     Text="{DynamicResource Next}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+               </controls:TapAnimationGrid>
+               <BoxView/>
 
-            <!--  Grid for Email notifications and switch  -->
-            <Grid
-               ColumnDefinitions="Auto, *, Auto"
-               ColumnSpacing="0"
-               RowSpacing="0">
+               <!--  Grid for Privacy policy label and navigation bar icon  -->
+               <controls:TapAnimationGrid
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Tapped="False">
 
-               <!--  Email notification icon  -->
-               <Label
-                  Grid.Column="0"
-                  Margin="16,0,0,0"
-                  Text="{DynamicResource Account}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-               <!--  Email notification label  -->
-               <Label
-                  Grid.Column="1"
-                  Margin="16,12"
-                  FontFamily="Roboto-Regular"
-                  HorizontalOptions="Start"
-                  Text="Email Notifications"
-                  VerticalOptions="Center"/>
-               <!--  Email notification switch  -->
-               <switch:SfSwitch
-                  Grid.Column="2"
-                  Margin="8,0"
-                  AllowIndeterminateState="False">
-               </switch:SfSwitch>
-            </Grid>
+                  <!--  Privacy policy icon  -->
+                  <Label
+                     Grid.Column="0"
+                     Margin="16,0,0,0"
+                     Text="{DynamicResource Account}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+                  <!--  Privacy policy text label  -->
+                  <Label
+                     Grid.Column="1"
+                     Margin="16,12"
+                     FontFamily="Roboto-Regular"
+                     HorizontalOptions="Start"
+                     Text="Privacy and Policy"
+                     VerticalOptions="Center"/>
+                  <!--  Navigation icon  -->
+                  <Label
+                     Grid.Column="2"
+                     Margin="16,8"
+                     Text="{DynamicResource Next}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+               </controls:TapAnimationGrid>
+               <BoxView/>
 
-            <BoxView/>
+               <!--  Grid for FAQs label and navigation bar icon  -->
+               <controls:TapAnimationGrid
+                  ColumnDefinitions="Auto, *, Auto"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Tapped="False">
 
-            <!--  Header label for Support setting  -->
-            <Label
-               Margin="16,40,0,16"
-               FontFamily="Roboto-Medium"
-               FontSize="12"
-               HorizontalOptions="Fill"
-               LineHeight="{OnPlatform Default=-1,
-                                         Android=1.25}"
-               Text="SUPPORT"
-               TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}"
-               VerticalOptions="Center"
-               VerticalTextAlignment="Center"/>
+                  <!--  FAQs icon  -->
+                  <Label
+                     Grid.Column="0"
+                     Margin="16,0,0,0"
+                     Text="{DynamicResource Account}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+                  <!--  FAQs text label  -->
+                  <Label
+                     Grid.Column="1"
+                     Margin="16,12"
+                     FontFamily="Roboto-Regular"
+                     HorizontalOptions="Start"
+                     Text="FAQs"
+                     VerticalOptions="Center"/>
+                  <!--  Navigation icon  -->
+                  <Label
+                     Grid.Column="2"
+                     Margin="16,8"
+                     Text="{DynamicResource Next}"
+                     Style="{DynamicResource IconLabelStyle}"/>
+               </controls:TapAnimationGrid>
 
-            <!--  Grid for Help label and navigation bar icon  -->
-            <controls:TapAnimationGrid
-               ColumnDefinitions="Auto, *, Auto"
-               ColumnSpacing="0"
-               RowSpacing="0"
-               Tapped="False">
+               <BoxView/>
 
-               <!--  help icon  -->
-               <Label
-                  Grid.Column="0"
-                  Margin="16,0,0,0"
-                  Text="{DynamicResource Help}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-               <!--  Help text label  -->
-               <Label
-                  Grid.Column="1"
-                  Margin="16,12"
-                  FontFamily="Roboto-Regular"
-                  HorizontalOptions="Start"
-                  Text="Help"
-                  VerticalOptions="Center"/>
-               <!--  Navigation icon  -->
-               <Label
-                  Grid.Column="2"
-                  Margin="16,8"
-                  Text="{DynamicResource Next}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-            </controls:TapAnimationGrid>
-            <BoxView/>
+               <!--  Logout button  -->
+               <buttons:SfButton
+                  Margin="0,24,0,32"
+                  Text="Log out"
+                  Style="{DynamicResource FormsButtonStyle}"/>
 
-            <!--  Grid for Terms of service label and navigation bar icon  -->
-            <controls:TapAnimationGrid
-               ColumnDefinitions="Auto, *, Auto"
-               ColumnSpacing="0"
-               RowSpacing="0"
-               Tapped="False">
+            </StackLayout>
+         </ScrollView>
 
-               <!--  Terms of service icon  -->
-               <Label
-                  Grid.Column="0"
-                  Margin="16,0,0,0"
-                  Text="{DynamicResource Account}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-               <!--  Terms of service label  -->
-               <Label
-                  Grid.Column="1"
-                  Margin="16,12"
-                  FontFamily="Roboto-Regular"
-                  HorizontalOptions="Start"
-                  Text="Terms of Service"
-                  VerticalOptions="Center"/>
-               <!--  Navigation icon  -->
-               <Label
-                  Grid.Column="2"
-                  Margin="16,8"
-                  Text="{DynamicResource Next}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-            </controls:TapAnimationGrid>
-            <BoxView/>
-
-            <!--  Grid for Privacy policy label and navigation bar icon  -->
-            <controls:TapAnimationGrid
-               ColumnDefinitions="Auto, *, Auto"
-               ColumnSpacing="0"
-               RowSpacing="0"
-               Tapped="False">
-
-               <!--  Privacy policy icon  -->
-               <Label
-                  Grid.Column="0"
-                  Margin="16,0,0,0"
-                  Text="{DynamicResource Account}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-               <!--  Privacy policy text label  -->
-               <Label
-                  Grid.Column="1"
-                  Margin="16,12"
-                  FontFamily="Roboto-Regular"
-                  HorizontalOptions="Start"
-                  Text="Privacy and Policy"
-                  VerticalOptions="Center"/>
-               <!--  Navigation icon  -->
-               <Label
-                  Grid.Column="2"
-                  Margin="16,8"
-                  Text="{DynamicResource Next}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-            </controls:TapAnimationGrid>
-            <BoxView/>
-
-            <!--  Grid for FAQs label and navigation bar icon  -->
-            <controls:TapAnimationGrid
-               ColumnDefinitions="Auto, *, Auto"
-               ColumnSpacing="0"
-               RowSpacing="0"
-               Tapped="False">
-
-               <!--  FAQs icon  -->
-               <Label
-                  Grid.Column="0"
-                  Margin="16,0,0,0"
-                  Text="{DynamicResource Account}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-               <!--  FAQs text label  -->
-               <Label
-                  Grid.Column="1"
-                  Margin="16,12"
-                  FontFamily="Roboto-Regular"
-                  HorizontalOptions="Start"
-                  Text="FAQs"
-                  VerticalOptions="Center"/>
-               <!--  Navigation icon  -->
-               <Label
-                  Grid.Column="2"
-                  Margin="16,8"
-                  Text="{DynamicResource Next}"
-                  Style="{DynamicResource IconLabelStyle}"/>
-            </controls:TapAnimationGrid>
-
-            <BoxView/>
-
-            <!--  Logout button  -->
-            <buttons:SfButton
-               Margin="0,24,0,32"
-               Text="Log out"
-               Style="{DynamicResource FormsButtonStyle}"/>
-
-         </StackLayout>
-      </ScrollView>
+         <!-- Sağ İçerik Alanı -->
+         <Grid Grid.Column="1" Padding="20">
+            <ContentView x:Name="DefaultContentView">
+               <Frame BackgroundColor="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}"
+                      BorderColor="{AppThemeBinding Light={DynamicResource BorderColorLight}, Dark={DynamicResource BorderColorDark}}"
+                      CornerRadius="10"
+                      HasShadow="True">
+                  <StackLayout>
+                     <Label Text="Ayarlar Detayı"
+                            FontSize="24"
+                            FontFamily="Roboto-Medium"
+                            HorizontalOptions="Center"
+                            Margin="0,0,0,20"/>
+                     <Label Text="Lütfen sol menüden bir ayar seçin"
+                            FontSize="16"
+                            FontFamily="Roboto-Regular"
+                            HorizontalOptions="Center"
+                            TextColor="{AppThemeBinding Light={DynamicResource SecondaryTextColorLight}, Dark={DynamicResource SecondaryTextColorDark}}"/>
+                  </StackLayout>
+               </Frame>
+            </ContentView>
+            <ContentView x:Name="ApiKeysContentView" IsVisible="False">
+               <settings:ApiKeysView x:Name="ApiKeysView"/>
+            </ContentView>
+         </Grid>
+      </Grid>
    </ContentPage.Content>
 </ContentPage>
