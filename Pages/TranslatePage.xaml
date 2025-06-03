@@ -1,20 +1,79 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:popup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
-             x:Class="LocalizationTabii.Pages.TranslatePage"
-                       Title="Translate">
+<ContentPage
+    x:Class="LocalizationTabii.Pages.TranslatePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+    xmlns:popup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+    Title="Translate">
 
 
-<StackLayout>
-    <Button x:Name="button"  Text="Show Popup" Clicked="button_Clicked" WidthRequest="200" Margin="5"/>
-    <popup:SfPopup x:Name="popup"/>
-</StackLayout>
+    <StackLayout>
+        <buttons:SfButton
+            x:Name="button"
+            Margin="5"
+            Clicked="button_Clicked"
+            CornerRadius="20"
+            Text="Show Popup"
+            WidthRequest="200">
+            <buttons:SfButton.Background>
+                <RadialGradientBrush Radius="1.5">
+                    <RadialGradientBrush.GradientStops>
+                        <GradientStop Offset="0" Color="#00FF99" />
+                        <GradientStop Offset="1" Color="#000000" />
+                    </RadialGradientBrush.GradientStops>
+                </RadialGradientBrush>
+            </buttons:SfButton.Background>
+        </buttons:SfButton>
+
+        <buttons:SfButton x:Name="PrimaryButton" Text="Primary" CornerRadius="20"  Background="{StaticResource Primary}"  />
+
+        <buttons:SfButton x:Name="SecondaryButton" Text="Secondary" CornerRadius="20" Background="{StaticResource Secondary}" />
+
+        <buttons:SfButton x:Name="TertiaryButton" Text="Tertiary" CornerRadius="20" Background="{StaticResource Tertiary}" />
+
+        <buttons:SfButton x:Name="MagentaButton" Text="Magenta" CornerRadius="20" Background="{StaticResource Magenta}" />
+
+        <buttons:SfButton x:Name="MidnightBlueButton" Text="MidnightBlue" CornerRadius="20" Background="{StaticResource MidnightBlue}" />
+
+        <buttons:SfButton x:Name="PrimaryBrushButton" Text="PrimaryBrush" CornerRadius="20" Background="{StaticResource PrimaryBrush}" />
+
+        <buttons:SfButton x:Name="SecondaryBrushButton" Text="SecondaryBrush" CornerRadius="20" Background="{StaticResource SecondaryBrush}" />
+
+        <buttons:SfButton x:Name="TertiaryBrushButton" Text="TertiaryBrush" CornerRadius="20" Background="{StaticResource TertiaryBrush}" />
+
+        <buttons:SfButton x:Name="Color1" Text="Color1" CornerRadius="20" Background="#3068df" />
+
+        <buttons:SfButton x:Name="Color2" Text="Color2" CornerRadius="20" Background="#FF4500" />
+
+        <buttons:SfButton x:Name="Color3" Text="Color3" CornerRadius="20" Background="#32CD32" />
+
+        <buttons:SfButton x:Name="Color4" Text="Color4" CornerRadius="20" Background="#FF9900" />
+
+        <buttons:SfButton x:Name="Color5" Text="Color5" CornerRadius="20" Background="#8800FF" />
+
+        <buttons:SfButton x:Name="Color6" Text="Color6" CornerRadius="20" Background="#FF3300" />
+
+        <buttons:SfButton x:Name="Color7" Text="Color7" CornerRadius="20" Background="#00FF99" />
+
+        <buttons:SfButton x:Name="Color8" Text="Color8" CornerRadius="20" Background="#1E90FF" />
+
+        <buttons:SfButton x:Name="Color9" Text="Color9" CornerRadius="20" Background="#FF69B4" />
+
+
+
+
+
+
+       
+      
+
+        
+
+        <popup:SfPopup x:Name="popup" />
+    </StackLayout>
 
 
 
 
 </ContentPage>
-
-
- 
