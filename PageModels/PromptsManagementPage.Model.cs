@@ -58,9 +58,9 @@ namespace LocalizationTabii.PageModels
 
         partial void OnSelectedCategoryChanged(CategoryOption? value)
         {
-            CurrentPage = 1; // Reset to first page when filter changes
             if (value != null) // Null kontrolü ekle
             {
+                CurrentPage = 1; // Reset to first page when filter changes
                 Task.Run(async () => await LoadPromptsAsync());
             }
         }
@@ -129,28 +129,31 @@ namespace LocalizationTabii.PageModels
                     searchTerm, 
                     categoryFilter);
 
-                // UI'ı güncelle
-                Prompts.Clear();
-                foreach (var prompt in result.Items)
+                // UI'ı güncelle - Main thread'de çalıştır
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Prompts.Add(prompt);
-                }
-                
-                // Pagination bilgilerini güncelle
-                TotalCount = result.TotalCount;
-                TotalPages = result.TotalPages;
-                HasNextPage = result.HasNextPage;
-                HasPreviousPage = result.HasPreviousPage;
-                
-                // Pagination info text
-                var startItem = TotalCount == 0 ? 0 : ((CurrentPage - 1) * PageSize) + 1;
-                var endItem = Math.Min(CurrentPage * PageSize, TotalCount);
-                PaginationInfo = $"{startItem}-{endItem} / {TotalCount} prompt";
-                
-                // Manuel olarak UI property'lerini güncelle
-                PromptsCount = Prompts.Count;
-                HasPrompts = PromptsCount > 0;
-                ShowEmptyState = PromptsCount == 0 && CurrentPage == 1;
+                    Prompts.Clear();
+                    foreach (var prompt in result.Items)
+                    {
+                        Prompts.Add(prompt);
+                    }
+                    
+                    // Pagination bilgilerini güncelle
+                    TotalCount = result.TotalCount;
+                    TotalPages = result.TotalPages;
+                    HasNextPage = result.HasNextPage;
+                    HasPreviousPage = result.HasPreviousPage;
+                    
+                    // Pagination info text
+                    var startItem = TotalCount == 0 ? 0 : ((CurrentPage - 1) * PageSize) + 1;
+                    var endItem = Math.Min(CurrentPage * PageSize, TotalCount);
+                    PaginationInfo = $"{startItem}-{endItem} / {TotalCount} prompt";
+                    
+                    // Manuel olarak UI property'lerini güncelle
+                    PromptsCount = Prompts.Count;
+                    HasPrompts = PromptsCount > 0;
+                    ShowEmptyState = PromptsCount == 0 && CurrentPage == 1;
+                });
            
             }
             catch (Exception ex)
