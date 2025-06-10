@@ -2,6 +2,11 @@ using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Toolkit.Hosting;
 using Syncfusion.Maui.Core.Hosting;
+using LocalizationTabii.Pages;
+using LocalizationTabii.PageModels;
+using LocalizationTabii.Services;
+using System.IO;
+
 
 namespace LocalizationTabii
 {
@@ -9,12 +14,26 @@ namespace LocalizationTabii
     {
         public static MauiApp CreateMauiApp()
         {
+            // DEBUG: Uygulama başlangıç testi
+            try
+            {
+                var logPath = Path.Combine("/Users/selimcepni/Documents/GitHub/LocalizationTabii", "debug_log.txt");
+                var logMessage = $"[{DateTime.Now:HH:mm:ss.fff}] 🚀 UYGULAMA BAŞLADI - MauiProgram.CreateMauiApp\n";
+                File.AppendAllText(logPath, logMessage);
+                Console.WriteLine("🚀 UYGULAMA BAŞLADI - Debug dosyası yazıldı");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"🔴 Debug dosyası yazma hatası: {ex.Message}");
+            }
+
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .ConfigureSyncfusionToolkit()
                 .ConfigureSyncfusionCore()
+
                 .ConfigureMauiHandlers(handlers =>
                 {
 #if IOS || MACCATALYST
@@ -46,10 +65,18 @@ namespace LocalizationTabii
             builder.Services.AddSingleton<TagRepository>();
             builder.Services.AddSingleton<SeedDataService>();
             builder.Services.AddSingleton<ModalErrorHandler>();
+            
+            // Prompt servisleri
+            builder.Services.AddSingleton<IPromptStorageService, PromptStorageService>();
+            
             builder.Services.AddSingleton<MainPageModel>();
             builder.Services.AddSingleton<ProjectListPageModel>();
             builder.Services.AddSingleton<ManageMetaPageModel>();
             builder.Services.AddSingleton<SettingsPageModel>();
+            
+            // Pages ve PageModels
+            builder.Services.AddSingleton<PromptsManagementPage>();
+            builder.Services.AddSingleton<PromptsManagementPageModel>();
 
             builder.Services.AddTransientWithShellRoute<ProjectDetailPage, ProjectDetailPageModel>("project");
             builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");

@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LocalizationTabii.Services;
+using LocalizationTabii.ComponentModel;
 
 namespace LocalizationTabii.PageModels
 {
@@ -9,23 +10,42 @@ namespace LocalizationTabii.PageModels
         private readonly ModalErrorHandler _errorHandler;
 
         [ObservableProperty]
-        private bool _isPopupVisible;
+        private FileResult? selectedFile;
+
+        [ObservableProperty]
+        private string selectedFileName = string.Empty;
+
+        [ObservableProperty]
+        private bool isFileSelected;
 
         public TranslatePageModel(ModalErrorHandler errorHandler)
         {
             _errorHandler = errorHandler;
         }
 
-        [RelayCommand]
-        private void ShowPopup()
+        public void HandleFileSelected(FileResult fileResult)
         {
-            IsPopupVisible = true;
+            try
+            {
+                SelectedFile = fileResult;
+                SelectedFileName = fileResult.FileName;
+                IsFileSelected = true;
+                
+                // Here you can add additional file processing logic
+                // For example: parse SRT/VTT content, validate format, etc.
+            }
+            catch (Exception ex)
+            {
+                _errorHandler?.ShowError("Dosya İşleme Hatası", ex.Message);
+            }
         }
 
         [RelayCommand]
-        private void ClosePopup()
+        private void ClearSelectedFile()
         {
-            IsPopupVisible = false;
+            SelectedFile = null;
+            SelectedFileName = string.Empty;
+            IsFileSelected = false;
         }
     }
 }

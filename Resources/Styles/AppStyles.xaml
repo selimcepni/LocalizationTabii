@@ -291,6 +291,13 @@
                 FontSize="{OnIdiom 18,
                                    Desktop=24}"
                 TextColor="{StaticResource LightOnDarkBackground}" />
+        
+        <Style x:Key="FormLabelTitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{StaticResource Gray400}" />
+                <Setter Property="Margin" Value="0,0,0,4" />
+        </Style>
         <Style TargetType="sf:SfTextInputLayout">
                 <Setter Property="ContainerType" Value="Outlined" />
                 <Setter Property="ContainerBackground" Value="Transparent" />

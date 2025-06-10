@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sfPopup:SfPopup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:sfPopup="clr-namespace:Syncfusion.Maui.Toolkit.Popup;assembly=Syncfusion.Maui.Toolkit"
+                 xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+                 xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+                 x:Class="LocalizationTabii.Components.EditPromptPopup"
+                 x:Name="editPromptPopup"
+                 IsOpen="{Binding IsPopupOpen}"
+                 StaysOpen="True"
+                 ShowCloseButton="True"
+                 ShowFooter="True"
+                 ShowHeader="False"
+                 AutoSizeMode="None"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 WidthRequest="800"
+                 HeightRequest="900">
+    
+    <sfPopup:SfPopup.PopupStyle>
+        <sfPopup:PopupStyle CornerRadius="16"
+                           HasShadow="True"
+                           PopupBackground="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
+                           Stroke="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
+                           StrokeThickness="1" />
+    </sfPopup:SfPopup.PopupStyle>
+    
+    <sfPopup:SfPopup.ContentTemplate>
+        <DataTemplate>
+            <ScrollView Padding="20">
+                <StackLayout Spacing="16">
+                    <!-- Header -->
+                    <StackLayout Spacing="4" Margin="0,0,0,8">
+                        <Label Text="Prompt Düzenle"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}" />
+                    </StackLayout>
+                    
+                    <!-- Başlık -->
+                    <sf:SfTextInputLayout Hint="Başlık *">
+                        <Entry Text="{Binding Title}"
+                               Placeholder="Prompt başlığını girin..." />
+                        
+                        <sf:SfTextInputLayout.HintLabelStyle>
+                            <sf:LabelStyle FontAttributes="Bold" 
+                                         FontSize="20" 
+                                         TextColor="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}" />
+                        </sf:SfTextInputLayout.HintLabelStyle>
+                    </sf:SfTextInputLayout>
+                    
+                    <!-- Kategori -->
+                    <sf:SfTextInputLayout Hint="Kategori *">
+                        <Picker ItemsSource="{Binding Categories}"
+                                SelectedItem="{Binding SelectedCategory}"
+                                ItemDisplayBinding="{Binding Name}" />
+                        
+                        <sf:SfTextInputLayout.HintLabelStyle>
+                            <sf:LabelStyle FontAttributes="Bold" 
+                                         FontSize="20" 
+                                         TextColor="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}" />
+                        </sf:SfTextInputLayout.HintLabelStyle>
+                    </sf:SfTextInputLayout>
+                    
+                    <!-- Dil -->
+                    <sf:SfTextInputLayout Hint="Dil *">
+                        <Picker ItemsSource="{Binding Languages}"
+                                SelectedItem="{Binding SelectedLanguage}"
+                                ItemDisplayBinding="{Binding Name}" />
+                        
+                        <sf:SfTextInputLayout.HintLabelStyle>
+                            <sf:LabelStyle FontAttributes="Bold" 
+                                         FontSize="20" 
+                                         TextColor="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}" />
+                        </sf:SfTextInputLayout.HintLabelStyle>
+                    </sf:SfTextInputLayout>
+                    
+                    <!-- İçerik -->
+                    <sf:SfTextInputLayout Hint="Prompt İçeriği *">
+                        <Editor Text="{Binding Content}"
+                                Placeholder="Prompt içeriğini girin..."
+                                FontSize="24"
+                                MinimumHeightRequest="260" />
+                        
+                        <sf:SfTextInputLayout.HintLabelStyle>
+                            <sf:LabelStyle FontAttributes="Bold" 
+                                         FontSize="20" 
+                                         TextColor="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}" />
+                        </sf:SfTextInputLayout.HintLabelStyle>
+                    </sf:SfTextInputLayout>
+                    
+           
+                    <!-- Hata Mesajı -->
+                    <Label Text="{Binding ErrorMessage}"
+                           IsVisible="{Binding HasError}"
+                           TextColor="{StaticResource Primary}"
+                           FontSize="12"
+                           FontAttributes="Italic"
+                           HorizontalTextAlignment="Center" />
+                </StackLayout>
+            </ScrollView>
+        </DataTemplate>
+    </sfPopup:SfPopup.ContentTemplate>
+    
+    <sfPopup:SfPopup.FooterTemplate>
+        <DataTemplate>
+            <Grid Padding="20"
+                  ColumnDefinitions="*,16,*"
+                  ColumnSpacing="0"
+                  HorizontalOptions="Fill">
+                
+                <!-- İptal Butonu -->
+                <buttons:SfButton Grid.Column="0"
+                                  Text="İptal"
+                                  CornerRadius="14"
+                                  HeightRequest="48"
+                                  FontAttributes="Bold"
+                                  FontSize="15"
+                                  HorizontalOptions="Fill"
+                                  VerticalOptions="Center"
+                                  Command="{Binding CancelCommand}">
+                    <buttons:SfButton.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                            <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                        </LinearGradientBrush>
+                    </buttons:SfButton.Background>
+                    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+                    <buttons:SfButton.Shadow>
+                        <Shadow Brush="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}"
+                                Opacity="0.4"
+                                Radius="12"
+                                Offset="0,4" />
+                    </buttons:SfButton.Shadow>
+                </buttons:SfButton>
+                
+                <!-- Güncelle Butonu -->
+                <buttons:SfButton Grid.Column="2"
+                                  Text="Güncelle"
+                                  CornerRadius="14"
+                                  HeightRequest="48"
+                                  FontAttributes="Bold"
+                                  FontSize="15"
+                                  HorizontalOptions="Fill"
+                                  VerticalOptions="Center"
+                                  TextColor="White"
+                                  Command="{Binding UpdateCommand}">
+                    <buttons:SfButton.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                            <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDarkText}}" />
+                        </LinearGradientBrush>
+                    </buttons:SfButton.Background>
+                    <buttons:SfButton.Shadow>
+                        <Shadow Brush="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                Opacity="0.4"
+                                Radius="12"
+                                Offset="0,4" />
+                    </buttons:SfButton.Shadow>
+                </buttons:SfButton>
+            </Grid>
+        </DataTemplate>
+    </sfPopup:SfPopup.FooterTemplate>
+</sfPopup:SfPopup> 

@@ -35,7 +35,7 @@
         Title="Prompts Management"
         Icon="{StaticResource IconPrompt}"
         ContentTemplate="{DataTemplate pages:PromptsManagementPage}"
-        Route="promptsmanagement" />   
+        Route="prompts" />   
 
     <ShellContent
         Title="Settings"

@@ -11,6 +11,44 @@
     <!-- Please consult https://developer.apple.com/documentation/bundleresources/information_property_list/lsapplicationcategorytype -->
     <!-- <key>LSApplicationCategoryType</key> -->
     <!-- <string>public.app-category.YOUR-CATEGORY-HERE</string> -->
+    
+    <!-- MacCatalyst Drag & Drop Support -->
+    <key>NSSupportsAutomaticTermination</key>
+    <true/>
+    <key>NSSupportsSuddenTermination</key>
+    <true/>
+    
+    <!-- Document Types for Drag & Drop -->
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeName</key>
+            <string>SubRip Subtitle</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>com.localizationtabii.srt</string>
+                <string>public.text</string>
+            </array>
+            <key>LSHandlerRank</key>
+            <string>Owner</string>
+        </dict>
+        <dict>
+            <key>CFBundleTypeName</key>
+            <string>WebVTT Subtitle</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>com.localizationtabii.vtt</string>
+                <string>public.text</string>
+            </array>
+            <key>LSHandlerRank</key>
+            <string>Owner</string>
+        </dict>
+    </array>
+    
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>2</integer>
@@ -34,5 +72,51 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<!-- Exported custom UTIs for subtitle files so that NSOpenPanel can filter .srt/.vtt -->
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.localizationtabii.srt</string>
+			<key>UTTypeDescription</key>
+			<string>SubRip Subtitle</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>srt</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-subrip</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.localizationtabii.vtt</string>
+			<key>UTTypeDescription</key>
+			<string>WebVTT Subtitle</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>vtt</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text/vtt</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

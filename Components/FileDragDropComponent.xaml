@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="LocalizationTabii.Components.FileDragDropComponent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+    xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+    xmlns:utilities="clr-namespace:LocalizationTabii.Utilities.Converters"
+    xmlns:viewmodels="clr-namespace:LocalizationTabii.ComponentModel"
+    x:DataType="viewmodels:FileDragDropViewModel">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <!--  Light Theme Colors  -->
+            <Color x:Key="LightPrimaryColor">#6366F1</Color>
+            <Color x:Key="LightSecondaryColor">#EC4899</Color>
+            <Color x:Key="LightSurfaceColor">#FFFFFF</Color>
+            <Color x:Key="LightBackgroundColor">#F8FAFC</Color>
+            <Color x:Key="LightBorderColor">#E2E8F0</Color>
+            <Color x:Key="LightTextPrimaryColor">#0F172A</Color>
+            <Color x:Key="LightTextSecondaryColor">#64748B</Color>
+            <Color x:Key="LightAccentColor">#F1F5F9</Color>
+
+            <!--  Dark Theme Colors  -->
+            <Color x:Key="DarkPrimaryColor">#818CF8</Color>
+            <Color x:Key="DarkSecondaryColor">#F472B6</Color>
+            <Color x:Key="DarkSurfaceColor">#1E293B</Color>
+            <Color x:Key="DarkBackgroundColor">#0F172A</Color>
+            <Color x:Key="DarkBorderColor">#334155</Color>
+            <Color x:Key="DarkTextPrimaryColor">#F1F5F9</Color>
+            <Color x:Key="DarkTextSecondaryColor">#94A3B8</Color>
+            <Color x:Key="DarkAccentColor">#334155</Color>
+
+            <!--  Success Colors - Purple Theme  -->
+            <Color x:Key="SuccessColor">#8B5CF6</Color>
+            <Color x:Key="SuccessLightColor">#EDE9FE</Color>
+            <Color x:Key="SuccessDarkColor">#5B21B6</Color>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ScrollView VerticalOptions="FillAndExpand">
+        <StackLayout
+            Margin="20"
+            Spacing="16"
+            VerticalOptions="CenterAndExpand">
+
+            <!--  Dosya seçme alanı - Dosya seçilmediğinde gösterilir  -->
+            <Border
+                x:Name="UploadArea"
+                Padding="40"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                                  Dark={StaticResource DarkSurfaceColor}}"
+                IsVisible="{Binding HasSelectedFile, Converter={x:Static utilities:InverseBoolConverter.Instance}}"
+                Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                         Dark={StaticResource DarkBorderColor}}"
+                StrokeDashArray="8,4"
+                StrokeShape="RoundRectangle 24"
+                StrokeThickness="2">
+
+                <!--  Subtle inner shadow effect  -->
+                <Border.Shadow>
+                    <Shadow
+                        Brush="{AppThemeBinding Light=#10000000,
+                                                Dark=#20000000}"
+                        Opacity="0.1"
+                        Radius="8"
+                        Offset="0,2" />
+                </Border.Shadow>
+
+                <StackLayout
+                    HorizontalOptions="Center"
+                    Spacing="32"
+                    VerticalOptions="Center">
+                    <!--  Modern file upload icon with gradient background  -->
+                    <Grid
+                        HeightRequest="120"
+                        HorizontalOptions="Center"
+                        WidthRequest="120">
+                        <!--  Gradient background circle  -->
+                        <Ellipse>
+                            <Ellipse.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+                                    <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <!--  Icon  -->
+                        <Label
+                            FontSize="48"
+                            HorizontalOptions="Center"
+                            Text="📁"
+                            TextColor="{AppThemeBinding Light=White,
+                                                        Dark=White}"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <!--  Ana başlık  -->
+                    <StackLayout HorizontalOptions="Center" Spacing="8">
+                        <Label
+                            x:Name="MainTitle"
+                            FontAttributes="Bold"
+                            FontSize="22"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="SRT dosyalarını buraya sürükleyin"
+                            TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                        Dark={StaticResource DarkTextPrimaryColor}}" />
+
+                        <!--  Alt başlık  -->
+                        <Label
+                            x:Name="SubTitle"
+                            FontSize="15"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="WordWrap"
+                            Text="veya dosya seçmek için aşağıdaki butona tıklayın"
+                            TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
+                                                        Dark={StaticResource DarkTextSecondaryColor}}" />
+                    </StackLayout>
+
+                    <!--  Desteklenen formatlar - Modern card style  -->
+                    <Frame
+                        Margin="0,8"
+                        Padding="16,12"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor},
+                                                          Dark={StaticResource DarkAccentColor}}"
+                        CornerRadius="16"
+                        HasShadow="False"
+                        HorizontalOptions="Center">
+
+                        <StackLayout
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="12">
+
+                            <Border
+                                Padding="10,6"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},
+                                                                  Dark={StaticResource DarkPrimaryColor}}"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 8">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    Text=".srt"
+                                    TextColor="White" />
+                            </Border>
+
+                            <Border
+                                Padding="10,6"
+                                BackgroundColor="{StaticResource SuccessColor}"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 8">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    Text=".vtt"
+                                    TextColor="White" />
+                            </Border>
+
+                            <Label
+                                FontSize="13"
+                                Text="formatları desteklenir"
+                                TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
+                                                            Dark={StaticResource DarkTextSecondaryColor}}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+
+                    <!--  Modern dosya seç butonu  -->
+                    <buttons:SfButton
+                        x:Name="SelectButton"
+                        Margin="0,8"
+                        Command="{Binding SelectFileCommand}"
+                        CornerRadius="14"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        HeightRequest="48"
+                        HorizontalOptions="Center"
+                        Text="📂  Dosya Seç"
+                        WidthRequest="160">
+
+                        <!--  Gradient background  -->
+                        <buttons:SfButton.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+                                <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+                            </LinearGradientBrush>
+                        </buttons:SfButton.Background>
+
+                        <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+
+                        <buttons:SfButton.Shadow>
+                            <Shadow
+                                Brush="{AppThemeBinding Light={StaticResource LightPrimaryColor},
+                                                        Dark={StaticResource DarkPrimaryColor}}"
+                                Opacity="0.4"
+                                Radius="12"
+                                Offset="0,4" />
+                        </buttons:SfButton.Shadow>
+                    </buttons:SfButton>
+
+                    <!--  Yardım metni  -->
+                    <Label
+                        Margin="0,4,0,0"
+                        FontSize="12"
+                        HorizontalOptions="Center"
+                        Opacity="0.8"
+                        Text="Maksimum dosya boyutu: 10MB"
+                        TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
+                                                    Dark={StaticResource DarkTextSecondaryColor}}" />
+
+                </StackLayout>
+            </Border>
+
+            <!--  Dosya seçili durumu - Purple temalı görünüm  -->
+            <Border
+                x:Name="SelectedFileArea"
+                Padding="40"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                                  Dark={StaticResource DarkSurfaceColor}}"
+                IsVisible="{Binding HasSelectedFile}"
+                Stroke="{AppThemeBinding Light={StaticResource LightPrimaryColor},
+                                         Dark={StaticResource DarkPrimaryColor}}"
+                StrokeShape="RoundRectangle 24"
+                StrokeThickness="3">
+
+                <!--  Purple shadow effect  -->
+                <Border.Shadow>
+                    <Shadow
+                        Brush="{AppThemeBinding Light={StaticResource LightPrimaryColor},
+                                                Dark={StaticResource DarkPrimaryColor}}"
+                        Opacity="0.2"
+                        Radius="12"
+                        Offset="0,4" />
+                </Border.Shadow>
+
+                <StackLayout
+                    HorizontalOptions="Center"
+                    Spacing="24"
+                    VerticalOptions="Center">
+
+                    <!--  Success file icon with purple background  -->
+                    <Grid
+                        HeightRequest="120"
+                        HorizontalOptions="Center"
+                        WidthRequest="120">
+                        <!--  Purple gradient background circle (same as upload component)  -->
+                        <Ellipse>
+                            <Ellipse.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+                                    <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <!--  Success check mark (white)  -->
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="48"
+                            HorizontalOptions="Center"
+                            Text="✓"
+                            TextColor="White"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <!--  Success message  -->
+                    <StackLayout HorizontalOptions="Center" Spacing="12">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Dosya başarıyla seçildi!"
+                            TextColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},
+                                                        Dark={StaticResource DarkPrimaryColor}}" />
+
+                        <!--  File info card  -->
+                        <Frame
+                            Margin="0,8"
+                            Padding="20,16"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor},
+                                                              Dark={StaticResource DarkAccentColor}}"
+                            CornerRadius="16"
+                            HasShadow="False"
+                            HorizontalOptions="Center">
+
+                            <StackLayout HorizontalOptions="Center" Spacing="8">
+                                <!--  File name  -->
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    LineBreakMode="MiddleTruncation"
+                                    MaxLines="2"
+                                    Text="{Binding UploadedFileName}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                                Dark={StaticResource DarkTextPrimaryColor}}" />
+
+                                <!--  File size  -->
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding FileSize}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},
+                                                                Dark={StaticResource DarkPrimaryColor}}" />
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+
+                    <!--  Action buttons  -->
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="16">
+                        <!--  Remove file button  -->
+                        <buttons:SfButton
+                            x:Name="RemoveButton"
+                            Margin="0,8"
+                            Background="#FF4500"
+                            Command="{Binding ClearFileCommand}"
+                            CornerRadius="14"
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            HeightRequest="48"
+                            HorizontalOptions="Center"
+                            Text="Dosyayı Kaldır"
+                            WidthRequest="140">
+
+                            <buttons:SfButton.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                                    <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                                </LinearGradientBrush>
+                            </buttons:SfButton.Background>
+
+                            <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+
+                            <buttons:SfButton.Shadow>
+                                <Shadow
+                                    Brush="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
+                                                            Dark={StaticResource DarkTextSecondaryColor}}"
+                                    Opacity="0.4"
+                                    Radius="12"
+                                    Offset="0,4" />
+                            </buttons:SfButton.Shadow>
+
+                        </buttons:SfButton>
+
+                        <!--  Continue button  -->
+                        <buttons:SfButton
+                            x:Name="ContinueButton"
+                            Margin="0,8"
+                            Command="{Binding ContinueCommand}"
+                            CornerRadius="14"
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            HeightRequest="48"
+                            HorizontalOptions="Center"
+                            Text="Devam Et"
+                            WidthRequest="140">
+
+                            <!--  Gradient background  -->
+                            <buttons:SfButton.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+                                    <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+                                </LinearGradientBrush>
+                            </buttons:SfButton.Background>
+
+                            <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+
+                            <buttons:SfButton.Shadow>
+                                <Shadow
+                                    Brush="{AppThemeBinding Light={StaticResource LightPrimaryColor},
+                                                            Dark={StaticResource DarkPrimaryColor}}"
+                                    Opacity="0.4"
+                                    Radius="12"
+                                    Offset="0,4" />
+                            </buttons:SfButton.Shadow>
+                        </buttons:SfButton>
+                    </StackLayout>
+
+                </StackLayout>
+            </Border>
+
+        </StackLayout>
+    </ScrollView>
+</ContentView>

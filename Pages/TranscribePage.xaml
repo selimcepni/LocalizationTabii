@@ -3,7 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:popup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
              x:Class="LocalizationTabii.Pages.TranscribePage"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:styles="clr-namespace:LocalizationTabii.Resources.Styles"
              Title="Transcribe">
+    <StackLayout>
+
+        <buttons:SfButton x:Name="PrimaryButton" Text="Primary" CornerRadius="20"  Background="{StaticResource Primary}"  />
+
+        <buttons:SfButton x:Name="SecondaryButton" Text="Secondary" CornerRadius="20" Background="{StaticResource Secondary}" />
+
+        <buttons:SfButton x:Name="TertiaryButton" Text="Tertiary" CornerRadius="20" Background="{StaticResource Tertiary}" />
+
+        <buttons:SfButton x:Name="MagentaButton" Text="Magenta" CornerRadius="20" Background="{StaticResource Magenta}" />
+
+        <buttons:SfButton x:Name="MidnightBlueButton" Text="MidnightBlue" CornerRadius="20" Background="{StaticResource MidnightBlue}" />
+
+        <buttons:SfButton x:Name="PrimaryBrushButton" Text="PrimaryBrush" CornerRadius="20" Background="{StaticResource PrimaryBrush}" />
+
+        <buttons:SfButton x:Name="SecondaryBrushButton" Text="SecondaryBrush" CornerRadius="20" Background="{StaticResource SecondaryBrush}" />
+
+        <buttons:SfButton x:Name="TertiaryBrushButton" Text="TertiaryBrush" CornerRadius="20" Background="{StaticResource TertiaryBrush}" />
+
+        <buttons:SfButton x:Name="Color1" Text="Color1" CornerRadius="20" Background="#3068df" />
+
+        <buttons:SfButton x:Name="Color2" Text="Color2" CornerRadius="20" Background="#FF4500" />
+
+        <buttons:SfButton x:Name="Color3" Text="Color3" CornerRadius="20" Background="#32CD32" />
+
+        <buttons:SfButton x:Name="Color4" Text="Color4" CornerRadius="20" Background="#FF9900" />
+
+        <buttons:SfButton x:Name="Color5" Text="Color5" CornerRadius="20" Background="#8800FF" />
+
+        <buttons:SfButton x:Name="Color6" Text="Color6" CornerRadius="20" Background="#FF3300" />
+
+        <buttons:SfButton x:Name="Color7" Text="Color7" CornerRadius="20" Background="#00FF99" />
+
+        <buttons:SfButton x:Name="Color8" Text="Color8" CornerRadius="20" Background="#1E90FF" />
+
+        <buttons:SfButton x:Name="Color9" Text="Color9" CornerRadius="20" Background="#FF69B4" />
+
+
+    </StackLayout>
 
 
 

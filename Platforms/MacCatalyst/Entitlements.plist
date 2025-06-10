@@ -1,14 +1,63 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+         "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <!-- See https://aka.ms/maui-publish-app-store#add-entitlements for more information about adding entitlements.-->
-    <dict>
-        <!-- App Sandbox must be enabled to distribute a MacCatalyst app through the Mac App Store. -->
-        <key>com.apple.security.app-sandbox</key>
-        <true/>
-        <!-- When App Sandbox is enabled, this value is required to open outgoing network connections. -->
-        <key>com.apple.security.network.client</key>
-        <true/>
-    </dict>
+<dict>
+  <!-- App Sandbox - macOS App Store için gerekli -->
+  <key>com.apple.security.app-sandbox</key>
+  <true/>
+  
+  <!-- Kullanıcının seçtiği dosyalara okuma/yazma erişimi -->
+  <key>com.apple.security.files.user-selected.read-write</key>
+  <true/>
+  
+  <!-- Kullanıcının seçtiği dosyalara sadece okuma erişimi -->
+  <key>com.apple.security.files.user-selected.read-only</key>
+  <true/>
+  
+  <!-- App-scoped bookmarks için gerekli -->
+  <key>com.apple.security.files.bookmarks.app-scope</key>
+  <true/>
+  
+  <!-- Downloads klasörüne okuma erişimi -->
+  <key>com.apple.security.files.downloads.read-only</key>
+  <true/>
+  
+  <!-- Resimler klasörüne okuma erişimi -->
+  <key>com.apple.security.assets.pictures.read-only</key>
+  <true/>
+  
+  <!-- Müzik klasörüne okuma erişimi -->
+  <key>com.apple.security.assets.music.read-only</key>
+  <true/>
+  
+  <!-- Video klasörüne okuma erişimi -->
+  <key>com.apple.security.assets.movies.read-only</key>
+  <true/>
+  
+  <!-- Network client erişimi (Blazor uygulamaları için gerekli) -->
+  <key>com.apple.security.network.client</key>
+  <true/>
+  
+  <!-- Drag & Drop için geçici dosya erişimi -->
+  <key>com.apple.security.temporary-exception.files.absolute-path.read-only</key>
+  <array>
+    <string>/tmp</string>
+    <string>/var/tmp</string>
+    <string>/private/tmp</string>
+    <string>/private/var/tmp</string>
+  </array>
+  
+  <!-- Drag & Drop için home dizini altındaki geçici dosyalara erişim -->
+  <key>com.apple.security.temporary-exception.files.home-relative-path.read-only</key>
+  <array>
+    <string>Downloads/</string>
+    <string>Desktop/</string>
+    <string>Documents/</string>
+  </array>
+  
+  <!-- Debugging için (sadece debug build'lerde aktif olacak) -->
+  <key>com.apple.security.get-task-allow</key>
+  <true/>
+</dict>
 </plist>
-

@@ -24,8 +24,7 @@ namespace LocalizationTabii.Controls
         public static readonly BindableProperty TappedProperty =
             BindableProperty.Create(
                 nameof(Tapped), typeof(bool), typeof(TapAnimationGrid), false, BindingMode.TwoWay, null, propertyChanged: OnTapped);
-
-        private ICommand? tappedCommand;
+         private ICommand? tappedCommand;
 
         #endregion
 
