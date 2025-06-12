@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="LocalizationTabii.Pages.PromptsManagementPage"
+    x:Name="promptsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
@@ -247,7 +248,7 @@
                                                 </buttons:SfButton>
                                                 
                                                 <buttons:SfButton
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ShowEditPromptCommand}"
+                                                    Command="{Binding Source={x:Reference promptsPage}, Path=BindingContext.ShowEditPromptCommand}"
                                                     CommandParameter="{Binding}"
                                                     CornerRadius="16"
                                                     FontAttributes="Bold"
@@ -255,7 +256,7 @@
                                                     HeightRequest="32"
                                                     Text="Düzenle"
                                                     TextColor="White"
-                                                    WidthRequest="70">
+                                                    WidthRequest="80">
                                                     <buttons:SfButton.Background>
                                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                                             <GradientStop Offset="0" Color="#4682B4" />

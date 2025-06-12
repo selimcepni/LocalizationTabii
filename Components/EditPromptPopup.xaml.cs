@@ -14,10 +14,10 @@ public partial class EditPromptPopup : SfPopup
         BindingContext = new EditPromptPopupViewModel();
     }
 
-    public Task<Prompt?> ShowPopupAsync(Prompt prompt)
+    public async Task<Prompt?> ShowPopupAsync(Prompt prompt)
     {
         var viewModel = (EditPromptPopupViewModel)BindingContext;
-        return viewModel.ShowAsync(prompt);
+        return await viewModel.ShowAsync(prompt);
     }
 }
 
@@ -83,14 +83,20 @@ public partial class EditPromptPopupViewModel : ObservableObject
         Languages.Add(new LanguageOption { Code = "ur", Name = "Urduca" });
     }
 
-
-
-    public Task<Prompt?> ShowAsync(Prompt prompt)
+    public async Task<Prompt?> ShowAsync(Prompt prompt)
     {
+        // Önceki TaskCompletionSource'u temizle
+        if (_taskCompletionSource != null && !_taskCompletionSource.Task.IsCompleted)
+        {
+            _taskCompletionSource.SetResult(null);
+        }
+        
         LoadPrompt(prompt);
         _taskCompletionSource = new TaskCompletionSource<Prompt?>();
+        
         IsPopupOpen = true;
-        return _taskCompletionSource.Task;
+        
+        return await _taskCompletionSource.Task;
     }
 
     public void LoadPrompt(Prompt prompt)
@@ -113,7 +119,7 @@ public partial class EditPromptPopupViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Update()
+    private async Task Update()
     {
         if (_originalPrompt == null)
         {
@@ -150,18 +156,31 @@ public partial class EditPromptPopupViewModel : ObservableObject
         {
             ClearError();
 
-            // Prompt'ı güncelle
-            _originalPrompt.Title = Title.Trim();
-            _originalPrompt.Content = Content.Trim();
-            _originalPrompt.Category = SelectedCategory.Name;
-            _originalPrompt.Language = SelectedLanguage.Name;
-            _originalPrompt.UpdatedAt = DateTime.Now;
+            // Prompt'ı güncelle - yeni bir kopya oluştur
+            var updatedPrompt = new Prompt
+            {
+                Id = _originalPrompt.Id,
+                Title = Title.Trim(),
+                Content = Content.Trim(),
+                Category = SelectedCategory.Name,
+                Language = SelectedLanguage.Name,
+                CreatedAt = _originalPrompt.CreatedAt, // Orijinal oluşturma tarihini koru
+                UpdatedAt = DateTime.Now,
+                UsageCount = _originalPrompt.UsageCount, // Kullanım sayısını koru
+                IsActive = _originalPrompt.IsActive
+            };
 
-            Result = _originalPrompt;
+            Result = updatedPrompt;
 
+            // TaskCompletionSource'u tamamla
+            var tcs = _taskCompletionSource;
+            _taskCompletionSource = null;
+            
             // Popup'ı kapat
             IsPopupOpen = false;
-            _taskCompletionSource?.SetResult(Result);
+            
+            // Sonucu döndür
+            tcs?.SetResult(Result);
         }
         catch (Exception ex)
         {
@@ -173,8 +192,12 @@ public partial class EditPromptPopupViewModel : ObservableObject
     private void Cancel()
     {
         Result = null;
+        
+        var tcs = _taskCompletionSource;
+        _taskCompletionSource = null;
+        
         IsPopupOpen = false;
-        _taskCompletionSource?.SetResult(null);
+        tcs?.SetResult(null);
     }
 
     private void ShowError(string message)

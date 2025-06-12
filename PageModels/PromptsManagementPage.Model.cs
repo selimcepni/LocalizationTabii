@@ -269,6 +269,7 @@ namespace LocalizationTabii.PageModels
         private void ShowEditPrompt(Prompt prompt)
         {
             if (prompt == null) return;
+            
             ShowEditPromptRequested?.Invoke(this, prompt);
         }
 
@@ -314,9 +315,17 @@ namespace LocalizationTabii.PageModels
         {
             try
             {
-                await _promptStorageService.UpdatePromptAsync(prompt);
-                await LoadPromptsAsync();
-                await LoadCategoriesAsync();
+                var success = await _promptStorageService.UpdatePromptAsync(prompt);
+                
+                if (success)
+                {
+                    await LoadPromptsAsync();
+                    await LoadCategoriesAsync();
+                }
+                else
+                {
+                    _errorHandler.ShowError("Hata", "Prompt güncellenemedi. Lütfen tekrar deneyin.");
+                }
             }
             catch (Exception ex)
             {

@@ -35,8 +35,6 @@ public partial class PromptsManagementPage : ContentPage
         _viewModel.ShowEditPromptRequested -= OnShowEditPromptRequested;
     }
 
-
-
     private async void OnShowAddPromptRequested(object? sender, EventArgs e)
     {
         try
@@ -61,19 +59,25 @@ public partial class PromptsManagementPage : ContentPage
     {
         try
         {
-            var editPopup = new EditPromptPopup();
-            var result = await editPopup.ShowPopupAsync(e);
+            if (e == null)
+            {
+                await DisplayAlert("Hata", "Düzenlenecek prompt bulunamadı.", "Tamam");
+                return;
+            }
+            
+            var result = await editPromptPopup.ShowPopupAsync(e);
             
             if (result != null)
             {
                 await _viewModel.UpdatePromptAsync(result);
+                
+                // Başarı mesajı göster
+                await DisplayAlert("✅ Başarılı", $"'{result.Title}' prompt'u başarıyla güncellendi!", "Tamam");
             }
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Hata", $"Prompt düzenleme sırasında hata oluştu: {ex.Message}", "Tamam");
+            await DisplayAlert("Hata", $"Prompt güncellenirken hata oluştu: {ex.Message}", "Tamam");
         }
     }
-
-
 }
