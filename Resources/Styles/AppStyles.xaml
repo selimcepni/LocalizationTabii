@@ -267,12 +267,13 @@
                 <Setter Property="FontAttributes" Value="{OnPlatform WinUI=None, Default=Bold}" />
         </Style>
 
-        <Style TargetType="Border">
+        <!-- Global Border stili kaldırıldı - çakışma yaratıyordu -->
+        <!-- <Style TargetType="Border">
                 <Setter Property="StrokeShape" Value="RoundRectangle 20" />
                 <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}" />
                 <Setter Property="StrokeThickness" Value="0" />
                 <Setter Property="Padding" Value="{OnIdiom 15, Desktop=20}" />
-        </Style>
+        </Style> -->
 
         <Style x:Key="CardStyle" TargetType="Border">
                 <Setter Property="StrokeShape" Value="RoundRectangle 20" />
@@ -317,5 +318,9 @@
                 <Setter Property="PullingThreshold" Value="100" />
                 <Setter Property="ProgressColor" Value="{StaticResource Primary}" />
         </Style>
+
+        
+
+        
 
 </ResourceDictionary>

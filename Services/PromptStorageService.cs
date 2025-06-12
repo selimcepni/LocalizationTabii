@@ -280,33 +280,40 @@ namespace LocalizationTabii.Services
 
         public async Task<int> AddPromptAsync(Prompt prompt)
         {
-            using var connection = new SqliteConnection(_connectionString);
-            await connection.OpenAsync().ConfigureAwait(false);
+            try
+            {
+                using var connection = new SqliteConnection(_connectionString);
+                await connection.OpenAsync().ConfigureAwait(false);
 
-            using var command = connection.CreateCommand();
-            command.CommandText = @"
-                INSERT INTO Prompts (Title, Content, Category, Language, CreatedAt, UpdatedAt, IsActive, UsageCount)
-                VALUES (@title, @content, @category, @language, @createdAt, @updatedAt, @isActive, @usageCount);
-                SELECT last_insert_rowid();";
+                using var command = connection.CreateCommand();
+                command.CommandText = @"
+                    INSERT INTO Prompts (Title, Content, Category, Language, CreatedAt, UpdatedAt, IsActive, UsageCount)
+                    VALUES (@title, @content, @category, @language, @createdAt, @updatedAt, @isActive, @usageCount);
+                    SELECT last_insert_rowid();";
 
-            command.Parameters.AddWithValue("@title", prompt.Title);
-            command.Parameters.AddWithValue("@content", prompt.Content);
-            command.Parameters.AddWithValue("@category", prompt.Category);
-            command.Parameters.AddWithValue("@language", prompt.Language);
-            command.Parameters.AddWithValue("@createdAt", prompt.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
-            command.Parameters.AddWithValue("@updatedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            command.Parameters.AddWithValue("@isActive", prompt.IsActive ? 1 : 0);
-            command.Parameters.AddWithValue("@usageCount", prompt.UsageCount);
+                command.Parameters.AddWithValue("@title", prompt.Title);
+                command.Parameters.AddWithValue("@content", prompt.Content);
+                command.Parameters.AddWithValue("@category", prompt.Category);
+                command.Parameters.AddWithValue("@language", prompt.Language);
+                command.Parameters.AddWithValue("@createdAt", prompt.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@updatedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@isActive", prompt.IsActive ? 1 : 0);
+                command.Parameters.AddWithValue("@usageCount", prompt.UsageCount);
 
-            var result = await command.ExecuteScalarAsync().ConfigureAwait(false);
-            
-            var promptId = result != null ? Convert.ToInt32(result) : 0;
-            
-            // Cache invalidate
-            _categoriesCacheTime = DateTime.MinValue;
-            _languagesCacheTime = DateTime.MinValue;
-            
-            return promptId;
+                var result = await command.ExecuteScalarAsync().ConfigureAwait(false);
+                
+                var promptId = result != null ? Convert.ToInt32(result) : 0;
+                
+                // Cache invalidate
+                _categoriesCacheTime = DateTime.MinValue;
+                _languagesCacheTime = DateTime.MinValue;
+                
+                return promptId;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<bool> UpdatePromptAsync(Prompt prompt)

@@ -1,43 +1,51 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-             xmlns:sfPopup="clr-namespace:Syncfusion.Maui.Toolkit.Popup;assembly=Syncfusion.Maui.Toolkit"
-             xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
-             xmlns:components="clr-namespace:LocalizationTabii.Components"
-             x:Class="LocalizationTabii.Pages.PromptsManagementPage"
-             Title="Prompt Yönetimi">
+<ContentPage
+    x:Class="LocalizationTabii.Pages.PromptsManagementPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+    xmlns:components="clr-namespace:LocalizationTabii.Components"
+    xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+    xmlns:sfPopup="clr-namespace:Syncfusion.Maui.Toolkit.Popup;assembly=Syncfusion.Maui.Toolkit"
+    Title="Prompt Yönetimi">
 
     <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
-        
-        <!-- Ana İçerik -->
+
+        <!--  Ana İçerik  -->
         <ScrollView Padding="20">
-            <StackLayout Spacing="20" WidthRequest="1600" HorizontalOptions="Center">
-                
-                <!-- Header Bölümü -->
-                <Border BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
-                        Stroke="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 16"
-                        Padding="24">
+            <StackLayout
+                HorizontalOptions="Center"
+                Spacing="20"
+                WidthRequest="1600">
+
+                <!--  Header Bölümü  -->
+                <Border
+                    Padding="24"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground},
+                                                      Dark={StaticResource DarkSecondaryBackground}}"
+                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                             Dark={StaticResource DarkBorderColor}}"
+                    StrokeShape="RoundRectangle 16"
+                    StrokeThickness="1">
                     <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
-                        <StackLayout Grid.Column="0" VerticalOptions=
-                            "Center" Spacing="4">
-                            <Label Text="Prompt Yönetimi" 
-                                   Style="{StaticResource Title2}" />
-                            <Label Text="AI promptlarınızı kolayca organize edin ve yönetin" 
-                                   Style="{StaticResource Body1}" />
+                        <StackLayout
+                            Grid.Column="0"
+                            Spacing="4"
+                            VerticalOptions="Center">
+                            <Label Style="{StaticResource Title2}" Text="Prompt Yönetimi" />
+                            <Label Style="{StaticResource Body1}" Text="AI promptlarınızı kolayca organize edin ve yönetin" />
                         </StackLayout>
-                        
-                        <buttons:SfButton Grid.Column="1"
-                                          Text="Yeni Prompt"
-                                          WidthRequest="140"
-                                          HeightRequest="44"
-                                          CornerRadius="22"
-                                          FontAttributes="Bold"
-                                          FontSize="14"
-                                          TextColor="White"
-                                          Command="{Binding ShowAddPromptCommand}">
+
+                        <buttons:SfButton
+                            Grid.Column="1"
+                            Command="{Binding ShowAddPromptCommand}"
+                            CornerRadius="22"
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            HeightRequest="44"
+                            Text="Yeni Prompt"
+                            TextColor="White"
+                            WidthRequest="140">
                             <buttons:SfButton.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                     <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
@@ -45,309 +53,383 @@
                                 </LinearGradientBrush>
                             </buttons:SfButton.Background>
                             <buttons:SfButton.Shadow>
-                                <Shadow Brush="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" 
-                                        Opacity="0.4" 
-                                        Radius="12" 
-                                        Offset="0,4"/>
+                                <Shadow
+                                    Brush="{AppThemeBinding Light={StaticResource Primary},
+                                                            Dark={StaticResource PrimaryDark}}"
+                                    Opacity="0.4"
+                                    Radius="12"
+                                    Offset="0,4" />
                             </buttons:SfButton.Shadow>
                         </buttons:SfButton>
                     </Grid>
                 </Border>
-                
-                <!-- Arama ve Filtre Kartı -->
-                <Border BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
-                        Stroke="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 16"
-                        Padding="20">
+
+                <!--  Arama ve Filtre Kartı  -->
+                <Border
+                    Padding="20"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground},
+                                                      Dark={StaticResource DarkSecondaryBackground}}"
+                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                             Dark={StaticResource DarkBorderColor}}"
+                    StrokeShape="RoundRectangle 16"
+                    StrokeThickness="1">
                     <StackLayout Spacing="16">
-                        <Label Text="Arama ve Filtreler" 
-                               Style="{StaticResource Title2}" />
-                        
-                        <!-- Arama Kutusu -->
+                        <Label Style="{StaticResource Title2}" Text="Arama ve Filtreler" />
+
+                        <!--  Arama Kutusu  -->
                         <sf:SfTextInputLayout Hint="Prompt ara... (başlık, içerik)">
                             <Entry Text="{Binding SearchText}" />
                         </sf:SfTextInputLayout>
-                        
-                        <!-- Filtreler -->
+
+                        <!--  Filtreler  -->
                         <Grid ColumnDefinitions="*" ColumnSpacing="12">
-                            <!-- Kategori Filtresi -->
+                            <!--  Kategori Filtresi  -->
                             <sf:SfTextInputLayout Grid.Column="0" Hint="Kategori">
-                                <Picker ItemsSource="{Binding Categories}"
-                                        SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
-                                        ItemDisplayBinding="{Binding Name}" />
+                                <Picker
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding Categories}"
+                                    SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" />
                             </sf:SfTextInputLayout>
                         </Grid>
                     </StackLayout>
                 </Border>
 
-                <!-- Loading Indicator -->
-                <ActivityIndicator IsVisible="{Binding IsLoading}" 
-                                   IsRunning="{Binding IsLoading}"
-                                   Color="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}"
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Center"
-                                   HeightRequest="60" />
+                <!--  Loading Indicator  -->
+                <ActivityIndicator
+                    HeightRequest="60"
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding IsLoading}"
+                    IsVisible="{Binding IsLoading}"
+                    VerticalOptions="Center"
+                    Color="{AppThemeBinding Light={StaticResource LightPrimaryColor},
+                                            Dark={StaticResource DarkPrimaryColor}}" />
 
-                <!-- Promptlar Listesi -->
+                <!--  Promptlar Listesi  -->
                 <StackLayout IsVisible="{Binding HasPrompts}" Spacing="12">
-                    <!-- Pagination Info ve Sayfa Bilgileri -->
-                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16" Margin="0,0,0,8">
-                        <Label Grid.Column="0"
-                               Text="{Binding PaginationInfo}"
-                               Style="{StaticResource Body2}"
-                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}"
-                               VerticalOptions="Center" />
-                        
-                        <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="4" VerticalOptions="Center">
-                            <Label Text="{Binding CurrentPage, StringFormat='Sayfa {0}'}"
-                                   Style="{StaticResource Caption1Strong}"
-                                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}" />
-                            <Label Text="{Binding TotalPages, StringFormat='/ {0}'}"
-                                   Style="{StaticResource Caption1}"
-                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                    <!--  Pagination Info ve Sayfa Bilgileri  -->
+                    <Grid
+                        Margin="0,0,0,8"
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="16">
+                        <Label
+                            Grid.Column="0"
+                            Style="{StaticResource Body2}"
+                            Text="{Binding PaginationInfo}"
+                            TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
+                                                        Dark={StaticResource DarkTextSecondaryColor}}"
+                            VerticalOptions="Center" />
+
+                        <StackLayout
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="4"
+                            VerticalOptions="Center">
+                            <Label
+                                Style="{StaticResource Caption1Strong}"
+                                Text="{Binding CurrentPage, StringFormat='Sayfa {0}'}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                            Dark={StaticResource DarkTextPrimaryColor}}" />
+                            <Label
+                                Style="{StaticResource Caption1}"
+                                Text="{Binding TotalPages, StringFormat='/ {0}'}"
+                                TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
+                                                            Dark={StaticResource DarkTextSecondaryColor}}" />
                         </StackLayout>
                     </Grid>
 
-                    <!-- Prompt Kartları -->
-                    <CollectionView ItemsSource="{Binding Prompts}"
-                                    BackgroundColor="Transparent"
-                                    SelectionMode="None">
+                    <!--  Prompt Kartları  -->
+                    <CollectionView
+                        BackgroundColor="Transparent"
+                        ItemsSource="{Binding Prompts}"
+                        SelectionMode="None"
+                        ItemsLayout="VerticalList">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Border BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
-                                        Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                                        StrokeThickness="1"
-                                        StrokeShape="RoundRectangle 16"
-                                        Padding="20"
-                                        Margin="0,0,0,12">
+                                <Frame
+                                    Margin="0,0,0,16"
+                                    Padding="20"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
+                                    BorderColor="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
+                                    CornerRadius="16"
+                                    HasShadow="False">
 
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
-                                        <!-- Header - Title ve Actions -->
-                                        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" ColumnSpacing="16" Margin="0,0,0,12">
-                                            <StackLayout Grid.Column="0" VerticalOptions="Center" Spacing="4">
-                                                <Label Text="{Binding Title}" 
-                                                       Style="{StaticResource Title3}"
-                                                       TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                                                       LineBreakMode="TailTruncation"
-                                                       MaxLines="2" />
-                                                       
-                                                <StackLayout Orientation="Horizontal" Spacing="12">
-                                                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
-                                                            Stroke="Transparent"
-                                                            StrokeThickness="0"
-                                                            StrokeShape="RoundRectangle 12"
-                                                            Padding="8,4">
-                                                        <Label Text="{Binding Category}"
-                                                               Style="{StaticResource Caption1Strong}"
-                                                               TextColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
+                                        <!--  Header - Title ve Actions  -->
+                                        <Grid
+                                            Grid.Row="0"
+                                            Margin="0,0,0,12"
+                                            ColumnDefinitions="*,Auto"
+                                            ColumnSpacing="16">
+                                            <StackLayout
+                                                Grid.Column="0"
+                                                Spacing="8"
+                                                VerticalOptions="Center">
+                                                <Label
+                                                    LineBreakMode="TailTruncation"
+                                                    MaxLines="2"
+                                                    Style="{StaticResource Title3}"
+                                                    Text="{Binding Title}"
+                                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                                                Dark={StaticResource DarkTextPrimaryColor}}" />
+
+                                                <StackLayout Orientation="Horizontal" Spacing="8">
+                                                    <!--  Kategori Etiketi  -->
+                                                    <Border
+                                                        Padding="10,6"
+                                                        BackgroundColor="{AppThemeBinding Light=#4F46E5, Dark=#6366F1}"
+                                                        Stroke="Transparent"
+                                                        StrokeShape="RoundRectangle 8"
+                                                        StrokeThickness="0">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            FontSize="11"
+                                                            Text="{Binding Category}"
+                                                            TextColor="White" />
                                                     </Border>
-                                                    
-                                                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
-                                                            Stroke="Transparent"
-                                                            StrokeThickness="0"
-                                                            StrokeShape="RoundRectangle 12"
-                                                            Padding="8,4">
-                                                        <Label Text="{Binding Language}"
-                                                               Style="{StaticResource Caption1}"
-                                                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
+
+                                                    <!--  Dil Etiketi  -->
+                                                    <Border
+                                                        Padding="10,6"
+                                                        BackgroundColor="{AppThemeBinding Light=#059669, Dark=#10B981}"
+                                                        Stroke="Transparent"
+                                                        StrokeShape="RoundRectangle 8"
+                                                        StrokeThickness="0">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            FontSize="11"
+                                                            Text="{Binding Language}"
+                                                            TextColor="White" />
+                                                    </Border>
+
+                                                    <!--  Tarih Etiketi  -->
+                                                    <Border
+                                                        Padding="10,6"
+                                                        BackgroundColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}"
+                                                        Stroke="Transparent"
+                                                        StrokeShape="RoundRectangle 8"
+                                                        StrokeThickness="0">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            FontSize="11"
+                                                            Text="{Binding UpdatedAt, StringFormat='{0:dd.MM.yyyy}'}"
+                                                            TextColor="White" />
                                                     </Border>
                                                 </StackLayout>
                                             </StackLayout>
-                                            
-                                            <!-- Action Buttons -->
-                                            <StackLayout Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalOptions="Center">
-                                                <buttons:SfButton Text="Kullan"
-                                                                  WidthRequest="70"
-                                                                  HeightRequest="32"
-                                                                  CornerRadius="16"
-                                                                  FontSize="12"
-                                                                  FontAttributes="Bold"
-                                                                  TextColor="White"
-                                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UsePromptCommand}"
-                                                                  CommandParameter="{Binding}">
+
+                                            <!--  Action Buttons  -->
+                                            <StackLayout
+                                                Grid.Column="1"
+                                                Orientation="Horizontal"
+                                                Spacing="8"
+                                                VerticalOptions="Center">
+                                                <buttons:SfButton
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ShowDeleteConfirmationCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    CornerRadius="16"
+                                                    FontAttributes="Bold"
+                                                    FontSize="12"
+                                                    HeightRequest="32"
+                                                    Text="Sil"
+                                                    TextColor="White"
+                                                    WidthRequest="70">
                                                     <buttons:SfButton.Background>
                                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                            <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource SuccessColor}, Dark={StaticResource SuccessColor}}" />
-                                                            <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource SuccessDarkColor}, Dark={StaticResource SuccessDarkColor}}" />
+                                                            <GradientStop Offset="0" Color="#FF5F6D" />
+                                                            <GradientStop Offset="1" Color="#FF4500" />
+                                                        </LinearGradientBrush>
+                                                    </buttons:SfButton.Background>
+                                                </buttons:SfButton>
+                                                
+                                                <buttons:SfButton
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ShowEditPromptCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    CornerRadius="16"
+                                                    FontAttributes="Bold"
+                                                    FontSize="12"
+                                                    HeightRequest="32"
+                                                    Text="Düzenle"
+                                                    TextColor="White"
+                                                    WidthRequest="70">
+                                                    <buttons:SfButton.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                            <GradientStop Offset="0" Color="#4682B4" />
+                                                            <GradientStop Offset="1" Color="#B0C4DE" />
                                                         </LinearGradientBrush>
                                                     </buttons:SfButton.Background>
                                                 </buttons:SfButton>
                                             </StackLayout>
                                         </Grid>
 
-                                        <!-- Content Preview -->
-                                        <Label Grid.Row="1" 
-                                               Text="{Binding Content}"
-                                               Style="{StaticResource Body2}"
-                                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                               LineBreakMode="TailTruncation"
-                                               MaxLines="3"
-                                               Margin="0,0,0,12" />
-
-                                        <!-- Stats -->
-                                        <StackLayout Grid.Row="2" Orientation="Horizontal" Spacing="20" Margin="0,0,0,12">
-                                            <StackLayout Orientation="Horizontal" Spacing="4">
-                                                <Label Text="📊" FontSize="14" />
-                                                <Label Text="{Binding UsageCount, StringFormat='{0} kullanım'}"
-                                                       Style="{StaticResource Caption1}"
-                                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
-                                            </StackLayout>
-                                            
-                                            <StackLayout Orientation="Horizontal" Spacing="4">
-                                                <Label Text="📅" FontSize="14" />
-                                                <Label Text="{Binding UpdatedAt, StringFormat='{0:dd.MM.yyyy}'}"
-                                                       Style="{StaticResource Caption1}"
-                                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
-                                            </StackLayout>
-                                        </StackLayout>
-
-                                        <!-- Action Bar -->
-                                        <StackLayout Grid.Row="3" Orientation="Horizontal" Spacing="12">
-                                            <buttons:SfButton Text="Düzenle"
-                                                              WidthRequest="80"
-                                                              HeightRequest="28"
-                                                              CornerRadius="14"
-                                                              FontSize="11"
-                                                              TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                                                              BackgroundColor="Transparent"
-                                                              Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                                                              StrokeThickness="1"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ShowEditPromptCommand}"
-                                                              CommandParameter="{Binding}" />
-                                                              
-                                            <buttons:SfButton Text="Sil"
-                                                              WidthRequest="60"
-                                                              HeightRequest="28"
-                                                              CornerRadius="14"
-                                                              FontSize="11"
-                                                              TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                                                              BackgroundColor="Transparent"
-                                                              Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                                                              StrokeThickness="1"
-                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ShowDeleteConfirmationCommand}"
-                                                              CommandParameter="{Binding}" />
-                                        </StackLayout>
+                                        <!--  Content Preview  -->
+                                        <Label
+                                            Grid.Row="1"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="3"
+                                            Style="{StaticResource Body2}"
+                                            Text="{Binding Content}"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
+                                                                        Dark={StaticResource DarkTextSecondaryColor}}" />
                                     </Grid>
-                                </Border>
+                                </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    <!-- Pagination Controls -->
-                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
-                            Stroke="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
-                            StrokeThickness="1"
-                            StrokeShape="RoundRectangle 16"
-                            Padding="20"
-                            Margin="0,8,0,0">
+                    <!--  Pagination Controls  -->
+                    <Border
+                        Margin="0,8,0,0"
+                        Padding="20"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground},
+                                                          Dark={StaticResource DarkSecondaryBackground}}"
+                        Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                                 Dark={StaticResource DarkBorderColor}}"
+                        StrokeShape="RoundRectangle 16"
+                        StrokeThickness="1">
                         <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="16">
-                            <!-- Previous Buttons -->
-                            <StackLayout Grid.Column="0" Orientation="Horizontal" Spacing="8">
-                                <buttons:SfButton Text="⏮"
-                                                  WidthRequest="40"
-                                                  HeightRequest="40"
-                                                  CornerRadius="20"
-                                                  FontSize="16"
-                                                  TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                                                  BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
-                                                  Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                                                  StrokeThickness="1"
-                                                  Command="{Binding GoToFirstPageCommand}"
-                                                  IsEnabled="{Binding HasPreviousPage}" />
-                                                  
-                                <buttons:SfButton Text="◀"
-                                                  WidthRequest="40"
-                                                  HeightRequest="40"
-                                                  CornerRadius="20"
-                                                  FontSize="14"
-                                                  TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                                                  BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
-                                                  Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                                                  StrokeThickness="1"
-                                                  Command="{Binding GoToPreviousPageCommand}"
-                                                  IsEnabled="{Binding HasPreviousPage}" />
+                            <!--  Previous Buttons  -->
+                            <StackLayout
+                                Grid.Column="0"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <buttons:SfButton
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                                                      Dark={StaticResource DarkSurfaceColor}}"
+                                    Command="{Binding GoToFirstPageCommand}"
+                                    CornerRadius="20"
+                                    FontSize="16"
+                                    HeightRequest="40"
+                                    IsEnabled="{Binding HasPreviousPage}"
+                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                                             Dark={StaticResource DarkBorderColor}}"
+                                    StrokeThickness="1"
+                                    Text="⏮"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                                Dark={StaticResource DarkTextPrimaryColor}}"
+                                    WidthRequest="40" />
+
+                                <buttons:SfButton
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                                                      Dark={StaticResource DarkSurfaceColor}}"
+                                    Command="{Binding GoToPreviousPageCommand}"
+                                    CornerRadius="20"
+                                    FontSize="14"
+                                    HeightRequest="40"
+                                    IsEnabled="{Binding HasPreviousPage}"
+                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                                             Dark={StaticResource DarkBorderColor}}"
+                                    StrokeThickness="1"
+                                    Text="◀"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                                Dark={StaticResource DarkTextPrimaryColor}}"
+                                    WidthRequest="40" />
                             </StackLayout>
 
-                            <!-- Page Info -->
-                            <StackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="4">
-                                <Label Text="{Binding CurrentPage, StringFormat='Sayfa {0}'}"
-                                       Style="{StaticResource Body1Strong}"
-                                       TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                                       HorizontalOptions="Center" />
-                                <Label Text="{Binding TotalPages, StringFormat='{0} sayfa'}"
-                                       Style="{StaticResource Caption1}"
-                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                       HorizontalOptions="Center" />
+                            <!--  Page Info  -->
+                            <StackLayout
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Spacing="4"
+                                VerticalOptions="Center">
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource Body1Strong}"
+                                    Text="{Binding CurrentPage, StringFormat='Sayfa {0}'}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                                Dark={StaticResource DarkTextPrimaryColor}}" />
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource Caption1}"
+                                    Text="{Binding TotalPages, StringFormat='{0} sayfa'}"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
+                                                                Dark={StaticResource DarkTextSecondaryColor}}" />
                             </StackLayout>
 
-                            <!-- Next Buttons -->
-                            <StackLayout Grid.Column="2" Orientation="Horizontal" Spacing="8">
-                                <buttons:SfButton Text="▶"
-                                                  WidthRequest="40"
-                                                  HeightRequest="40"
-                                                  CornerRadius="20"
-                                                  FontSize="14"
-                                                  TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                                                  BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
-                                                  Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                                                  StrokeThickness="1"
-                                                  Command="{Binding GoToNextPageCommand}"
-                                                  IsEnabled="{Binding HasNextPage}" />
-                                                  
-                                <buttons:SfButton Text="⏭"
-                                                  WidthRequest="40"
-                                                  HeightRequest="40"
-                                                  CornerRadius="20"
-                                                  FontSize="16"
-                                                  TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                                                  BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
-                                                  Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                                                  StrokeThickness="1"
-                                                  Command="{Binding GoToLastPageCommand}"
-                                                  IsEnabled="{Binding HasNextPage}" />
+                            <!--  Next Buttons  -->
+                            <StackLayout
+                                Grid.Column="2"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <buttons:SfButton
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                                                      Dark={StaticResource DarkSurfaceColor}}"
+                                    Command="{Binding GoToNextPageCommand}"
+                                    CornerRadius="20"
+                                    FontSize="14"
+                                    HeightRequest="40"
+                                    IsEnabled="{Binding HasNextPage}"
+                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                                             Dark={StaticResource DarkBorderColor}}"
+                                    StrokeThickness="1"
+                                    Text="▶"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                                Dark={StaticResource DarkTextPrimaryColor}}"
+                                    WidthRequest="40" />
+
+                                <buttons:SfButton
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                                                      Dark={StaticResource DarkSurfaceColor}}"
+                                    Command="{Binding GoToLastPageCommand}"
+                                    CornerRadius="20"
+                                    FontSize="16"
+                                    HeightRequest="40"
+                                    IsEnabled="{Binding HasNextPage}"
+                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                                             Dark={StaticResource DarkBorderColor}}"
+                                    StrokeThickness="1"
+                                    Text="⏭"
+                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                                Dark={StaticResource DarkTextPrimaryColor}}"
+                                    WidthRequest="40" />
                             </StackLayout>
                         </Grid>
                     </Border>
                 </StackLayout>
 
-                <!-- Empty State -->
-                <Border BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
-                        Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 16"
-                        Padding="40"
-                        IsVisible="{Binding ShowEmptyState}">
+                <!--  Empty State  -->
+                <Border
+                    Padding="40"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                                      Dark={StaticResource DarkSurfaceColor}}"
+                    IsVisible="{Binding ShowEmptyState}"
+                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                             Dark={StaticResource DarkBorderColor}}"
+                    StrokeShape="RoundRectangle 16"
+                    StrokeThickness="1">
                     <StackLayout HorizontalOptions="Center" Spacing="16">
-                        <Label Text="📝"
-                               FontSize="64"
-                               HorizontalOptions="Center"
-                               Opacity="0.6" />
-                        <Label Text="Henüz prompt eklenmemiş"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                               HorizontalOptions="Center" />
-                        <Label Text="İlk prompt'unuzu eklemek için 'Yeni Prompt' butonunu kullanın"
-                               FontSize="14"
-                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}"
-                               HorizontalOptions="Center"
-                               HorizontalTextAlignment="Center" />
+                        <Label
+                            FontSize="64"
+                            HorizontalOptions="Center"
+                            Opacity="0.6"
+                            Text="📝" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalOptions="Center"
+                            Text="Henüz prompt eklenmemiş"
+                            TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
+                                                        Dark={StaticResource DarkTextPrimaryColor}}" />
+                        <Label
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            
+                            HorizontalTextAlignment="Center"
+                            Text="İlk prompt'unuzu eklemek için 'Yeni Prompt' butonunu kullanın"
+                            TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
+                                                        Dark={StaticResource DarkTextSecondaryColor}}" />
                     </StackLayout>
                 </Border>
             </StackLayout>
         </ScrollView>
-        
-        <!-- Popup'lar - MVVM Best Practice -->
+
+        <!--  Popup'lar - MVVM Best Practice  -->
         <components:AddPromptPopup x:Name="addPromptPopup" />
         <components:EditPromptPopup x:Name="editPromptPopup" />
-        
+
     </Grid>
 </ContentPage>

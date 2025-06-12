@@ -41,26 +41,19 @@ public partial class PromptsManagementPage : ContentPage
     {
         try
         {
-            System.Diagnostics.Debug.WriteLine($"🔄 OnShowAddPromptRequested başladı");
             var result = await addPromptPopup.ShowPopupAsync();
-            
-            System.Diagnostics.Debug.WriteLine($"🔄 Popup tamamlandı, result: {(result != null ? "var" : "null")}");
             
             if (result != null)
             {
-                System.Diagnostics.Debug.WriteLine($"🔄 AddPromptAsync çağrılıyor: Title='{result.Title}'");
                 await _viewModel.AddPromptAsync(result);
-                System.Diagnostics.Debug.WriteLine($"✅ AddPromptAsync tamamlandı");
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine($"ℹ️ Kullanıcı popup'ı iptal etti");
+                
+                // Başarı mesajı göster
+                await DisplayAlert("✅ Başarılı", $"'{result.Title}' prompt'u başarıyla eklendi!", "Tamam");
             }
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"❌ AddPrompt popup hatası: {ex.Message}");
-            await DisplayAlert("Hata", "Popup açılırken hata oluştu: " + ex.Message, "Tamam");
+            await DisplayAlert("Hata", $"Prompt eklenirken hata oluştu: {ex.Message}", "Tamam");
         }
     }
 

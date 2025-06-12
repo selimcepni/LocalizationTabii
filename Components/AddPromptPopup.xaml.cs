@@ -96,12 +96,8 @@ public partial class AddPromptPopupViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Save()
+    private async void Save()
     {
-        System.Diagnostics.Debug.WriteLine($"🔄 AddPromptPopup Save başladı");
-        System.Diagnostics.Debug.WriteLine($"Title: '{Title}', Content length: {Content?.Length ?? 0}");
-        System.Diagnostics.Debug.WriteLine($"SelectedCategory: {SelectedCategory?.Name}, SelectedLanguage: {SelectedLanguage?.Name}");
-        
         // Validasyon
         if (string.IsNullOrWhiteSpace(Title))
         {
@@ -130,7 +126,6 @@ public partial class AddPromptPopupViewModel : ObservableObject
         try
         {
             ClearError();
-            System.Diagnostics.Debug.WriteLine($"✅ Validasyon geçti, Prompt oluşturuluyor...");
 
             // Yeni prompt oluştur
             Result = new Prompt
@@ -145,16 +140,15 @@ public partial class AddPromptPopupViewModel : ObservableObject
                 UsageCount = 0
             };
 
-            System.Diagnostics.Debug.WriteLine($"✅ Prompt oluşturuldu: ID={Result.Id}, Title='{Result.Title}', Category='{Result.Category}', Language='{Result.Language}'");
-
-            // Popup'ı kapat
-            IsPopupOpen = false;
+            // Önce result'u set et
             _taskCompletionSource?.SetResult(Result);
-            System.Diagnostics.Debug.WriteLine($"✅ AddPromptPopup tamamlandı, popup kapatıldı");
+            
+            // Sonra popup'ı kapat
+            await Task.Delay(100); // Kısa bir delay
+            IsPopupOpen = false;
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"❌ AddPromptPopup Save hatası: {ex.Message}");
             ShowError($"Beklenmeyen bir hata oluştu: {ex.Message}");
         }
     }
@@ -183,8 +177,8 @@ public partial class AddPromptPopupViewModel : ObservableObject
     {
         if (!value && _taskCompletionSource != null && !_taskCompletionSource.Task.IsCompleted)
         {
-            // Popup dışarıdan kapatıldıysa (close button vs.)
-            Cancel();
+            // Popup dışarıdan kapatıldıysa (close button vs.) ve henüz result set edilmemişse
+            _taskCompletionSource?.SetResult(null);
         }
     }
 }

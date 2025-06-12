@@ -11,6 +11,7 @@
     <Color x:Key="SecondaryDark">#9880e5</Color>
     <Color x:Key="SecondaryDarkText">#9880e5</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
+    <Color x:Key="BorderLight">#E5E1E3</Color>
 
     <Color x:Key="DarkBackground">#17171a</Color>
     <Color x:Key="LightOnDarkBackground">#C3C3C3</Color>
@@ -75,4 +76,28 @@
     <Color x:Key="SuccessColor">#8B5CF6</Color>
     <Color x:Key="SuccessLightColor">#EDE9FE</Color>
     <Color x:Key="SuccessDarkColor">#5B21B6</Color>
+
+    <!-- Tag/Badge Renkleri -->
+    <Color x:Key="WorkColor">#3068df</Color>
+    <Color x:Key="PersonalColor">#FF4500</Color>
+    <Color x:Key="HealthColor">#32CD32</Color>
+    <Color x:Key="FamilyColor">#1E90FF</Color>
+    <Color x:Key="FriendsColor">#FF69B4</Color>
+    <Color x:Key="EducationColor">#8800FF</Color>
+    <Color x:Key="SelfColor">#FF3300</Color>
+    <Color x:Key="RelationshipsColor">#FF9900</Color>
+
+
+
+    
+    
+    <!-- Badge için hafif tonlar -->
+    <Color x:Key="WorkColorLight">#E6F0FF</Color>
+    <Color x:Key="PersonalColorLight">#FFF4E6</Color>
+    <Color x:Key="HealthColorLight">#E6F7E6</Color>
+    <Color x:Key="FamilyColorLight">#E6F3FF</Color>
+    <Color x:Key="FriendsColorLight">#FFE6F3</Color>
+    <Color x:Key="EducationColorLight">#F0E6FF</Color>
+    <Color x:Key="SelfColorLight">#FFE6E6</Color>
+    <Color x:Key="RelationshipsColorLight">#FFF0E6</Color>
 </ResourceDictionary>
