@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<popup:SfPopup
+    x:Class="LocalizationTabii.Components.ChoosePromptPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:popup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+    x:Name="choosePromptPopup"
+    HeaderHeight="60"
+    HeaderTitle="Prompt Seçimi"
+    HeightRequest="500"
+    IsOpen="{Binding IsPopupOpen}"
+    ShowCloseButton="True"
+    ShowHeader="True"
+    StaysOpen="False"
+    WidthRequest="600">
+
+    <popup:SfPopup.PopupStyle>
+        <popup:PopupStyle PopupBackground="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}" />
+
+    </popup:SfPopup.PopupStyle>
+
+
+
+
+    
+
+
+</popup:SfPopup>

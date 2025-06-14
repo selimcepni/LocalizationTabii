@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LocalizationTabii.Components;
 using System.Threading.Tasks;
 
 namespace LocalizationTabii.ComponentModel
@@ -49,13 +50,27 @@ namespace LocalizationTabii.ComponentModel
         [RelayCommand]
         private async Task SelectPrompt()
         {
-            // Şimdilik basit bir alert göster
-            await Application.Current?.MainPage?.DisplayAlert("Prompt Seçimi", 
-                $"Prompt seçim özelliği yakında eklenecek.\nDosya: {SelectedFileName}\nModel: {SelectedModelDisplayName}", 
-                "Tamam");
-            
-            // İleride prompt seçimi event'ini fırlat
-            // PromptSelected?.Invoke(this, new PromptSelectedEventArgs(...));
+            try
+            {
+                var popup = new ChoosePromptPopup();
+                var selectedPrompt = await popup.ShowPopupAsync(SelectedFileName, FileSize, SelectedModel);
+                
+                if (selectedPrompt != null)
+                {
+                    // Prompt seçildi, event'i fırlat
+                    PromptSelected?.Invoke(this, new PromptSelectedEventArgs(
+                        selectedPrompt.Title, 
+                        SelectedFileName, 
+                        FileSize, 
+                        SelectedModel));
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current?.MainPage?.DisplayAlert("Hata", 
+                    $"Popup açılırken hata oluştu: {ex.Message}", 
+                    "Tamam");
+            }
         }
     }
 
