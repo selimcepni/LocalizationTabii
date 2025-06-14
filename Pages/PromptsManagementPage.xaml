@@ -230,7 +230,7 @@
                                                 Spacing="8"
                                                 VerticalOptions="Center">
                                                 <buttons:SfButton
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ShowDeleteConfirmationCommand}"
+                                                    Command="{Binding Source={x:Reference promptsPage}, Path=BindingContext.ShowDeleteConfirmationCommand}"
                                                     CommandParameter="{Binding}"
                                                     CornerRadius="16"
                                                     FontAttributes="Bold"

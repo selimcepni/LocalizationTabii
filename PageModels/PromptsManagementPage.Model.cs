@@ -276,6 +276,8 @@ namespace LocalizationTabii.PageModels
         [RelayCommand]
         private async Task ShowDeleteConfirmation(Prompt prompt)
         {
+       
+            
             if (prompt == null) return;
             
             var result = await Application.Current.MainPage.DisplayAlert(
