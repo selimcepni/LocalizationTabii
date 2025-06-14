@@ -87,12 +87,11 @@
                         </Ellipse>
 
                         <!--  Icon  -->
-                        <Label
-                            FontSize="48"
+                        <Image 
+                            Source="{StaticResource IconFolderOpen24Regular}"
+                            WidthRequest="48"
+                            HeightRequest="48"
                             HorizontalOptions="Center"
-                            Text="📁"
-                            TextColor="{AppThemeBinding Light=White,
-                                                        Dark=White}"
                             VerticalOptions="Center" />
                     </Grid>
 
@@ -174,31 +173,26 @@
                         x:Name="SelectButton"
                         Margin="0,8"
                         Command="{Binding SelectFileCommand}"
-                        CornerRadius="14"
+                        CornerRadius="18"
                         FontAttributes="Bold"
-                        FontSize="15"
-                        HeightRequest="48"
+                        FontSize="16"
+                        HeightRequest="50"
                         HorizontalOptions="Center"
-                        Text="📂  Dosya Seç"
-                        WidthRequest="160">
+                        Text="Dosya Seç"
+                        WidthRequest="170">
 
                         <!--  Gradient background  -->
                         <buttons:SfButton.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
-                                <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+                                <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+                                <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
                             </LinearGradientBrush>
                         </buttons:SfButton.Background>
 
                         <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
 
                         <buttons:SfButton.Shadow>
-                            <Shadow
-                                Brush="{AppThemeBinding Light={StaticResource LightPrimaryColor},
-                                                        Dark={StaticResource DarkPrimaryColor}}"
-                                Opacity="0.4"
-                                Radius="12"
-                                Offset="0,4" />
+                            <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
                         </buttons:SfButton.Shadow>
                     </buttons:SfButton>
 
@@ -258,12 +252,11 @@
                         </Ellipse>
 
                         <!--  Success check mark (white)  -->
-                        <Label
-                            FontAttributes="Bold"
-                            FontSize="48"
+                        <Image 
+                            Source="{StaticResource IconCheckboxChecked24Regular}"
+                            WidthRequest="48"
+                            HeightRequest="48"
                             HorizontalOptions="Center"
-                            Text="✓"
-                            TextColor="White"
                             VerticalOptions="Center" />
                     </Grid>
 
@@ -278,39 +271,47 @@
                             TextColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},
                                                         Dark={StaticResource DarkPrimaryColor}}" />
 
-                        <!--  File info card  -->
-                        <Frame
+                        <!--  File info card - ChooseModelComponent ile tutarlı  -->
+                        <Border 
                             Margin="0,8"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                            StrokeShape="RoundRectangle 16"
+                            Stroke="Transparent"
+                            StrokeThickness="0"
                             Padding="20,16"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor},
-                                                              Dark={StaticResource DarkAccentColor}}"
-                            CornerRadius="16"
-                            HasShadow="False"
-                            HorizontalOptions="Center">
-
-                            <StackLayout HorizontalOptions="Center" Spacing="8">
-                                <!--  File name  -->
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="16"
-                                    HorizontalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    LineBreakMode="MiddleTruncation"
-                                    MaxLines="2"
-                                    Text="{Binding UploadedFileName}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
-                                                                Dark={StaticResource DarkTextPrimaryColor}}" />
-
-                                <!--  File size  -->
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="14"
-                                    HorizontalOptions="Center"
-                                    Text="{Binding FileSize}"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryColor},
-                                                                Dark={StaticResource DarkPrimaryColor}}" />
-                            </StackLayout>
-                        </Frame>
+                            HorizontalOptions="Center"
+                            WidthRequest="300">
+                            
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                                <Border 
+                                    Grid.Column="0"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}"
+                                    StrokeShape="RoundRectangle 12"
+                                    Padding="10"
+                                    VerticalOptions="Center">
+                                    <Image 
+                                        Source="{StaticResource IconDocument24Regular}"
+                                        WidthRequest="18"
+                                        HeightRequest="18"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </Border>
+                                
+                                <StackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                                    <Label 
+                                        Text="{Binding UploadedFileName}"
+                                        FontSize="15"
+                                        FontAttributes="Bold"
+                                        LineBreakMode="MiddleTruncation"
+                                        MaxLines="1" />
+                                    
+                                    <Label 
+                                        Text="{Binding FileSize}"
+                                        FontSize="13"
+                                        TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                                </StackLayout>
+                            </Grid>
+                        </Border>
                     </StackLayout>
 
                     <!--  Action buttons  -->
@@ -322,32 +323,26 @@
                         <buttons:SfButton
                             x:Name="RemoveButton"
                             Margin="0,8"
-                            Background="#FF4500"
                             Command="{Binding ClearFileCommand}"
-                            CornerRadius="14"
+                            CornerRadius="18"
                             FontAttributes="Bold"
-                            FontSize="15"
-                            HeightRequest="48"
+                            FontSize="16"
+                            HeightRequest="50"
                             HorizontalOptions="Center"
                             Text="Dosyayı Kaldır"
-                            WidthRequest="140">
+                            WidthRequest="150">
 
                             <buttons:SfButton.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
-                                    <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                                    <GradientStop Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Offset="0.0" />
+                                    <GradientStop Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" Offset="1.0" />
                                 </LinearGradientBrush>
                             </buttons:SfButton.Background>
 
                             <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
 
                             <buttons:SfButton.Shadow>
-                                <Shadow
-                                    Brush="{AppThemeBinding Light={StaticResource LightTextSecondaryColor},
-                                                            Dark={StaticResource DarkTextSecondaryColor}}"
-                                    Opacity="0.4"
-                                    Radius="12"
-                                    Offset="0,4" />
+                                <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
                             </buttons:SfButton.Shadow>
 
                         </buttons:SfButton>
@@ -357,31 +352,26 @@
                             x:Name="ContinueButton"
                             Margin="0,8"
                             Command="{Binding ContinueCommand}"
-                            CornerRadius="14"
+                            CornerRadius="18"
                             FontAttributes="Bold"
-                            FontSize="15"
-                            HeightRequest="48"
+                            FontSize="16"
+                            HeightRequest="50"
                             HorizontalOptions="Center"
                             Text="Devam Et"
-                            WidthRequest="140">
+                            WidthRequest="170">
 
                             <!--  Gradient background  -->
                             <buttons:SfButton.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" />
-                                    <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" />
+                                    <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+                                    <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
                                 </LinearGradientBrush>
                             </buttons:SfButton.Background>
 
                             <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
 
                             <buttons:SfButton.Shadow>
-                                <Shadow
-                                    Brush="{AppThemeBinding Light={StaticResource LightPrimaryColor},
-                                                            Dark={StaticResource DarkPrimaryColor}}"
-                                    Opacity="0.4"
-                                    Radius="12"
-                                    Offset="0,4" />
+                                <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
                             </buttons:SfButton.Shadow>
                         </buttons:SfButton>
                     </StackLayout>

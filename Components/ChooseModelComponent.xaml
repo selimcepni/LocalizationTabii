@@ -12,7 +12,24 @@
 
 
     <ScrollView VerticalOptions="FillAndExpand">
-        <StackLayout VerticalOptions="CenterAndExpand" Margin="32,20" Spacing="32">
+        <StackLayout VerticalOptions="CenterAndExpand" Margin="20" Spacing="16">
+            
+            <!-- Ana zemin kartı - FileDragDropComponent ile tutarlılık -->
+            <Border
+                Padding="40"
+                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
+                StrokeShape="RoundRectangle 24"
+                Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource DarkBorderColor}}"
+                StrokeThickness="2">
+                
+                <Border.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
+                            Opacity="0.1" 
+                            Radius="8" 
+                            Offset="0,2" />
+                </Border.Shadow>
+            
+                <StackLayout VerticalOptions="Center" Spacing="32">
             
             <!-- Başlık ve seçilen dosya bilgisi -->
             <StackLayout Spacing="20">
@@ -27,31 +44,25 @@
 
                 <!-- Seçilen dosya bilgisi -->
                 <Border 
-                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
-                    StrokeShape="RoundRectangle 20"
-                    Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource DarkBorderColor}}"
-                    StrokeThickness="1"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    StrokeThickness="0"
                     Padding="20,16"
                     HorizontalOptions="Center"
                     WidthRequest="300">
                     
-                    <Border.Shadow>
-                        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
-                                Opacity="0.3" 
-                                Radius="12" 
-                                Offset="0,4" />
-                    </Border.Shadow>
-                    
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
                         <Border 
                             Grid.Column="0"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}"
                             StrokeShape="RoundRectangle 12"
                             Padding="10"
                             VerticalOptions="Center">
-                            <Label 
-                                Text="📄"
-                                FontSize="18"
+                            <Image 
+                                Source="{StaticResource IconDocument24Regular}"
+                                WidthRequest="18"
+                                HeightRequest="18"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center" />
                         </Border>
@@ -89,18 +100,11 @@
                     
                     <!-- GPT-4 Model -->
                     <Border 
-                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
-                        StrokeShape="RoundRectangle 20"
-                        Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource DarkBorderColor}}"
-                        StrokeThickness="1"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
                         Padding="24,20">
-                        
-                        <Border.Shadow>
-                            <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
-                                    Opacity="0.3" 
-                                    Radius="12" 
-                                    Offset="0,4" />
-                        </Border.Shadow>
 
                         <Grid>
                             <Grid.RowDefinitions>
@@ -147,18 +151,11 @@
 
                     <!-- GPT-3.5 Model -->
                     <Border 
-                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
-                        StrokeShape="RoundRectangle 20"
-                        Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource DarkBorderColor}}"
-                        StrokeThickness="1"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
                         Padding="24,20">
-                        
-                        <Border.Shadow>
-                            <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
-                                    Opacity="0.3" 
-                                    Radius="12" 
-                                    Offset="0,4" />
-                        </Border.Shadow>
 
                         <Grid>
                             <Grid.RowDefinitions>
@@ -257,7 +254,10 @@
                     </buttons:SfButton.Shadow>
                 </buttons:SfButton>
             </StackLayout>
-
+            
+                </StackLayout>
+            </Border>
+            
         </StackLayout>
     </ScrollView>
 </ContentView> 

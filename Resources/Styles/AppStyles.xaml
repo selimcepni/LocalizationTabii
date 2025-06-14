@@ -129,6 +129,73 @@
                 Glyph="{x:Static f:FluentUI.eye_24_regular}"
                 Size="{StaticResource IconSize}"
                 Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconDocument32Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.document_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+
+
+        <FontImageSource
+                x:Key="IconDocument24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.document_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconFolder24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.folder_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+        <FontImageSource
+                x:Key="IconSparkleInfo24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.sparkle_circle_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+        <FontImageSource
+                x:Key="IconSparkleCircle24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.sparkle_circle_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+        <FontImageSource
+                x:Key="IconSparkle24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.sparkle_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconTargetArrow24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.target_arrow_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+        <FontImageSource
+                x:Key="IconFolderOpen24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.folder_open_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource White}" />
+
+        <FontImageSource
+                x:Key="IconCheckboxChecked24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.checkbox_checked_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource White}" />
+
+
+
+
+
+
         <FontImageSource
                 x:Key="IconEyeOff"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
@@ -267,13 +334,13 @@
                 <Setter Property="FontAttributes" Value="{OnPlatform WinUI=None, Default=Bold}" />
         </Style>
 
-        <!-- Global Border stili kaldırıldı - çakışma yaratıyordu -->
+        <!--  Global Border stili kaldırıldı - çakışma yaratıyordu  -->
         <!-- <Style TargetType="Border">
                 <Setter Property="StrokeShape" Value="RoundRectangle 20" />
                 <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}" />
                 <Setter Property="StrokeThickness" Value="0" />
                 <Setter Property="Padding" Value="{OnIdiom 15, Desktop=20}" />
-        </Style> -->
+        </Style>-->
 
         <Style x:Key="CardStyle" TargetType="Border">
                 <Setter Property="StrokeShape" Value="RoundRectangle 20" />
@@ -292,7 +359,7 @@
                 FontSize="{OnIdiom 18,
                                    Desktop=24}"
                 TextColor="{StaticResource LightOnDarkBackground}" />
-        
+
         <Style x:Key="FormLabelTitleStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="FontAttributes" Value="Bold" />
@@ -319,8 +386,8 @@
                 <Setter Property="ProgressColor" Value="{StaticResource Primary}" />
         </Style>
 
-        
 
-        
+
+
 
 </ResourceDictionary>
