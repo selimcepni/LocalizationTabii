@@ -31,5 +31,14 @@
             HorizontalOptions="FillAndExpand"
             IsVisible="False" />
         
+        <!-- Choose Prompt Component - Başlangıçta gizli -->
+        <components:ChoosePromptComponent 
+            x:Name="ChoosePromptComponent" 
+            Grid.Row="0"
+            Margin="20"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="False" />
+        
     </Grid>
 </ContentPage>

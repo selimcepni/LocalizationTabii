@@ -9,106 +9,97 @@
     xmlns:utilities="clr-namespace:LocalizationTabii.Utilities.Converters"
     x:DataType="viewmodels:ChooseModelViewModel">
 
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <!-- Light Theme Colors -->
-            <Color x:Key="LightPrimaryColor">#6366F1</Color>
-            <Color x:Key="LightSecondaryColor">#EC4899</Color>
-            <Color x:Key="LightSurfaceColor">#FFFFFF</Color>
-            <Color x:Key="LightBackgroundColor">#F8FAFC</Color>
-            <Color x:Key="LightBorderColor">#E2E8F0</Color>
-            <Color x:Key="LightTextPrimaryColor">#0F172A</Color>
-            <Color x:Key="LightTextSecondaryColor">#64748B</Color>
-            <Color x:Key="LightAccentColor">#F1F5F9</Color>
-            
-            <!-- Dark Theme Colors -->
-            <Color x:Key="DarkPrimaryColor">#818CF8</Color>
-            <Color x:Key="DarkSecondaryColor">#F472B6</Color>
-            <Color x:Key="DarkSurfaceColor">#1E293B</Color>
-            <Color x:Key="DarkBackgroundColor">#0F172A</Color>
-            <Color x:Key="DarkBorderColor">#334155</Color>
-            <Color x:Key="DarkTextPrimaryColor">#F1F5F9</Color>
-            <Color x:Key="DarkTextSecondaryColor">#94A3B8</Color>
-            <Color x:Key="DarkAccentColor">#334155</Color>
-            
-            <!-- Success Colors - Purple Theme -->
-            <Color x:Key="SuccessColor">#8B5CF6</Color>
-            <Color x:Key="SuccessLightColor">#EDE9FE</Color>
-            <Color x:Key="SuccessDarkColor">#5B21B6</Color>
-        </ResourceDictionary>
-    </ContentView.Resources>
+
 
     <ScrollView VerticalOptions="FillAndExpand">
-        <StackLayout VerticalOptions="CenterAndExpand" Margin="20" Spacing="24">
+        <StackLayout VerticalOptions="CenterAndExpand" Margin="32,20" Spacing="32">
             
             <!-- Başlık ve seçilen dosya bilgisi -->
-            <StackLayout Spacing="16">
+            <StackLayout Spacing="20">
                 <!-- Ana başlık -->
                 <Label 
                     Text="Model Seçimi"
-                    FontSize="28"
+                    Style="{StaticResource Headline}"
+                    FontSize="32"
                     FontAttributes="Bold"
-                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
                     HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center" />
+                    Margin="0,0,0,8" />
 
                 <!-- Seçilen dosya bilgisi -->
-                <Frame 
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
-                    Padding="16,12"
-                    CornerRadius="16"
-                    HasShadow="False"
+                <Border 
+                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
+                    StrokeShape="RoundRectangle 20"
+                    Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource DarkBorderColor}}"
+                    StrokeThickness="1"
+                    Padding="20,16"
                     HorizontalOptions="Center"
-                    Margin="0,8">
+                    WidthRequest="300">
                     
-                    <StackLayout Orientation="Horizontal" Spacing="12" HorizontalOptions="Center">
-                        <Label 
-                            Text="📄"
-                            FontSize="16"
-                            VerticalOptions="Center" />
+                    <Border.Shadow>
+                        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
+                                Opacity="0.3" 
+                                Radius="12" 
+                                Offset="0,4" />
+                    </Border.Shadow>
+                    
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                        <Border 
+                            Grid.Column="0"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="10"
+                            VerticalOptions="Center">
+                            <Label 
+                                Text="📄"
+                                FontSize="18"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
                         
-                        <StackLayout Spacing="4">
+                        <StackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
                             <Label 
                                 Text="{Binding SelectedFileName}"
-                                FontSize="14"
+                                FontSize="15"
                                 FontAttributes="Bold"
-                                TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}"
-                                LineBreakMode="MiddleTruncation" />
+                                LineBreakMode="MiddleTruncation"
+                                MaxLines="1" />
                             
                             <Label 
                                 Text="{Binding FileSize}"
-                                FontSize="12"
-                                TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                                FontSize="13"
+                                TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}" />
                         </StackLayout>
-                    </StackLayout>
-                </Frame>
+                    </Grid>
+                </Border>
             </StackLayout>
 
             <!-- Model seçim kartları -->
-            <StackLayout Spacing="16">
+            <StackLayout Spacing="24">
                 <Label 
                     Text="Çeviri için kullanılacak modeli seçin:"
-                    FontSize="16"
-                    TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}"
+                    FontSize="17"
+                    TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
                     HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center" />
+                    HorizontalTextAlignment="Center"
+                    FontAttributes="Bold"
+                    Margin="20,0" />
 
                 <!-- Model kartları -->
                 <StackLayout Spacing="12">
                     
                     <!-- GPT-4 Model -->
                     <Border 
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
-                        StrokeShape="RoundRectangle 16"
-                        Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                        StrokeThickness="2"
-                        Padding="20">
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource DarkBorderColor}}"
+                        StrokeThickness="1"
+                        Padding="24,20">
                         
                         <Border.Shadow>
-                            <Shadow Brush="{AppThemeBinding Light=#10000000, Dark=#20000000}" 
-                                    Opacity="0.1" 
-                                    Radius="8" 
-                                    Offset="0,2" />
+                            <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
+                                    Opacity="0.3" 
+                                    Radius="12" 
+                                    Offset="0,4" />
                         </Border.Shadow>
 
                         <Grid>
@@ -128,13 +119,12 @@
                                 <Label 
                                     Text="GPT-4 Turbo"
                                     FontSize="18"
-                                    FontAttributes="Bold"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}" />
+                                    FontAttributes="Bold" />
                                 
                                 <Label 
                                     Text="En gelişmiş model - Yüksek kaliteli çeviri"
                                     FontSize="14"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}"
+                                    TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
                                     LineBreakMode="WordWrap" />
                             </StackLayout>
 
@@ -157,17 +147,17 @@
 
                     <!-- GPT-3.5 Model -->
                     <Border 
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
-                        StrokeShape="RoundRectangle 16"
-                        Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
-                        StrokeThickness="2"
-                        Padding="20">
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource DarkBorderColor}}"
+                        StrokeThickness="1"
+                        Padding="24,20">
                         
                         <Border.Shadow>
-                            <Shadow Brush="{AppThemeBinding Light=#10000000, Dark=#20000000}" 
-                                    Opacity="0.1" 
-                                    Radius="8" 
-                                    Offset="0,2" />
+                            <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
+                                    Opacity="0.3" 
+                                    Radius="12" 
+                                    Offset="0,4" />
                         </Border.Shadow>
 
                         <Grid>
@@ -186,13 +176,12 @@
                                 <Label 
                                     Text="GPT-3.5 Turbo"
                                     FontSize="18"
-                                    FontAttributes="Bold"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor}, Dark={StaticResource DarkTextPrimaryColor}}" />
+                                    FontAttributes="Bold" />
                                 
                                 <Label 
                                     Text="Hızlı ve ekonomik - İyi kaliteli çeviri"
                                     FontSize="14"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}"
+                                    TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
                                     LineBreakMode="WordWrap" />
                             </StackLayout>
 
@@ -217,54 +206,54 @@
             </StackLayout>
 
             <!-- Alt butonlar -->
-            <StackLayout Orientation="Horizontal" Spacing="16" HorizontalOptions="Center" Margin="0,24,0,0">
+            <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center" Margin="0,20,0,0">
                 <!-- Geri dön butonu -->
                 <buttons:SfButton 
                     Text="Geri Dön"
                     Command="{Binding GoBackCommand}"
-                    FontSize="15"
+                    FontSize="16"
                     FontAttributes="Bold"
-                    CornerRadius="14"
-                    WidthRequest="140"
-                    HeightRequest="48"
+                    CornerRadius="18"
+                    WidthRequest="150"
+                    HeightRequest="50"
                     HorizontalOptions="Center">
                     
                     <buttons:SfButton.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" Offset="0.0" />
-                            <GradientStop Color="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" Offset="1.0" />
+                            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Offset="0.0" />
+                            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" Offset="1.0" />
                         </LinearGradientBrush>
                     </buttons:SfButton.Background>
                     
                     <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
                     
                     <buttons:SfButton.Shadow>
-                        <Shadow Brush="{AppThemeBinding Light={StaticResource LightTextSecondaryColor}, Dark={StaticResource DarkTextSecondaryColor}}" Opacity="0.4" Radius="12" Offset="0,4" />
+                        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
                     </buttons:SfButton.Shadow>
                 </buttons:SfButton>
 
-                <!-- Çeviriyi başlat butonu -->
+                <!-- Devam et butonu -->
                 <buttons:SfButton 
-                    Text="Çeviriyi Başlat"
+                    Text="Devam Et"
                     Command="{Binding StartTranslationCommand}"
-                    FontSize="15"
+                    FontSize="16"
                     FontAttributes="Bold"
-                    CornerRadius="14"
-                    WidthRequest="160"
-                    HeightRequest="48"
+                    CornerRadius="18"
+                    WidthRequest="170"
+                    HeightRequest="50"
                     HorizontalOptions="Center">
                     
                     <buttons:SfButton.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" Offset="0.0" />
-                            <GradientStop Color="{AppThemeBinding Light={StaticResource LightSecondaryColor}, Dark={StaticResource DarkSecondaryColor}}" Offset="1.0" />
+                            <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+                            <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
                         </LinearGradientBrush>
                     </buttons:SfButton.Background>
                     
                     <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
                     
                     <buttons:SfButton.Shadow>
-                        <Shadow Brush="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}" Opacity="0.4" Radius="12" Offset="0,4" />
+                        <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
                     </buttons:SfButton.Shadow>
                 </buttons:SfButton>
             </StackLayout>

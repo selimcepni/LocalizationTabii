@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    x:Class="LocalizationTabii.Components.ChoosePromptComponent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+    xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+    xmlns:viewmodels="clr-namespace:LocalizationTabii.ComponentModel"
+    x:DataType="viewmodels:ChoosePromptViewModel">
+
+
+
+    <ScrollView VerticalOptions="FillAndExpand">
+        <StackLayout VerticalOptions="CenterAndExpand" Margin="32,20" Spacing="32">
+            
+            <!-- Başlık -->
+            <StackLayout Spacing="20">
+                <!-- Ana başlık -->
+                <Label 
+                    Text="Prompt Seçimi"
+                    Style="{StaticResource Headline}"
+                    FontSize="32"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,8" />
+
+                <!-- Bilgi kartları -->
+                <StackLayout Spacing="12" HorizontalOptions="Center">
+                    
+                    <!-- Dosya bilgisi kartı -->
+                    <Border 
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource DarkBorderColor}}"
+                        StrokeThickness="1"
+                        Padding="20,16"
+                        HorizontalOptions="Center"
+                        WidthRequest="300">
+                        
+                        <Border.Shadow>
+                            <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
+                                    Opacity="0.3" 
+                                    Radius="12" 
+                                    Offset="0,4" />
+                        </Border.Shadow>
+                        
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                            <Border 
+                                Grid.Column="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10"
+                                VerticalOptions="Center">
+                                <Label 
+                                    Text="📄"
+                                    FontSize="18"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+                            
+                            <StackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                                <Label 
+                                    Text="{Binding SelectedFileName}"
+                                    FontSize="15"
+                                    FontAttributes="Bold"
+                                    LineBreakMode="MiddleTruncation"
+                                    MaxLines="1" />
+                                
+                                <Label 
+                                    Text="{Binding FileSize}"
+                                    FontSize="13"
+                                    TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+
+                    <!-- Model bilgisi kartı -->
+                    <Border 
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="{AppThemeBinding Light={StaticResource SuccessColor}, Dark={StaticResource SuccessColor}}"
+                        StrokeThickness="2"
+                        Padding="20,16"
+                        HorizontalOptions="Center"
+                        WidthRequest="300">
+                        
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource SuccessColor}" 
+                                    Opacity="0.25" 
+                                    Radius="16" 
+                                    Offset="0,6" />
+                        </Border.Shadow>
+                        
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                            <Border 
+                                Grid.Column="0"
+                                BackgroundColor="{StaticResource SuccessColor}"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10"
+                                VerticalOptions="Center">
+                                <Label 
+                                    Text="🤖"
+                                    FontSize="18"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+                            
+                            <StackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                                <Label 
+                                    Text="Seçilen Model"
+                                    FontSize="12"
+                                    TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
+                                    FontAttributes="Bold" />
+                                
+                                <Label 
+                                    Text="{Binding SelectedModelDisplayName}"
+                                    FontSize="15"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource SuccessColor}" />
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+                    
+                </StackLayout>
+            </StackLayout>
+
+            <!-- İçerik alanı -->
+            <StackLayout Spacing="24">
+                <Label 
+                    Text="Çeviri için kullanılacak prompt'u seçin veya özelleştirin:"
+                    FontSize="17"
+                    TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    FontAttributes="Bold"
+                    Margin="20,0" />
+
+                <!-- Prompt seç butonu -->
+                <buttons:SfButton 
+                    Text="Prompt Seç"
+                    Command="{Binding SelectPromptCommand}"
+                    FontSize="17"
+                    FontAttributes="Bold"
+                    CornerRadius="20"
+                    WidthRequest="220"
+                    HeightRequest="56"
+                    HorizontalOptions="Center"
+                    Margin="0,8">
+                    
+                    <buttons:SfButton.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="{StaticResource SuccessColor}" Offset="0.0" />
+                            <GradientStop Color="{StaticResource SuccessDarkColor}" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </buttons:SfButton.Background>
+                    
+                    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+                    
+                    <buttons:SfButton.Shadow>
+                        <Shadow Brush="{StaticResource SuccessColor}" Opacity="0.5" Radius="18" Offset="0,8" />
+                    </buttons:SfButton.Shadow>
+                </buttons:SfButton>
+            </StackLayout>
+
+            <!-- Alt butonlar -->
+            <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center" Margin="0,20,0,0">
+                <!-- Geri dön butonu -->
+                <buttons:SfButton 
+                    Text="Geri Dön"
+                    Command="{Binding GoBackCommand}"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="18"
+                    WidthRequest="150"
+                    HeightRequest="50"
+                    HorizontalOptions="Center">
+                    
+                    <buttons:SfButton.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Offset="0.0" />
+                            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </buttons:SfButton.Background>
+                    
+                    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+                    
+                    <buttons:SfButton.Shadow>
+                        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
+                    </buttons:SfButton.Shadow>
+                </buttons:SfButton>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</ContentView> 

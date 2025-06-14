@@ -35,6 +35,16 @@ namespace LocalizationTabii.Pages
                     chooseModelViewModel.ModelSelected += OnModelSelected;
                 }
             }
+            
+            if (ChoosePromptComponent != null)
+            {
+                // ChoosePromptComponent'in ViewModel'ine erişim
+                if (ChoosePromptComponent.BindingContext is ChoosePromptViewModel choosePromptViewModel)
+                {
+                    choosePromptViewModel.GoBackRequested += OnPromptGoBackRequested;
+                    choosePromptViewModel.PromptSelected += OnPromptSelected;
+                }
+            }
         }
 
         private async void OnFileSelected(object? sender, FileSelectedEventArgs e)
@@ -66,15 +76,32 @@ namespace LocalizationTabii.Pages
             FileDropComponent.IsVisible = true;
         }
 
-        private async void OnModelSelected(object? sender, ModelSelectedEventArgs e)
+        private void OnModelSelected(object? sender, ModelSelectedEventArgs e)
         {
-            // Model seçildi, çeviri işlemini başlat
-            await DisplayAlert("Model Seçildi", 
-                $"Seçilen Model: {e.SelectedModel}\nDosya: {e.FileName}\nBoyut: {e.FileSize}", 
+            // ChooseModelComponent'i gizle, ChoosePromptComponent'i göster
+            ChooseModelComponent.IsVisible = false;
+            ChoosePromptComponent.IsVisible = true;
+            
+            // Dosya ve model bilgilerini ChoosePromptComponent'e aktar
+            ChoosePromptComponent.SetFileAndModelInfo(e.FileName, e.FileSize, e.SelectedModel);
+        }
+
+        private void OnPromptGoBackRequested(object? sender, EventArgs e)
+        {
+            // ChoosePromptComponent'i gizle, ChooseModelComponent'i göster
+            ChoosePromptComponent.IsVisible = false;
+            ChooseModelComponent.IsVisible = true;
+        }
+
+        private async void OnPromptSelected(object? sender, PromptSelectedEventArgs e)
+        {
+            // Prompt seçildi, çeviri işlemini başlat
+            await DisplayAlert("Çeviri Başlatılıyor", 
+                $"Seçilen Model: {e.SelectedModel}\nDosya: {e.FileName}\nPrompt: {e.SelectedPrompt}", 
                 "Tamam");
             
             // Burada çeviri işlemini başlatabilirsiniz
-            // Örneğin: await _viewModel.StartTranslation(e.SelectedModel, e.FileName);
+            // Örneğin: await _viewModel.StartTranslation(e.SelectedModel, e.FileName, e.SelectedPrompt);
         }
 
         protected override void OnDisappearing()
@@ -99,6 +126,16 @@ namespace LocalizationTabii.Pages
                 {
                     chooseModelViewModel.GoBackRequested -= OnGoBackRequested;
                     chooseModelViewModel.ModelSelected -= OnModelSelected;
+                }
+            }
+            
+            if (ChoosePromptComponent != null)
+            {
+                // ChoosePromptComponent'in ViewModel'inden event'leri temizle
+                if (ChoosePromptComponent.BindingContext is ChoosePromptViewModel choosePromptViewModel)
+                {
+                    choosePromptViewModel.GoBackRequested -= OnPromptGoBackRequested;
+                    choosePromptViewModel.PromptSelected -= OnPromptSelected;
                 }
             }
         }
