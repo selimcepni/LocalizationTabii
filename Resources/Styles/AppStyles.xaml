@@ -191,6 +191,13 @@
                 Size="{StaticResource IconSize}"
                 Color="{StaticResource White}" />
 
+        <FontImageSource
+                x:Key="IconArrowCircleRight24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.arrow_circle_right_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource White}" />
+
 
 
 

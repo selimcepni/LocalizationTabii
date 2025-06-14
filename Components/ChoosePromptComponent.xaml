@@ -41,8 +41,13 @@
                     HorizontalOptions="Center"
                     Margin="0,0,0,8" />
 
-                <!-- Bilgi kartları -->
-                <StackLayout Spacing="12" HorizontalOptions="Center">
+                <!-- Bilgi kartları - Responsive FlexLayout -->
+                <FlexLayout 
+                    Direction="Row" 
+                    Wrap="Wrap" 
+                    JustifyContent="Center" 
+                    AlignItems="Center"
+                    AlignContent="Center">
                     
                     <!-- Dosya bilgisi kartı -->
                     <Border 
@@ -51,10 +56,11 @@
                         Stroke="Transparent"
                         StrokeThickness="0"
                         Padding="20,16"
-                        HorizontalOptions="Center"
-                        WidthRequest="300">
-                        
-
+                        Margin="8"
+                        HeightRequest="70"
+                        FlexLayout.Basis="280"
+                        FlexLayout.Grow="0"
+                        FlexLayout.Shrink="1">
                         
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
                             <Border 
@@ -71,7 +77,7 @@
                                     VerticalOptions="Center" />
                             </Border>
                             
-                            <StackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                            <StackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                 <Label 
                                     Text="{Binding SelectedFileName}"
                                     FontSize="15"
@@ -81,11 +87,25 @@
                                 
                                 <Label 
                                     Text="{Binding FileSize}"
-                                    FontSize="13"
-                                    TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                                    FontSize="12"
+                                    TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
+                                    Margin="0,-1,0,0" />
                             </StackLayout>
                         </Grid>
                     </Border>
+                    
+                    <!-- Süreç ikonu - Responsive görünürlük -->
+                    <Image 
+                        Source="{StaticResource IconArrowCircleRight24Regular}"
+                        WidthRequest="24"
+                        HeightRequest="24"
+                        Margin="8,0"
+                        FlexLayout.Order="1"
+                        FlexLayout.Basis="24"
+                        FlexLayout.Grow="0"
+                        FlexLayout.Shrink="0">
+
+                    </Image>
 
                     <!-- Model bilgisi kartı -->
                     <Border 
@@ -94,8 +114,12 @@
                         Stroke="Transparent"
                         StrokeThickness="0"
                         Padding="20,16"
-                        HorizontalOptions="Center"
-                        WidthRequest="300">
+                        Margin="8"
+                        HeightRequest="70"
+                        FlexLayout.Order="2"
+                        FlexLayout.Basis="280"
+                        FlexLayout.Grow="0"
+                        FlexLayout.Shrink="1">
                         
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
                             <Border 
@@ -112,23 +136,18 @@
                                     VerticalOptions="Center" />
                             </Border>
                             
-                            <StackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
-                                <Label 
-                                    Text="Seçilen Model"
-                                    FontSize="12"
-                                    TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                    FontAttributes="Bold" />
-                                
-                                <Label 
-                                    Text="{Binding SelectedModelDisplayName}"
-                                    FontSize="15"
-                                    FontAttributes="Bold"
-                                    TextColor="{StaticResource SuccessColor}" />
-                            </StackLayout>
+                            <Label 
+                                Grid.Column="1"
+                                Text="{Binding SelectedModelDisplayName}"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource SuccessColor}"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Start" />
                         </Grid>
                     </Border>
                     
-                </StackLayout>
+                </FlexLayout>
             </StackLayout>
 
             <!-- İçerik alanı -->
@@ -142,35 +161,17 @@
                     FontAttributes="Bold"
                     Margin="20,0" />
 
-                <!-- Prompt seç butonu -->
-                <buttons:SfButton 
-                    Text="Prompt Seç"
-                    Command="{Binding SelectPromptCommand}"
-                    FontSize="17"
-                    FontAttributes="Bold"
-                    CornerRadius="20"
-                    WidthRequest="220"
-                    HeightRequest="56"
-                    HorizontalOptions="Center"
-                    Margin="0,8">
-                    
-                    <buttons:SfButton.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="{StaticResource SuccessColor}" Offset="0.0" />
-                            <GradientStop Color="{StaticResource SuccessDarkColor}" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </buttons:SfButton.Background>
-                    
-                    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
-                    
-                    <buttons:SfButton.Shadow>
-                        <Shadow Brush="{StaticResource SuccessColor}" Opacity="0.5" Radius="18" Offset="0,8" />
-                    </buttons:SfButton.Shadow>
-                </buttons:SfButton>
+
             </StackLayout>
 
-            <!-- Alt butonlar -->
-            <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center" Margin="0,20,0,0">
+            <!-- Alt butonlar - Responsive FlexLayout -->
+            <FlexLayout 
+                Direction="Row" 
+                Wrap="Wrap" 
+                JustifyContent="Center" 
+                AlignItems="Center"
+                Margin="0,20,0,0">
+                
                 <!-- Geri dön butonu -->
                 <buttons:SfButton 
                     Text="Geri Dön"
@@ -180,7 +181,10 @@
                     CornerRadius="18"
                     WidthRequest="150"
                     HeightRequest="50"
-                    HorizontalOptions="Center">
+                    Margin="0,5,15,5"
+                    FlexLayout.Basis="150"
+                    FlexLayout.Grow="0"
+                    FlexLayout.Shrink="0">
                     
                     <buttons:SfButton.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -195,7 +199,35 @@
                         <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
                     </buttons:SfButton.Shadow>
                 </buttons:SfButton>
-            </StackLayout>
+                
+                <!-- Prompt seç butonu -->
+                <buttons:SfButton 
+                    Text="Prompt Seç"
+                    Command="{Binding SelectPromptCommand}"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="18"
+                    WidthRequest="170"
+                    HeightRequest="50"
+                    Margin="15,5,0,5"
+                    FlexLayout.Basis="170"
+                    FlexLayout.Grow="0"
+                    FlexLayout.Shrink="0">
+                    
+                    <buttons:SfButton.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+                            <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </buttons:SfButton.Background>
+                    
+                    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+                    
+                    <buttons:SfButton.Shadow>
+                        <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
+                    </buttons:SfButton.Shadow>
+                </buttons:SfButton>
+            </FlexLayout>
             
                 </StackLayout>
             </Border>
