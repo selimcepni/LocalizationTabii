@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    x:Class="LocalizationTabii.Components.ChooseSRTOperationComponent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+    xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+    xmlns:viewmodels="clr-namespace:LocalizationTabii.ComponentModel"
+    xmlns:utilities="clr-namespace:LocalizationTabii.Utilities.Converters"
+    x:DataType="viewmodels:ChooseSRTOperationViewModel">
+
+
+
+    <ScrollView VerticalOptions="FillAndExpand">
+        <StackLayout VerticalOptions="CenterAndExpand" Margin="20" Spacing="16">
+            
+            <!-- Ana zemin kartı - Dashboard ile tutarlılık -->
+            <Border
+                Style="{StaticResource CardStyle}">
+                
+                <Border.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
+                            Opacity="0.1" 
+                            Radius="8" 
+                            Offset="0,2" />
+                </Border.Shadow>
+            
+                <StackLayout VerticalOptions="Center" Spacing="32">
+            
+            <!-- Başlık ve seçilen dosya bilgisi -->
+            <StackLayout Spacing="20">
+                <!-- Ana başlık -->
+                <Label 
+                    Text="SRT Araçları"
+                    Style="{StaticResource Headline}"
+                    FontSize="32"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,8" />
+
+                <!-- Seçilen dosya bilgisi -->
+                <Border 
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                    StrokeShape="RoundRectangle 16"
+                    Stroke="Transparent"
+                    StrokeThickness="0"
+                    Padding="20,16"
+                    HorizontalOptions="Center"
+                    WidthRequest="300">
+                    
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                        <Border 
+                            Grid.Column="0"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="10"
+                            VerticalOptions="Center">
+                            <Image 
+                                Source="{StaticResource IconDocument24Regular}"
+                                WidthRequest="18"
+                                HeightRequest="18"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+                        
+                        <StackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                            <Label 
+                                Text="{Binding SelectedFileName}"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                LineBreakMode="MiddleTruncation"
+                                MaxLines="1" />
+                            
+                            <Label 
+                                Text="{Binding FileSize}"
+                                FontSize="13"
+                                TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                        </StackLayout>
+                    </Grid>
+                </Border>
+            </StackLayout>
+
+            <!-- İşlem seçenekleri -->
+            <StackLayout Spacing="24">
+                <Label 
+                    Text="SRT dosyanız için uygulanacak işlemi seçin:"
+                    FontSize="17"
+                    TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    FontAttributes="Bold"
+                    Margin="20,0" />
+
+                <!-- İşlem kartları -->
+                <StackLayout Spacing="12">
+                    
+                    <!-- Betimleme Temizliği İşlemi -->
+                    <Border 
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
+                        Padding="24,20">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- İşlem bilgileri -->
+                            <StackLayout Grid.Row="0" Grid.Column="0" Spacing="8">
+                                <Label 
+                                    Text="Betimleme Temizliği"
+                                    FontSize="18"
+                                    FontAttributes="Bold" />
+                                
+                                <Label 
+                                    Text="SRT dosyasındaki betimleme metinlerini temizler ve düzenler"
+                                    FontSize="14"
+                                    TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
+                                    LineBreakMode="WordWrap" />
+                            </StackLayout>
+
+                            <!-- Seçim butonu -->
+                            <RadioButton 
+                                Grid.Row="0" 
+                                Grid.Column="1"
+                                GroupName="OperationSelection"
+                                IsChecked="{Binding IsDescriptionCleaningSelected}"
+                                VerticalOptions="Center" />
+
+                            <!-- Özellikler -->
+                            <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Spacing="4" Margin="0,12,0,0">
+                                <Label Text="✓ Parantez içi bilgileri kaldırır" FontSize="12" TextColor="{StaticResource SuccessColor}" />
+                                <Label Text="✓ Zaman damgalarını korur" FontSize="12" TextColor="{StaticResource SuccessColor}" />
+                                <Label Text="✓ Sadece konuşma metinlerini korur" FontSize="12" TextColor="{StaticResource SuccessColor}" />
+                                <Label Text="✓ Dosya formatını korur" FontSize="12" TextColor="{StaticResource SuccessColor}" />
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Alt butonlar -->
+            <FlexLayout 
+                Direction="Row" 
+                Wrap="Wrap" 
+                JustifyContent="Center" 
+                AlignItems="Center"
+                AlignContent="Center"
+                Margin="0,20,0,0">
+                
+                <!-- Geri dön butonu -->
+                <buttons:SfButton 
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Text="Geri Dön"
+                    Command="{Binding GoBackCommand}"
+                    Margin="8,6" />
+
+                <!-- İşlemi başlat butonu -->
+                <buttons:SfButton 
+                    Style="{StaticResource SuccessButtonStyle}"
+                    Text="İşlemi Başlat"
+                    Command="{Binding StartOperationCommand}"
+                    Margin="8,6" />
+            </FlexLayout>
+            
+                </StackLayout>
+            </Border>
+            
+        </StackLayout>
+    </ScrollView>
+</ContentView> 

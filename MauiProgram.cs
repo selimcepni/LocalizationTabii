@@ -83,6 +83,7 @@ namespace LocalizationTabii
             builder.Services.AddTransientWithShellRoute<ProjectDetailPage, ProjectDetailPageModel>("project");
             builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
             builder.Services.AddTransientWithShellRoute<TranslatePage, TranslatePageModel>("translate");
+            builder.Services.AddTransientWithShellRoute<SRTToolsPage, SRTToolsPageModel>("srttools");
             builder.Services.AddTransientWithShellRoute<SettingsPage, SettingsPageModel>("settings");
 
             var app = builder.Build();
