@@ -7,6 +7,7 @@
     xmlns:utilities="clr-namespace:LocalizationTabii.Utilities.Converters"
     xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
     Title="Çeviri">
+    
 
     <Grid>
         <Grid.RowDefinitions>

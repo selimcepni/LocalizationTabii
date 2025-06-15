@@ -22,7 +22,7 @@
 
        <popup:SfPopup.ContentTemplate>
               <DataTemplate>
-                     <Grid Padding="20" RowDefinitions="Auto,Auto,*,Auto">
+                     <Grid Padding="20" RowDefinitions="Auto,Auto,*,Auto,Auto">
 
                             <!--  Loading Indicator  -->
                             <ActivityIndicator

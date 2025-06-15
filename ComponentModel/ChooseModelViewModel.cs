@@ -63,9 +63,7 @@ namespace LocalizationTabii.ComponentModel
             // Model seçimi event'ini fırlat
             ModelSelected?.Invoke(this, new ModelSelectedEventArgs(selectedModel, SelectedFileName, FileSize));
             
-            // Burada çeviri işlemini başlatabilirsiniz
-            await Application.Current?.MainPage?.DisplayAlert("Çeviri Başlatılıyor", 
-                $"Seçilen model: {(IsGpt4Selected ? "GPT-4 Turbo" : "GPT-3.5 Turbo")}\nDosya: {SelectedFileName}", "Tamam");
+     
         }
     }
 

@@ -231,6 +231,7 @@
                 Wrap="Wrap" 
                 JustifyContent="Center" 
                 AlignItems="Center"
+                AlignContent="Center"
                 Margin="0,20,0,0">
                 
                 <!-- Geri dön butonu -->
@@ -240,12 +241,12 @@
                     FontSize="16"
                     FontAttributes="Bold"
                     CornerRadius="18"
-                    WidthRequest="150"
+                    WidthRequest="160"
                     HeightRequest="50"
-                    Margin="0,5,15,5"
-                    FlexLayout.Basis="150"
+                    Margin="6,6"
+                    FlexLayout.Basis="160"
                     FlexLayout.Grow="0"
-                    FlexLayout.Shrink="0">
+                    FlexLayout.Shrink="1">
                     
                     <buttons:SfButton.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -269,12 +270,12 @@
                     FontSize="16"
                     FontAttributes="Bold"
                     CornerRadius="18"
-                    WidthRequest="170"
+                    WidthRequest="160"
                     HeightRequest="50"
-                    Margin="15,5,0,5"
-                    FlexLayout.Basis="170"
+                    Margin="6,6"
+                    FlexLayout.Basis="160"
                     FlexLayout.Grow="0"
-                    FlexLayout.Shrink="0">
+                    FlexLayout.Shrink="1">
                     
                     <buttons:SfButton.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -287,6 +288,35 @@
                     
                     <buttons:SfButton.Shadow>
                         <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
+                    </buttons:SfButton.Shadow>
+                </buttons:SfButton>
+                
+                <!-- Çeviriye başla butonu - Sadece prompt seçildiğinde görünür -->
+                <buttons:SfButton 
+                    Text="Çeviriye Başla"
+                    Command="{Binding StartTranslationCommand}"
+                    IsVisible="{Binding SelectedPrompt, Converter={StaticResource IsNotNullConverter}}"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="18"
+                    WidthRequest="160"
+                    HeightRequest="50"
+                    Margin="6,6"
+                    FlexLayout.Basis="160"
+                    FlexLayout.Grow="0"
+                    FlexLayout.Shrink="1">
+                    
+                    <buttons:SfButton.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#27AE60" Offset="0.0" />
+                            <GradientStop Color="#2ECC71" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </buttons:SfButton.Background>
+                    
+                    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+                    
+                    <buttons:SfButton.Shadow>
+                        <Shadow Brush="#27AE60" Opacity="0.4" Radius="14" Offset="0,6" />
                     </buttons:SfButton.Shadow>
                 </buttons:SfButton>
             </FlexLayout>
