@@ -16,7 +16,7 @@ namespace LocalizationTabii.ComponentModel
         private string outputFileName = string.Empty;
 
         [ObservableProperty]
-        private string resultMessage = "SRT dosyanız başarıyla işlendi ve temizlendi.";
+        private string resultMessage = "SRT dosyanız başarıyla işlendi ve temizlendi.\n\n⚠️ Güvenlik nedeniyle dosya geçici klasöre kaydedildi. 'Dosya Kaydet' butonu ile istediğiniz konuma kaydedebilirsiniz.";
 
         [ObservableProperty]
         private string processingDuration = string.Empty;

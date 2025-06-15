@@ -2,6 +2,7 @@ using Microsoft.Maui.Controls;
 using LocalizationTabii.PageModels;
 using LocalizationTabii.Components;
 using LocalizationTabii.ComponentModel;
+using CommunityToolkit.Maui.Storage;
 
 namespace LocalizationTabii.Pages
 {
@@ -80,6 +81,18 @@ namespace LocalizationTabii.Pages
             {
                 System.Diagnostics.Debug.WriteLine("🔧 ShowProcessingPage başladı: " + operationName + " - " + fileName);
                 
+                // Dosya yolunu al
+                string filePath = string.Empty;
+                if (_viewModel.SelectedFile != null)
+                {
+                    filePath = _viewModel.SelectedFile.FullPath;
+                }
+                else
+                {
+                    await DisplayAlert("Hata", "Dosya seçimi yapılamadı. Lütfen tekrar deneyin.", "Tamam");
+                    return;
+                }
+                
                 // Main thread üzerinde UI operasyonlarını güvenli şekilde yap
                 await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
@@ -94,13 +107,14 @@ namespace LocalizationTabii.Pages
                     
                     // Processing komponentini oluştur ve göster
                     var processingViewModel = new ProcessingSRTViewModel();
-                    processingViewModel.Initialize(operationName, fileName);
+                    processingViewModel.Initialize(operationName, fileName, filePath);
                     
                     System.Diagnostics.Debug.WriteLine("🔧 ProcessingSRTViewModel oluşturuldu ve initialize edildi");
                     
                     // Event handler'ları bağla
                     processingViewModel.ProcessingCompleted += OnProcessingCompleted;
                     processingViewModel.ProcessingCancelled += OnProcessingCancelled;
+                    processingViewModel.ProcessingFailed += OnProcessingFailed;
                     
                     _processingSRTComponent = new ProcessingSRTComponent(processingViewModel);
                     
@@ -238,6 +252,55 @@ namespace LocalizationTabii.Pages
             });
         }
 
+        private void OnProcessingFailed(object? sender, ProcessingFailedEventArgs e)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                try
+                {
+                    // Processing komponentini temizle
+                    CleanupProcessingComponent();
+                    
+                    // Sadece kullanıcı dostu hata mesajı göster
+                    await DisplayAlert("SRT İşleme Hatası", 
+                        $"SRT dosyası işlenirken hata oluştu:\n\n{e.Exception.Message}", 
+                        "Tamam");
+                    
+                    // Grid'i temizle ve orijinal komponentleri güvenli şekilde geri ekle
+                    var mainGrid = Content as Grid;
+                    if (mainGrid != null)
+                    {
+                        // Önce tüm children'ı deaktif et
+                        foreach (var child in mainGrid.Children.ToList())
+                        {
+                            if (child is View view)
+                            {
+                                view.IsEnabled = false;
+                            }
+                        }
+                        
+                        mainGrid.Children.Clear();
+                        
+                        // FileDropComponent'i geri ekle ve aktif et
+                        Grid.SetRow(FileDropComponent, 0);
+                        FileDropComponent.IsVisible = true;
+                        FileDropComponent.IsEnabled = true;
+                        mainGrid.Children.Add(FileDropComponent);
+                        
+                        // ChooseSRTOperationComponent'i geri ekle (gizli olarak)
+                        Grid.SetRow(ChooseSRTOperationComponent, 0);
+                        ChooseSRTOperationComponent.IsVisible = false;
+                        ChooseSRTOperationComponent.IsEnabled = true;
+                        mainGrid.Children.Add(ChooseSRTOperationComponent);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Beklenmeyen Hata", $"Hata işleme sırasında başka bir hata oluştu: {ex.Message}", "Tamam");
+                }
+            });
+        }
+
         private async Task ShowResultPage(SRTProcessingCompletedEventArgs completedArgs)
         {
             try
@@ -252,11 +315,42 @@ namespace LocalizationTabii.Pages
                 // Result komponentini oluştur ve göster
                 var resultViewModel = new SRTResultViewModel();
             
-            // Simülasyon verileri
-            var processingDuration = TimeSpan.FromSeconds(5.2); // Örnek süre
-            var inputFileSize = "142 KB"; // Örnek boyut
-            var outputFileSize = "138 KB"; // Örnek boyut
-            var cleanedLinesCount = 3; // Örnek temizlenen satır sayısı
+            // Gerçek temizleme sonuçları
+            var processingDuration = TimeSpan.FromSeconds(2.5); // Örnek süre
+            var inputFileSize = "Bilinmiyor";
+            var outputFileSize = "Bilinmiyor";
+            var cleanedLinesCount = 0;
+            
+            if (completedArgs.CleaningResult != null)
+            {
+                cleanedLinesCount = completedArgs.CleaningResult.CleanedLinesCount;
+                
+                // Dosya boyutlarını hesapla
+                if (_viewModel.SelectedFile != null)
+                {
+                    try
+                    {
+                        var fileInfo = new FileInfo(_viewModel.SelectedFile.FullPath);
+                        inputFileSize = FormatFileSize(fileInfo.Length);
+                        
+                        // Çıktı dosyasının boyutunu da hesapla (temp klasöründe)
+                        var outputPath = Path.Combine(
+                            Path.GetTempPath(),
+                            Path.GetFileNameWithoutExtension(_viewModel.SelectedFile.FullPath) + "_temizlendi" + Path.GetExtension(_viewModel.SelectedFile.FullPath)
+                        );
+                        
+                        if (File.Exists(outputPath))
+                        {
+                            var outputFileInfo = new FileInfo(outputPath);
+                            outputFileSize = FormatFileSize(outputFileInfo.Length);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"❌ Dosya boyutu hesaplanamadı: {ex.Message}");
+                    }
+                }
+            }
             
             resultViewModel.Initialize(
                 completedArgs.OperationName,
@@ -314,6 +408,7 @@ namespace LocalizationTabii.Pages
                 {
                     processingVM.ProcessingCompleted -= OnProcessingCompleted;
                     processingVM.ProcessingCancelled -= OnProcessingCancelled;
+                    processingVM.ProcessingFailed -= OnProcessingFailed;
                 }
                 
                 // Grid'den kaldır
@@ -350,7 +445,47 @@ namespace LocalizationTabii.Pages
 
         private async void OnSaveFileRequested(object? sender, EventArgs e)
         {
-            await DisplayAlert("Dosya Kaydet", "Dosya kaydetme özelliği yakında eklenecek", "Tamam");
+            try
+            {
+                if (_viewModel.SelectedFile == null)
+                {
+                    await DisplayAlert("Hata", "Orijinal dosya bilgisi bulunamadı", "Tamam");
+                    return;
+                }
+
+                // Temp klasöründeki dosyayı bul
+                var tempOutputPath = Path.Combine(
+                    Path.GetTempPath(),
+                    Path.GetFileNameWithoutExtension(_viewModel.SelectedFile.FullPath) + "_temizlendi" + Path.GetExtension(_viewModel.SelectedFile.FullPath)
+                );
+
+                if (!File.Exists(tempOutputPath))
+                {
+                    await DisplayAlert("Hata", "Temizlenmiş dosya bulunamadı", "Tamam");
+                    return;
+                }
+
+                // Dosya içeriğini oku
+                var fileContent = await File.ReadAllTextAsync(tempOutputPath);
+                var fileName = Path.GetFileNameWithoutExtension(_viewModel.SelectedFile.FullPath) + "_temizlendi" + Path.GetExtension(_viewModel.SelectedFile.FullPath);
+                
+                // FileSaver kullanarak dosyayı kaydet
+                using var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(fileContent));
+                var fileSaverResult = await FileSaver.Default.SaveAsync(fileName, stream, CancellationToken.None);
+                
+                if (fileSaverResult.IsSuccessful)
+                {
+                    await DisplayAlert("Başarılı", "Dosya başarıyla kaydedildi!", "Tamam");
+                }
+                else
+                {
+                    await DisplayAlert("İptal", "Dosya kaydetme işlemi iptal edildi.", "Tamam");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Hata", $"Dosya kaydetme hatası: {ex.Message}", "Tamam");
+            }
         }
 
         private void OnNewOperationRequested(object? sender, EventArgs e)
@@ -401,6 +536,21 @@ namespace LocalizationTabii.Pages
         {
             await Shell.Current.GoToAsync("..");
         }
+
+        private string FormatFileSize(long bytes)
+        {
+            string[] sizes = { "B", "KB", "MB", "GB" };
+            double len = bytes;
+            int order = 0;
+            while (len >= 1024 && order < sizes.Length - 1)
+            {
+                order++;
+                len = len / 1024;
+            }
+            return $"{len:0.##} {sizes[order]}";
+        }
+
+
 
         protected override void OnDisappearing()
         {

@@ -55,18 +55,12 @@
                             HorizontalOptions="Center"
                             TextColor="{StaticResource SuccessColor}" />
                             
-                        <Label 
-                            Text="{Binding ResultMessage}"
-                            FontSize="16"
-                            TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
-                            HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            Margin="0,0,0,8" />
+            
                     </StackLayout>
 
                     <!-- Dosya bilgileri -->
                     <StackLayout Spacing="16">
-                        
+            
                         <!-- Giriş dosyası -->
                         <Border 
                             BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
@@ -101,12 +95,18 @@
                                         LineBreakMode="MiddleTruncation" />
                                 </StackLayout>
                                 
-                                <Label 
+                                <Border 
                                     Grid.Column="2"
-                                    Text="Orijinal"
-                                    FontSize="12"
-                                    TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                    VerticalOptions="Center" />
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}"
+                                    StrokeShape="RoundRectangle 8"
+                                    Padding="8,4"
+                                    VerticalOptions="Center">
+                                    <Label 
+                                        Text="ORİJİNAL"
+                                        FontSize="10"
+                                        TextColor="White"
+                                        FontAttributes="Bold" />
+                                </Border>
                             </Grid>
                         </Border>
                         
@@ -171,141 +171,29 @@
                         
                     </StackLayout>
 
-                    <!-- İstatistikler -->
-                    <Border 
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
-                        StrokeShape="RoundRectangle 16"
-                        Stroke="Transparent"
-                        StrokeThickness="0"
-                        Padding="24,20">
-                        
-                        <StackLayout Spacing="16">
-                            <Label 
-                                Text="İşlem Özeti"
-                                FontSize="16"
-                                FontAttributes="Bold"
-                                HorizontalOptions="Center" />
-                                
-                            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="12" ColumnSpacing="16">
-                                
-                                <!-- İşlem Türü -->
-                                <StackLayout Grid.Row="0" Grid.Column="0" Spacing="4">
-                                    <Label 
-                                        Text="İşlem Türü"
-                                        FontSize="12"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                        FontAttributes="Bold" />
-                                    <Label 
-                                        Text="{Binding OperationName}"
-                                        FontSize="14"
-                                        FontAttributes="Bold" />
-                                </StackLayout>
-                                
-                                <!-- İşlem Süresi -->
-                                <StackLayout Grid.Row="0" Grid.Column="1" Spacing="4">
-                                    <Label 
-                                        Text="İşlem Süresi"
-                                        FontSize="12"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                        FontAttributes="Bold" />
-                                    <Label 
-                                        Text="{Binding ProcessingDuration}"
-                                        FontSize="14"
-                                        FontAttributes="Bold" />
-                                </StackLayout>
-                                
-                                <!-- Dosya Boyutu (Önce) -->
-                                <StackLayout Grid.Row="1" Grid.Column="0" Spacing="4">
-                                    <Label 
-                                        Text="Orijinal Boyut"
-                                        FontSize="12"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                        FontAttributes="Bold" />
-                                    <Label 
-                                        Text="{Binding InputFileSize}"
-                                        FontSize="14"
-                                        FontAttributes="Bold" />
-                                </StackLayout>
-                                
-                                <!-- Dosya Boyutu (Sonra) -->
-                                <StackLayout Grid.Row="1" Grid.Column="1" Spacing="4">
-                                    <Label 
-                                        Text="Yeni Boyut"
-                                        FontSize="12"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                        FontAttributes="Bold" />
-                                    <Label 
-                                        Text="{Binding OutputFileSize}"
-                                        FontSize="14"
-                                        FontAttributes="Bold"
-                                        TextColor="{StaticResource SuccessColor}" />
-                                </StackLayout>
-                                
-                                <!-- Temizlenen Satır Sayısı -->
-                                <StackLayout Grid.Row="2" Grid.ColumnSpan="2" Spacing="4" HorizontalOptions="Center">
-                                    <Label 
-                                        Text="Temizlenen Betimleme Satırları"
-                                        FontSize="12"
-                                        TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                        FontAttributes="Bold"
-                                        HorizontalOptions="Center" />
-                                    <Label 
-                                        Text="{Binding CleanedLinesCount}"
-                                        FontSize="18"
-                                        FontAttributes="Bold"
-                                        TextColor="{StaticResource SuccessColor}"
-                                        HorizontalOptions="Center" />
-                                </StackLayout>
-                                
-                            </Grid>
-                        </StackLayout>
-                    </Border>
-
                     <!-- Alt butonlar -->
-                    <StackLayout Spacing="16" Margin="0,20,0,0">
+                    <FlexLayout 
+                        Direction="Row" 
+                        Wrap="Wrap" 
+                        JustifyContent="Center" 
+                        AlignItems="Center"
+                        AlignContent="Center"
+                        Margin="0,20,0,0">
                         
-                        <!-- Ana aksiyon butonları -->
-                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
-                            <!-- Dosyayı Görüntüle -->
-                            <buttons:SfButton 
-                                Grid.Column="0"
-                                Style="{StaticResource PrimaryButtonStyle}"
-                                Text="Dosyayı Görüntüle"
-                                Command="{Binding ViewFileCommand}"
-                                WidthRequest="-1"
-                                HorizontalOptions="FillAndExpand" />
-
-                            <!-- Dosyayı Kaydet -->
-                            <buttons:SfButton 
-                                Grid.Column="1"
-                                Style="{StaticResource SuccessButtonStyle}"
-                                Text="Dosyayı Kaydet"
-                                Command="{Binding SaveFileCommand}"
-                                WidthRequest="-1"
-                                HorizontalOptions="FillAndExpand" />
-                        </Grid>
+                        <!-- Dosyayı Kaydet -->
+                        <buttons:SfButton 
+                            Style="{StaticResource SuccessButtonStyle}"
+                            Text="Dosyayı Kaydet"
+                            Command="{Binding SaveFileCommand}"
+                            Margin="8,6" />
                         
-                        <!-- İkincil aksiyon butonları -->
-                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
-                            <!-- Yeni İşlem -->
-                            <buttons:SfButton 
-                                Grid.Column="0"
-                                Style="{StaticResource SecondaryButtonStyle}"
-                                Text="Yeni İşlem"
-                                Command="{Binding NewOperationCommand}"
-                                WidthRequest="-1"
-                                HorizontalOptions="FillAndExpand" />
-
-                            <!-- Ana Sayfaya Dön -->
-                            <buttons:SfButton 
-                                Grid.Column="1"
-                                Style="{StaticResource TertiaryButtonStyle}"
-                                Text="Ana Sayfa"
-                                Command="{Binding GoToHomeCommand}"
-                                WidthRequest="-1"
-                                HorizontalOptions="FillAndExpand" />
-                        </Grid>
-                    </StackLayout>
+                        <!-- Yeni İşlem -->
+                        <buttons:SfButton 
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Text="Yeni İşlem"
+                            Command="{Binding NewOperationCommand}"
+                            Margin="8,6" />
+                    </FlexLayout>
                     
                 </StackLayout>
             </Border>

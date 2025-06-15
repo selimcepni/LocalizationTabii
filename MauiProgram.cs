@@ -67,6 +67,7 @@ namespace LocalizationTabii
             builder.Services.AddSingleton<TagRepository>();
             builder.Services.AddSingleton<SeedDataService>();
             builder.Services.AddSingleton<ModalErrorHandler>();
+            builder.Services.AddSingleton<SRTCleaningService>();
             
             // Prompt servisleri
             builder.Services.AddSingleton<IPromptStorageService, PromptStorageService>();
