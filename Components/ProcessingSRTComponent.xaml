@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    x:Class="LocalizationTabii.Components.ProcessingSRTComponent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+    xmlns:viewmodels="clr-namespace:LocalizationTabii.ComponentModel"
+    x:DataType="viewmodels:ProcessingSRTViewModel">
+
+    <ScrollView VerticalOptions="FillAndExpand">
+        <StackLayout VerticalOptions="CenterAndExpand" Margin="20" Spacing="16">
+            
+            <!-- Ana zemin kartı -->
+            <Border Style="{StaticResource CardStyle}">
+                
+                <Border.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
+                            Opacity="0.1" 
+                            Radius="8" 
+                            Offset="0,2" />
+                </Border.Shadow>
+            
+                <StackLayout VerticalOptions="Center" Spacing="32" Padding="32">
+                    
+                    <!-- Başlık -->
+                    <StackLayout Spacing="16">
+                        <Label 
+                            Text="SRT İşlemi"
+                            Style="{StaticResource Headline}"
+                            FontSize="32"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center" />
+                            
+                    </StackLayout>
+
+                    <!-- Progress Bar -->
+                    <StackLayout Spacing="16">
+                        <Grid>
+                            <progressBar:SfLinearProgressBar 
+                                Progress="{Binding ProgressValue}"
+                                TrackFill="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" 
+                                ProgressFill="{StaticResource Primary}"
+                                TrackHeight="8"
+                                HeightRequest="8"
+                                Margin="0,8" />
+                        </Grid>
+                            
+                        <Label 
+                            Text="{Binding ProgressText}"
+                            FontSize="14"
+                            TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center" />
+                    </StackLayout>
+
+                    <!-- İptal butonu -->
+                    <buttons:SfButton 
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Text="İptal"
+                        Command="{Binding CancelCommand}"
+                        IsEnabled="{Binding CanCancel}"
+                        HorizontalOptions="Center"
+                        Margin="0,16,0,0" />
+                        
+                </StackLayout>
+            </Border>
+            
+        </StackLayout>
+    </ScrollView>
+</ContentView> 

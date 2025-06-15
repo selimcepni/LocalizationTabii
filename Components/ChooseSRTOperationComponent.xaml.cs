@@ -17,5 +17,10 @@ namespace LocalizationTabii.Components
         {
             _viewModel?.SetFileInfo(fileName, fileSize);
         }
+
+        public string? GetSelectedFileName()
+        {
+            return _viewModel?.SelectedFileName;
+        }
     }
 } 

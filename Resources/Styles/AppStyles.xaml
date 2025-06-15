@@ -696,4 +696,18 @@
                 </Setter>
         </Style>
 
+        <!-- TERTIARY BUTTON - Ana Sayfaya Dön gibi üçüncül butonlar -->
+        <Style x:Key="TertiaryButtonStyle" TargetType="buttons:SfButton">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="18" />
+                <Setter Property="WidthRequest" Value="160" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="6,6" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}" />
+                <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+
 </ResourceDictionary>
