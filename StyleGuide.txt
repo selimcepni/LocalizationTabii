@@ -1,0 +1,423 @@
+# LocalizationTabii - Stil Rehberi
+
+## 🎨 RENK SİSTEMİ VE BACKGROUND YAPISI
+
+### Ana Sayfa Background Renkleri:
+- **Light Theme:** LightBackground (#F2F2F2)
+- **Dark Theme:** DarkBackground (#17171a)
+- **Kullanım:** ContentPage BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}"
+
+### Card/Component Background Renkleri:
+- **Light Theme:** LightSecondaryBackground (#E0E0E0)
+- **Dark Theme:** DarkSecondaryBackground (#222228)
+- **Kullanım:** Style="{StaticResource CardStyle}"
+
+### CardStyle Özellikleri:
+```xaml
+<Style x:Key="CardStyle" TargetType="Border">
+    <Setter Property="StrokeShape" Value="RoundRectangle 20" />
+    <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}" />
+    <Setter Property="StrokeThickness" Value="0" />
+    <Setter Property="Padding" Value="{OnIdiom 15, Desktop=20}" />
+</Style>
+```
+
+### Renk Hiyerarşisi:
+1. **Ana Sayfa:** LightBackground/DarkBackground (En açık/koyu)
+2. **Card'lar:** LightSecondaryBackground/DarkSecondaryBackground (Orta ton)
+3. **Accent Alanlar:** LightAccentColor/DarkAccentColor (Vurgu alanları)
+
+### Metin Renkleri:
+- **Birincil Metin:** LightTextPrimaryColor (#0F172A) / DarkTextPrimaryColor (#F1F5F9)
+- **İkincil Metin:** LightTextSecondaryColor (#64748B) / DarkTextSecondaryColor (#94A3B8)
+- **Gölge Renk:** Gray500 (#6E6E6E)
+
+### Vurgu Renkleri:
+- **Primary:** LightPrimaryColor (#6366F1) / DarkPrimaryColor (#818CF8)
+- **Secondary:** LightSecondaryColor (#EC4899) / DarkSecondaryColor (#F472B6)
+- **Success:** SuccessColor (#8B5CF6)
+- **Border:** LightBorderColor (#E2E8F0) / DarkBorderColor (#334155)
+
+## 🔘 BUTON STANDARTLARI
+
+### Mevcut Buton Türleri ve Özelikleri:
+
+#### 1. PRIMARY BUTTON (Ana Aksiyon Butonları)
+**Örnek:** "Dosya Seç", "Çeviriye Başla"
+```xaml
+<buttons:SfButton 
+    Text="[BUTON_METNI]"
+    Command="{Binding [COMMAND]}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    WidthRequest="160"
+    HeightRequest="50"
+    Margin="6,6">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+            <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+
+#### 2. SECONDARY BUTTON (İkincil Aksiyon Butonları)
+**Örnek:** "Geri Dön", "İptal"
+```xaml
+<buttons:SfButton 
+    Text="[BUTON_METNI]"
+    Command="{Binding [COMMAND]}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    WidthRequest="160"
+    HeightRequest="50"
+    Margin="6,6">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Offset="0.0" />
+            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" Offset="1.0" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+
+#### 3. SUCCESS BUTTON (Başarı Butonları)
+**Örnek:** "Devam Et", "Tamamla"
+```xaml
+<buttons:SfButton 
+    Text="[BUTON_METNI]"
+    Command="{Binding [COMMAND]}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    WidthRequest="160"
+    HeightRequest="50"
+    Margin="6,6">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#27AE60" Offset="0.0" />
+            <GradientStop Color="#2ECC71" Offset="1.0" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="#27AE60" Opacity="0.4" Radius="14" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+
+#### 4. PURPLE/ACCENT BUTTON (Özel Vurgu Butonları)
+**Örnek:** "Prompt Seç"
+```xaml
+<buttons:SfButton 
+    Text="[BUTON_METNI]"
+    Command="{Binding [COMMAND]}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    WidthRequest="160"
+    HeightRequest="50"
+    Margin="6,6">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+            <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+
+### Buton Container Yapısı:
+```xaml
+<FlexLayout 
+    Direction="Row" 
+    Wrap="Wrap" 
+    JustifyContent="Center" 
+    AlignItems="Center"
+    AlignContent="Center"
+    Margin="0,20,0,0">
+    
+    <!-- Butonlar buraya gelecek -->
+    
+</FlexLayout>
+```
+
+## 📋 STANDARTLAŞTIRILACAk BUTONLAR
+
+### FileDragDropComponent'ten:
+1. **"Devam Et" butonu** - SUCCESS BUTTON olarak standardize edilecek
+
+### ChooseModelComponent'ten:
+1. **"Geri Dön" butonu** - SECONDARY BUTTON olarak standardize edilecek  
+2. **"Devam Et" butonu** - SUCCESS BUTTON olarak standardize edilecek
+
+### ChoosePromptComponent'ten:
+1. **"Geri Dön" butonu** - SECONDARY BUTTON olarak standardize edilecek
+2. **"Prompt Seç" butonu** - PURPLE/ACCENT BUTTON olarak standardize edilecek
+3. **"Çeviriye Başla" butonu** - SUCCESS BUTTON olarak standardize edilecek
+
+## 🎯 UYGULAMA KURALLARI
+
+### Background Kullanımı:
+1. **Tüm ContentPage'ler** → LightBackground/DarkBackground kullanmalı
+2. **Tüm Card/Component'ler** → CardStyle kullanmalı
+3. **Tutarlılık** → Aynı seviyedeki elementler aynı background rengini kullanmalı
+
+### Buton Kullanımı:
+1. **Ana aksiyonlar** → PRIMARY BUTTON
+2. **Geri/İptal** → SECONDARY BUTTON  
+3. **Devam/Tamamla** → SUCCESS BUTTON
+4. **Özel vurgular** → PURPLE/ACCENT BUTTON
+
+### Genel Kurallar:
+- Margin: 6,6 (butonlar arası)
+- WidthRequest: 160
+- HeightRequest: 50
+- CornerRadius: 18
+- FontSize: 16
+- FontAttributes: Bold
+- Shadow kullanımı zorunlu (derinlik için)
+
+## 📊 MEVCUT BUTONLARIN DETAYLI ANALİZİ
+
+### FileDragDropComponent - "Devam Et" Butonu:
+```xaml
+<buttons:SfButton
+    x:Name="ContinueButton"
+    Text="Devam Et"
+    Command="{Binding ContinueCommand}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    HeightRequest="50"
+    WidthRequest="170"
+    Margin="0,8">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0.0" Color="{StaticResource LightPrimaryColor}" />
+            <GradientStop Offset="1.0" Color="{StaticResource LightSecondaryColor}" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+**SORUN:** WidthRequest="170" standart değil, Margin="0,8" standart değil
+
+### FileDragDropComponent - "Dosyayı Kaldır" Butonu:
+```xaml
+<buttons:SfButton
+    x:Name="RemoveButton"
+    Text="Dosyayı Kaldır"
+    Command="{Binding ClearFileCommand}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    HeightRequest="50"
+    WidthRequest="150"
+    Margin="0,8">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" />
+            <GradientStop Offset="1.1" Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+**SORUN:** WidthRequest="150" standart değil, Margin="0,8" standart değil
+
+### ChooseModelComponent - "Geri Dön" Butonu:
+```xaml
+<buttons:SfButton 
+    Text="Geri Dön"
+    Command="{Binding GoBackCommand}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    WidthRequest="150"
+    HeightRequest="50">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Offset="0.0" />
+            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" Offset="1.0" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+**SORUN:** WidthRequest="150" standart değil, Margin eksik
+
+### ChooseModelComponent - "Devam Et" Butonu:
+```xaml
+<buttons:SfButton 
+    Text="Devam Et"
+    Command="{Binding StartTranslationCommand}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    WidthRequest="170"
+    HeightRequest="50">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+            <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+**SORUN:** WidthRequest="170" standart değil, Margin eksik
+
+### ChoosePromptComponent - "Geri Dön" Butonu:
+```xaml
+<buttons:SfButton 
+    Text="Geri Dön"
+    Command="{Binding GoBackCommand}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    WidthRequest="160"
+    HeightRequest="50"
+    Margin="6,6">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Offset="0.0" />
+            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" Offset="1.0" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+**DURUM:** STANDART! ✅
+
+### ChoosePromptComponent - "Prompt Seç" Butonu:
+```xaml
+<buttons:SfButton 
+    Text="Prompt Seç"
+    Command="{Binding SelectPromptCommand}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    WidthRequest="160"
+    HeightRequest="50"
+    Margin="6,6">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+            <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+**DURUM:** STANDART! ✅
+
+### ChoosePromptComponent - "Çeviriye Başla" Butonu:
+```xaml
+<buttons:SfButton 
+    Text="Çeviriye Başla"
+    Command="{Binding StartTranslationCommand}"
+    FontSize="16"
+    FontAttributes="Bold"
+    CornerRadius="18"
+    WidthRequest="160"
+    HeightRequest="50"
+    Margin="6,6">
+    
+    <buttons:SfButton.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#27AE60" Offset="0.0" />
+            <GradientStop Color="#2ECC71" Offset="1.0" />
+        </LinearGradientBrush>
+    </buttons:SfButton.Background>
+    
+    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
+    
+    <buttons:SfButton.Shadow>
+        <Shadow Brush="#27AE60" Opacity="0.4" Radius="14" Offset="0,6" />
+    </buttons:SfButton.Shadow>
+</buttons:SfButton>
+```
+**DURUM:** STANDART! ✅
+
+## 🚨 STANDARTLAŞTIRILMASSı GEREKEN BUTONLAR
+
+### Düzeltilmesi Gerekenler:
+1. **FileDragDropComponent - "Devam Et"**: WidthRequest 170→160, Margin 0,8→6,6
+2. **FileDragDropComponent - "Dosyayı Kaldır"**: WidthRequest 150→160, Margin 0,8→6,6
+3. **ChooseModelComponent - "Geri Dön"**: WidthRequest 150→160, Margin eksik→6,6
+4. **ChooseModelComponent - "Devam Et"**: WidthRequest 170→160, Margin eksik→6,6
+
+### Container Düzeltilmesi Gerekenler:
+1. **FileDragDropComponent**: StackLayout Orientation="Horizontal" Spacing="16" → FlexLayout ile değiştir
+2. **ChooseModelComponent**: StackLayout Orientation="Horizontal" Spacing="20" → FlexLayout ile değiştir
+
+## 🔧 SONRAKİ ADIMLAR
+
+1. Buton style'larını ResourceDictionary'ye ekle
+2. Mevcut butonları standardize et
+3. Component'lerde tutarlılığı sağla
+4. Test et ve dokümante et 

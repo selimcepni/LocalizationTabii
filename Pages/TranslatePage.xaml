@@ -6,7 +6,8 @@
     xmlns:components="clr-namespace:LocalizationTabii.Components"
     xmlns:utilities="clr-namespace:LocalizationTabii.Utilities.Converters"
     xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-    Title="Çeviri">
+    Title="Çeviri"
+    BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
     
 
     <Grid>

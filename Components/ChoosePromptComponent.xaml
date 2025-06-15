@@ -13,13 +13,9 @@
     <ScrollView VerticalOptions="FillAndExpand">
         <StackLayout VerticalOptions="CenterAndExpand" Margin="20" Spacing="16">
             
-            <!-- Ana zemin kartı - FileDragDropComponent ile tutarlılık -->
+            <!-- Ana zemin kartı - Dashboard ile tutarlılık -->
             <Border
-                Padding="40"
-                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkSurfaceColor}}"
-                StrokeShape="RoundRectangle 24"
-                Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource DarkBorderColor}}"
-                StrokeThickness="2">
+                Style="{StaticResource CardStyle}">
                 
                 <Border.Shadow>
                     <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
@@ -236,89 +232,26 @@
                 
                 <!-- Geri dön butonu -->
                 <buttons:SfButton 
+                    Style="{StaticResource SecondaryButtonStyle}"
                     Text="Geri Dön"
                     Command="{Binding GoBackCommand}"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    CornerRadius="18"
-                    WidthRequest="160"
-                    HeightRequest="50"
-                    Margin="6,6"
-                    FlexLayout.Basis="160"
-                    FlexLayout.Grow="0"
-                    FlexLayout.Shrink="1">
-                    
-                    <buttons:SfButton.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Offset="0.0" />
-                            <GradientStop Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </buttons:SfButton.Background>
-                    
-                    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
-                    
-                    <buttons:SfButton.Shadow>
-                        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
-                    </buttons:SfButton.Shadow>
-                </buttons:SfButton>
+                    Margin="8,6" />
                 
                 <!-- Prompt seç butonu -->
                 <buttons:SfButton 
+                    Style="{StaticResource AccentButtonStyle}"
                     Text="Prompt Seç"
                     Command="{Binding SelectPromptCommand}"
                     IsEnabled="{Binding IsSelectingPrompt, Converter={StaticResource InvertedBoolConverter}}"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    CornerRadius="18"
-                    WidthRequest="160"
-                    HeightRequest="50"
-                    Margin="6,6"
-                    FlexLayout.Basis="160"
-                    FlexLayout.Grow="0"
-                    FlexLayout.Shrink="1">
-                    
-                    <buttons:SfButton.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
-                            <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </buttons:SfButton.Background>
-                    
-                    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
-                    
-                    <buttons:SfButton.Shadow>
-                        <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
-                    </buttons:SfButton.Shadow>
-                </buttons:SfButton>
+                    Margin="8,6" />
                 
                 <!-- Çeviriye başla butonu - Sadece prompt seçildiğinde görünür -->
                 <buttons:SfButton 
+                    Style="{StaticResource SuccessButtonStyle}"
                     Text="Çeviriye Başla"
                     Command="{Binding StartTranslationCommand}"
                     IsVisible="{Binding SelectedPrompt, Converter={StaticResource IsNotNullConverter}}"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    CornerRadius="18"
-                    WidthRequest="160"
-                    HeightRequest="50"
-                    Margin="6,6"
-                    FlexLayout.Basis="160"
-                    FlexLayout.Grow="0"
-                    FlexLayout.Shrink="1">
-                    
-                    <buttons:SfButton.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#27AE60" Offset="0.0" />
-                            <GradientStop Color="#2ECC71" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </buttons:SfButton.Background>
-                    
-                    <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
-                    
-                    <buttons:SfButton.Shadow>
-                        <Shadow Brush="#27AE60" Opacity="0.4" Radius="14" Offset="0,6" />
-                    </buttons:SfButton.Shadow>
-                </buttons:SfButton>
+                    Margin="8,6" />
             </FlexLayout>
             
                 </StackLayout>

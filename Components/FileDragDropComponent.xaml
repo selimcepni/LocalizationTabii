@@ -20,15 +20,12 @@
             <!--  Dosya seçme alanı - Dosya seçilmediğinde gösterilir  -->
             <Border
                 x:Name="UploadArea"
-                Padding="40"
-                BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
-                                                  Dark={StaticResource DarkSurfaceColor}}"
+                Style="{StaticResource CardStyle}"
                 IsVisible="{Binding HasSelectedFile, Converter={x:Static utilities:InverseBoolConverter.Instance}}"
-                Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
-                                         Dark={StaticResource DarkBorderColor}}"
                 StrokeDashArray="8,4"
-                StrokeShape="RoundRectangle 24"
-                StrokeThickness="2">
+                StrokeThickness="2"
+                Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                         Dark={StaticResource DarkBorderColor}}">
 
                 <!--  Subtle inner shadow effect  -->
                 <Border.Shadow>
@@ -189,15 +186,12 @@
             <!--  Dosya seçili durumu - Purple temalı görünüm  -->
             <Border
                 x:Name="SelectedFileArea"
-                Padding="40"
-                BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
-                                                  Dark={StaticResource DarkSurfaceColor}}"
+                Style="{StaticResource CardStyle}"
                 IsVisible="{Binding HasSelectedFile}"
-                Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
-                                         Dark={StaticResource DarkBorderColor}}"
                 StrokeDashArray="8,4"
-                StrokeShape="RoundRectangle 24"
-                StrokeThickness="2">
+                StrokeThickness="2"
+                Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
+                                         Dark={StaticResource DarkBorderColor}}">
 
                 <!--  Purple shadow effect  -->
                 <Border.Shadow>
@@ -299,75 +293,30 @@
                     </StackLayout>
 
                     <!--  Action buttons  -->
-                    <StackLayout
-                        HorizontalOptions="Center"
-                        Orientation="Horizontal"
-                        Spacing="16">
+                    <FlexLayout 
+                        Direction="Row" 
+                        Wrap="Wrap" 
+                        JustifyContent="Center" 
+                        AlignItems="Center"
+                        AlignContent="Center"
+                        Margin="0,20,0,0">
+                        
                         <!--  Remove file button  -->
                         <buttons:SfButton
                             x:Name="RemoveButton"
-                            Margin="0,8"
+                            Style="{StaticResource SecondaryButtonStyle}"
                             Command="{Binding ClearFileCommand}"
-                            CornerRadius="18"
-                            FontAttributes="Bold"
-                            FontSize="16"
-                            HeightRequest="50"
-                            HorizontalOptions="Center"
                             Text="Dosyayı Kaldır"
-                            WidthRequest="150">
-
-                            <buttons:SfButton.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Offset="0.0" Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" />
-                                    <GradientStop Offset="1.0" Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" />
-                                </LinearGradientBrush>
-                            </buttons:SfButton.Background>
-
-                            <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
-
-                            <buttons:SfButton.Shadow>
-                                <Shadow
-                                    Brush="{AppThemeBinding Light={StaticResource Gray400},
-                                                            Dark={StaticResource Gray600}}"
-                                    Opacity="0.3"
-                                    Radius="12"
-                                    Offset="0,6" />
-                            </buttons:SfButton.Shadow>
-
-                        </buttons:SfButton>
+                            Margin="8,6" />
 
                         <!--  Continue button  -->
                         <buttons:SfButton
                             x:Name="ContinueButton"
-                            Margin="0,8"
+                            Style="{StaticResource SuccessButtonStyle}"
                             Command="{Binding ContinueCommand}"
-                            CornerRadius="18"
-                            FontAttributes="Bold"
-                            FontSize="16"
-                            HeightRequest="50"
-                            HorizontalOptions="Center"
                             Text="Devam Et"
-                            WidthRequest="170">
-
-                            <!--  Gradient background  -->
-                            <buttons:SfButton.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Offset="0.0" Color="{StaticResource LightPrimaryColor}" />
-                                    <GradientStop Offset="1.0" Color="{StaticResource LightSecondaryColor}" />
-                                </LinearGradientBrush>
-                            </buttons:SfButton.Background>
-
-                            <buttons:SfButton.TextColor>White</buttons:SfButton.TextColor>
-
-                            <buttons:SfButton.Shadow>
-                                <Shadow
-                                    Brush="{StaticResource LightPrimaryColor}"
-                                    Opacity="0.4"
-                                    Radius="14"
-                                    Offset="0,6" />
-                            </buttons:SfButton.Shadow>
-                        </buttons:SfButton>
-                    </StackLayout>
+                            Margin="8,6" />
+                    </FlexLayout>
 
                 </StackLayout>
             </Border>

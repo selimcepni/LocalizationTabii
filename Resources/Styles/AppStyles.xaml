@@ -4,6 +4,7 @@
         xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         xmlns:f="clr-namespace:Fonts"
+        xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
         xmlns:pullToRefresh="clr-namespace:Syncfusion.Maui.Toolkit.PullToRefresh;assembly=Syncfusion.Maui.Toolkit"
         xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit">
 
@@ -589,8 +590,102 @@
                 <Setter Property="ProgressColor" Value="{StaticResource Primary}" />
         </Style>
 
+        <!-- Standardize Edilmiş Buton Style'ları -->
+        
+        <!-- SECONDARY BUTTON - Geri Dön, İptal butonları -->
+        <Style x:Key="SecondaryButtonStyle" TargetType="buttons:SfButton">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="18" />
+                <Setter Property="WidthRequest" Value="160" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="6,6" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Background">
+                        <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Offset="0.0" />
+                                        <GradientStop Color="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray500}}" Offset="1.0" />
+                                </LinearGradientBrush>
+                        </Setter.Value>
+                </Setter>
+                <Setter Property="Shadow">
+                        <Setter.Value>
+                                <Shadow Brush="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}" Opacity="0.3" Radius="12" Offset="0,6" />
+                        </Setter.Value>
+                </Setter>
+        </Style>
 
+        <!-- PRIMARY BUTTON - Ana aksiyon butonları -->
+        <Style x:Key="PrimaryButtonStyle" TargetType="buttons:SfButton">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="18" />
+                <Setter Property="WidthRequest" Value="160" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="6,6" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Background">
+                        <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+                                        <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
+                                </LinearGradientBrush>
+                        </Setter.Value>
+                </Setter>
+                <Setter Property="Shadow">
+                        <Setter.Value>
+                                <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
+                        </Setter.Value>
+                </Setter>
+        </Style>
 
+        <!-- SUCCESS BUTTON - Devam Et, Çeviriye Başla butonları -->
+        <Style x:Key="SuccessButtonStyle" TargetType="buttons:SfButton">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="18" />
+                <Setter Property="WidthRequest" Value="160" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="6,6" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Background">
+                        <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#27AE60" Offset="0.0" />
+                                        <GradientStop Color="#2ECC71" Offset="1.0" />
+                                </LinearGradientBrush>
+                        </Setter.Value>
+                </Setter>
+                <Setter Property="Shadow">
+                        <Setter.Value>
+                                <Shadow Brush="#27AE60" Opacity="0.4" Radius="14" Offset="0,6" />
+                        </Setter.Value>
+                </Setter>
+        </Style>
 
+        <!-- ACCENT BUTTON - Prompt Seç gibi özel vurgu butonları -->
+        <Style x:Key="AccentButtonStyle" TargetType="buttons:SfButton">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="18" />
+                <Setter Property="WidthRequest" Value="160" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Margin" Value="6,6" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Background">
+                        <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{StaticResource LightPrimaryColor}" Offset="0.0" />
+                                        <GradientStop Color="{StaticResource LightSecondaryColor}" Offset="1.0" />
+                                </LinearGradientBrush>
+                        </Setter.Value>
+                </Setter>
+                <Setter Property="Shadow">
+                        <Setter.Value>
+                                <Shadow Brush="{StaticResource LightPrimaryColor}" Opacity="0.4" Radius="14" Offset="0,6" />
+                        </Setter.Value>
+                </Setter>
+        </Style>
 
 </ResourceDictionary>
