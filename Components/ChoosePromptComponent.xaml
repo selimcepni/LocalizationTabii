@@ -265,6 +265,7 @@
                 <buttons:SfButton 
                     Text="Prompt Seç"
                     Command="{Binding SelectPromptCommand}"
+                    IsEnabled="{Binding IsSelectingPrompt, Converter={StaticResource InvertedBoolConverter}}"
                     FontSize="16"
                     FontAttributes="Bold"
                     CornerRadius="18"

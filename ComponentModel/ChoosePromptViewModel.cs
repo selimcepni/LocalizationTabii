@@ -22,6 +22,12 @@ namespace LocalizationTabii.ComponentModel
         [ObservableProperty]
         private Prompt? selectedPrompt;
 
+        [ObservableProperty]
+        private bool isPromptSelected = false;
+
+        [ObservableProperty]
+        private bool isSelectingPrompt = false;
+
         public event EventHandler<PromptSelectedEventArgs>? PromptSelected;
         public event EventHandler? GoBackRequested;
 
@@ -58,12 +64,15 @@ namespace LocalizationTabii.ComponentModel
         {
             try
             {
+                IsSelectingPrompt = true;
+                
                 var popup = new ChoosePromptPopup();
                 var result = await popup.ShowAsync();
                 
                 if (result != null)
                 {
                     SelectedPrompt = result;
+                    IsPromptSelected = true;
                     
                     // Prompt seçildi, event'i fırlat
                     PromptSelected?.Invoke(this, new PromptSelectedEventArgs(
@@ -72,11 +81,25 @@ namespace LocalizationTabii.ComponentModel
                         FileSize, 
                         SelectedModel));
                 }
+                else
+                {
+                    // Prompt seçilmeden popup kapatıldı - önceki durumu koru
+                    // IsPromptSelected değerini değiştirme
+                }
             }
             catch (Exception ex)
             {
-                await Application.Current?.MainPage?.DisplayAlert("Hata", $"Prompt seçimi sırasında hata: {ex.Message}", "Tamam");
+                await Shell.Current.DisplayAlert("Hata", $"Prompt seçimi sırasında hata: {ex.Message}", "Tamam");
             }
+            finally
+            {
+                IsSelectingPrompt = false;
+            }
+        }
+
+        partial void OnSelectedPromptChanged(Prompt? value)
+        {
+            IsPromptSelected = value != null;
         }
     }
 

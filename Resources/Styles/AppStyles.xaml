@@ -387,6 +387,24 @@
                 Glyph="{x:Static f:FluentUI.eye_off_24_regular}"
                 Size="{StaticResource IconSize}"
                 Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconCalendarEdit24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.calendar_edit_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconCalendarAdd24Regular"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.calendar_add_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+
+
+
         <FontImageSource
                 x:Key="IconSave"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
