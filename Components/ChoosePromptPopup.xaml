@@ -4,25 +4,163 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:popup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+    xmlns:syncfusion="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
     x:Name="choosePromptPopup"
     HeaderHeight="60"
     HeaderTitle="Prompt Seçimi"
-    HeightRequest="500"
+    HeightRequest="600"
     IsOpen="{Binding IsPopupOpen}"
     ShowCloseButton="True"
     ShowHeader="True"
     StaysOpen="False"
-    WidthRequest="600">
+    WidthRequest="800">
 
     <popup:SfPopup.PopupStyle>
-        <popup:PopupStyle PopupBackground="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}" />
-
+        <popup:PopupStyle PopupBackground="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" />
     </popup:SfPopup.PopupStyle>
 
-
-
-
-    
-
-
+    <popup:SfPopup.ContentTemplate>
+        <DataTemplate>
+            <Grid Padding="20" RowDefinitions="Auto,*,Auto">
+                
+                <!-- Loading Indicator -->
+                <ActivityIndicator Grid.Row="0"
+                                  IsVisible="{Binding IsLoading}" 
+                                  IsRunning="{Binding IsLoading}"
+                                  Color="#007ACC"
+                                  HeightRequest="40" />
+                
+                <!-- Syncfusion ListView -->
+                <syncfusion:SfListView Grid.Row="1"
+                                      x:Name="promptListView"
+                                      ItemsSource="{Binding Prompts}"
+                                      SelectionMode="Single"
+                                      SelectionGesture="Tap"
+                                      ItemSize="120"
+                                      SelectionChanged="OnSelectionChanged">
+                    
+                    <syncfusion:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="15" RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                                
+                                <!-- Title -->
+                                <Label Grid.Row="0" Grid.Column="0"
+                                       Text="{Binding Title}" 
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#2C3E50"
+                                       LineBreakMode="TailTruncation" />
+                                
+                                <!-- Usage Count -->
+                                <Label Grid.Row="0" Grid.Column="1"
+                                       Text="{Binding UsageCount, StringFormat='🔥 {0}'}"
+                                       FontSize="14"
+                                       TextColor="#E74C3C"
+                                       HorizontalOptions="End" />
+                                
+                                <!-- Category and Language -->
+                                <StackLayout Grid.Row="1" Grid.ColumnSpan="2" 
+                                           Orientation="Horizontal" 
+                                           Spacing="10"
+                                           Margin="0,5,0,0">
+                                    
+                                    <Frame BackgroundColor="#3498DB" 
+                                           Padding="8,4"
+                                           CornerRadius="12"
+                                           HasShadow="False">
+                                        <Label Text="{Binding Category}"
+                                               TextColor="White"
+                                               FontSize="12"
+                                               FontAttributes="Bold" />
+                                    </Frame>
+                                    
+                                    <Frame BackgroundColor="#27AE60" 
+                                           Padding="8,4"
+                                           CornerRadius="12"
+                                           HasShadow="False">
+                                        <Label Text="{Binding Language}"
+                                               TextColor="White"
+                                               FontSize="12"
+                                               FontAttributes="Bold" />
+                                    </Frame>
+                                    
+                                </StackLayout>
+                                
+                                <!-- Content Preview -->
+                                <Label Grid.Row="2" Grid.ColumnSpan="2"
+                                       Text="{Binding Content}"
+                                       FontSize="14"
+                                       TextColor="#7F8C8D"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="2"
+                                       Margin="0,8,0,0" />
+                                
+                                <!-- Dates -->
+                                <StackLayout Grid.Row="3" Grid.ColumnSpan="2"
+                                           Orientation="Horizontal"
+                                           Spacing="15"
+                                           Margin="0,8,0,0">
+                                    
+                                    <Label Text="{Binding CreatedAt, StringFormat='📅 {0:dd/MM/yyyy}'}"
+                                           FontSize="12"
+                                           TextColor="#95A5A6" />
+                                    
+                                    <Label Text="{Binding UpdatedAt, StringFormat='🔄 {0:dd/MM/yyyy}'}"
+                                           FontSize="12"
+                                           TextColor="#95A5A6" />
+                                    
+                                </StackLayout>
+                                
+                            </Grid>
+                        </DataTemplate>
+                    </syncfusion:SfListView.ItemTemplate>
+                    
+                </syncfusion:SfListView>
+                
+                <!-- Empty View -->
+                <StackLayout Grid.Row="1"
+                           IsVisible="{Binding IsEmpty}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Spacing="20">
+                    
+                    <Label Text="📝"
+                           FontSize="48"
+                           HorizontalOptions="Center" />
+                    
+                    <Label Text="Henüz prompt bulunamadı"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#7F8C8D"
+                           HorizontalOptions="Center" />
+                    
+                    <Label Text="Yeni prompt eklemek için prompt yönetimi sayfasını kullanın"
+                           FontSize="14"
+                           TextColor="#BDC3C7"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+                    
+                </StackLayout>
+                
+                <!-- Bottom Info -->
+                <StackLayout Grid.Row="2" 
+                           Orientation="Horizontal"
+                           HorizontalOptions="Center"
+                           Spacing="20"
+                           Margin="0,15,0,0">
+                    
+                    <Label Text="{Binding Prompts.Count, StringFormat='Toplam: {0} prompt'}" 
+                           FontSize="14" 
+                           TextColor="#7F8C8D" />
+                    
+                    <Label Text="Seçmek için tıklayın"
+                           FontSize="14"
+                           TextColor="#3498DB"
+                           FontAttributes="Italic" />
+                    
+                </StackLayout>
+                
+            </Grid>
+        </DataTemplate>
+    </popup:SfPopup.ContentTemplate>
 </popup:SfPopup>

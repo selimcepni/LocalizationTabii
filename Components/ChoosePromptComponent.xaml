@@ -147,6 +147,67 @@
                         </Grid>
                     </Border>
                     
+                    <!-- İkinci süreç ikonu - Prompt seçildiyse görünür -->
+                    <Image 
+                        Source="{StaticResource IconArrowCircleRight24Regular}"
+                        WidthRequest="24"
+                        HeightRequest="24"
+                        Margin="8,0"
+                        FlexLayout.Order="3"
+                        FlexLayout.Basis="24"
+                        FlexLayout.Grow="0"
+                        FlexLayout.Shrink="0"
+                        IsVisible="{Binding SelectedPrompt, Converter={StaticResource IsNotNullConverter}}">
+                    </Image>
+
+                    <!-- Prompt bilgisi kartı -->
+                    <Border 
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkAccentColor}}"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
+                        Padding="20,16"
+                        Margin="8"
+                        HeightRequest="70"
+                        FlexLayout.Order="4"
+                        FlexLayout.Basis="280"
+                        FlexLayout.Grow="0"
+                        FlexLayout.Shrink="1"
+                        IsVisible="{Binding SelectedPrompt, Converter={StaticResource IsNotNullConverter}}">
+                        
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                            <Border 
+                                Grid.Column="0"
+                                BackgroundColor="{StaticResource LightSecondaryColor}"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="10"
+                                VerticalOptions="Center">
+                                <Image 
+                                    Source="{StaticResource IconSparkleFilled}"
+                                    WidthRequest="18"
+                                    HeightRequest="18"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+                            
+                            <StackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <Label 
+                                    Text="{Binding SelectedPrompt.Title}"
+                                    FontSize="15"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource LightSecondaryColor}"
+                                    LineBreakMode="MiddleTruncation"
+                                    MaxLines="1" />
+                                
+                                <Label 
+                                    Text="{Binding SelectedPrompt.Language}"
+                                    FontSize="12"
+                                    TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkTextSecondaryColor}}"
+                                    Margin="0,-1,0,0" />
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+                    
                 </FlexLayout>
             </StackLayout>
 

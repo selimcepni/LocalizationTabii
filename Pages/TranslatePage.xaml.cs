@@ -95,13 +95,7 @@ namespace LocalizationTabii.Pages
 
         private async void OnPromptSelected(object? sender, PromptSelectedEventArgs e)
         {
-            // Prompt seçildi, çeviri işlemini başlat
-            await DisplayAlert("Çeviri Başlatılıyor", 
-                $"Seçilen Model: {e.SelectedModel}\nDosya: {e.FileName}\nPrompt: {e.SelectedPrompt}", 
-                "Tamam");
             
-            // Burada çeviri işlemini başlatabilirsiniz
-            // Örneğin: await _viewModel.StartTranslation(e.SelectedModel, e.FileName, e.SelectedPrompt);
         }
 
         protected override void OnDisappearing()

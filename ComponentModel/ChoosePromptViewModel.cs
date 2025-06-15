@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LocalizationTabii.Components;
-using System.Threading.Tasks;
+using LocalizationTabii.Models;
 
 namespace LocalizationTabii.ComponentModel
 {
@@ -18,6 +18,9 @@ namespace LocalizationTabii.ComponentModel
 
         [ObservableProperty]
         private string selectedModelDisplayName = string.Empty;
+
+        [ObservableProperty]
+        private Prompt? selectedPrompt;
 
         public event EventHandler<PromptSelectedEventArgs>? PromptSelected;
         public event EventHandler? GoBackRequested;
@@ -37,6 +40,9 @@ namespace LocalizationTabii.ComponentModel
             {
                 "gpt-4-turbo" => "GPT-4 Turbo",
                 "gpt-3.5-turbo" => "GPT-3.5 Turbo",
+                "gpt-4" => "GPT-4",
+                "gpt-4o" => "GPT-4o",
+                "gpt-4o-mini" => "GPT-4o Mini",
                 _ => selectedModel
             };
         }
@@ -53,13 +59,15 @@ namespace LocalizationTabii.ComponentModel
             try
             {
                 var popup = new ChoosePromptPopup();
-                var selectedPrompt = await popup.ShowPopupAsync(SelectedFileName, FileSize, SelectedModel);
+                var result = await popup.ShowAsync();
                 
-                if (selectedPrompt != null)
+                if (result != null)
                 {
+                    SelectedPrompt = result;
+                    
                     // Prompt seçildi, event'i fırlat
                     PromptSelected?.Invoke(this, new PromptSelectedEventArgs(
-                        selectedPrompt.Title, 
+                        result.Title, 
                         SelectedFileName, 
                         FileSize, 
                         SelectedModel));
@@ -67,23 +75,21 @@ namespace LocalizationTabii.ComponentModel
             }
             catch (Exception ex)
             {
-                await Application.Current?.MainPage?.DisplayAlert("Hata", 
-                    $"Popup açılırken hata oluştu: {ex.Message}", 
-                    "Tamam");
+                await Application.Current?.MainPage?.DisplayAlert("Hata", $"Prompt seçimi sırasında hata: {ex.Message}", "Tamam");
             }
         }
     }
 
     public class PromptSelectedEventArgs : EventArgs
     {
-        public string SelectedPrompt { get; }
+        public string PromptTitle { get; }
         public string FileName { get; }
         public string FileSize { get; }
         public string SelectedModel { get; }
 
-        public PromptSelectedEventArgs(string selectedPrompt, string fileName, string fileSize, string selectedModel)
+        public PromptSelectedEventArgs(string promptTitle, string fileName, string fileSize, string selectedModel)
         {
-            SelectedPrompt = selectedPrompt;
+            PromptTitle = promptTitle;
             FileName = fileName;
             FileSize = fileSize;
             SelectedModel = selectedModel;

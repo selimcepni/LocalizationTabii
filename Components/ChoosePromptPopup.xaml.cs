@@ -1,98 +1,206 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LocalizationTabii.Models;
+using LocalizationTabii.Services;
 using Syncfusion.Maui.Popup;
+using System.Collections.ObjectModel;
+using Microsoft.Maui.Controls;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using Syncfusion.Maui.ListView;
 
 namespace LocalizationTabii.Components;
 
-public partial class ChoosePromptPopup : SfPopup
+public partial class ChoosePromptPopup : SfPopup, INotifyPropertyChanged
 {
+    private readonly IPromptStorageService _promptStorageService;
+    private TaskCompletionSource<Prompt?> _taskCompletionSource;
+    private ObservableCollection<Prompt> _prompts;
+    private bool _isLoading;
+    private bool _isEmpty;
+
+    public ObservableCollection<Prompt> Prompts
+    {
+        get => _prompts;
+        set
+        {
+            _prompts = value;
+            OnPropertyChanged();
+            IsEmpty = _prompts?.Count == 0;
+        }
+    }
+
+    public bool IsLoading
+    {
+        get => _isLoading;
+        set
+        {
+            _isLoading = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsEmpty
+    {
+        get => _isEmpty;
+        set
+        {
+            _isEmpty = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public ICommand LoadPromptsCommand { get; }
+    public ICommand SelectPromptCommand { get; }
+
     public ChoosePromptPopup()
     {
         InitializeComponent();
-        BindingContext = new ChoosePromptPopupViewModel();
-    }
-
-    public Task<Prompt?> ShowPopupAsync()
-    {
-        var viewModel = (ChoosePromptPopupViewModel)BindingContext;
-        return viewModel.ShowAsync();
-    }
-
-    public Task<Prompt?> ShowPopupAsync(string fileName, string fileSize, string selectedModel)
-    {
-        var viewModel = (ChoosePromptPopupViewModel)BindingContext;
-        viewModel.SetFileAndModelInfo(fileName, fileSize, selectedModel);
-        return viewModel.ShowAsync();
-    }
-}
-
-public partial class ChoosePromptPopupViewModel : ObservableObject
-{
-    private TaskCompletionSource<Prompt?>? _taskCompletionSource;
-
-    [ObservableProperty]
-    private bool isPopupOpen;
-
-    [ObservableProperty]
-    private string selectedFileName = string.Empty;
-
-    [ObservableProperty]
-    private string fileSize = string.Empty;
-
-    [ObservableProperty]
-    private string selectedModel = string.Empty;
-
-    [ObservableProperty]
-    private string selectedModelDisplayName = string.Empty;
-
-    public Prompt? Result { get; private set; }
-
-    public ChoosePromptPopupViewModel()
-    {
-    }
-
-    public void SetFileAndModelInfo(string fileName, string fileSize, string selectedModel)
-    {
-        SelectedFileName = fileName;
-        FileSize = fileSize;
-        SelectedModel = selectedModel;
         
-        // Model display name'ini belirle
-        SelectedModelDisplayName = selectedModel switch
+        _promptStorageService = MauiProgram.ServiceProvider?.GetService<IPromptStorageService>();
+        _prompts = new ObservableCollection<Prompt>();
+        
+        LoadPromptsCommand = new Command(async () => await LoadPromptsAsync());
+        SelectPromptCommand = new Command<Prompt>(async (prompt) => await SelectPrompt(prompt));
+        
+        BindingContext = this;
+    }
+
+    public async Task<Prompt?> ShowAsync()
+    {
+        try
         {
-            "gpt-4-turbo" => "GPT-4 Turbo",
-            "gpt-3.5-turbo" => "GPT-3.5 Turbo",
-            _ => selectedModel
-        };
-    }
-
-    public Task<Prompt?> ShowAsync()
-    {
-        Reset();
-        _taskCompletionSource = new TaskCompletionSource<Prompt?>();
-        IsPopupOpen = true;
-        return _taskCompletionSource.Task;
-    }
-
-    private void Reset()
-    {
-        Result = null;
-    }
-
-    [RelayCommand]
-    private void ClosePopup()
-    {
-        IsPopupOpen = false;
-        _taskCompletionSource?.SetResult(null);
-    }
-
-    // Popup kapatıldığında otomatik çağrılacak
-    partial void OnIsPopupOpenChanged(bool value)
-    {
-        if (!value && _taskCompletionSource != null && !_taskCompletionSource.Task.IsCompleted)
-        {
-            _taskCompletionSource.SetResult(Result);
+            _taskCompletionSource = new TaskCompletionSource<Prompt?>();
+            
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                IsOpen = true;
+            });
+            
+            await LoadPromptsAsync();
+            
+            return await _taskCompletionSource.Task;
         }
+        catch (Exception ex)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Application.Current?.MainPage?.DisplayAlert("Hata", $"Popup açılırken hata: {ex.Message}", "Tamam");
+            });
+            return null;
+        }
+    }
+
+    private async Task LoadPromptsAsync()
+    {
+        try
+        {
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                IsLoading = true;
+            });
+
+            if (_promptStorageService != null)
+            {
+                await _promptStorageService.InitializeDatabaseAsync();
+                var result = await _promptStorageService.GetPromptsPagedAsync(1, 10);
+                
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    Prompts.Clear();
+                    foreach (var prompt in result.Items)
+                    {
+                        Prompts.Add(prompt);
+                    }
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Application.Current?.MainPage?.DisplayAlert("Hata", $"Promptlar yüklenirken hata: {ex.Message}", "Tamam");
+            });
+        }
+        finally
+        {
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                IsLoading = false;
+            });
+        }
+    }
+
+    private async void OnSelectionChanged(object sender, ItemSelectionChangedEventArgs e)
+    {
+        try
+        {
+            if (e.AddedItems?.Count > 0 && e.AddedItems[0] is Prompt selectedPrompt)
+            {
+                await SelectPrompt(selectedPrompt);
+            }
+        }
+        catch (Exception ex)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Application.Current?.MainPage?.DisplayAlert("Hata", $"Seçim işleminde hata: {ex.Message}", "Tamam");
+            });
+        }
+    }
+
+    private async Task SelectPrompt(Prompt prompt)
+    {
+        try
+        {
+            if (prompt != null && _promptStorageService != null)
+            {
+                // Usage count'u artır
+                prompt.UsageCount++;
+                await _promptStorageService.UpdatePromptAsync(prompt);
+                
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                {
+                    IsOpen = false;
+                });
+                
+                _taskCompletionSource?.SetResult(prompt);
+            }
+        }
+        catch (Exception ex)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Application.Current?.MainPage?.DisplayAlert("Hata", $"Prompt seçilirken hata: {ex.Message}", "Tamam");
+            });
+        }
+    }
+
+    private async Task ClosePopup()
+    {
+        try
+        {
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                IsOpen = false;
+            });
+            
+            _taskCompletionSource?.SetResult(null);
+        }
+        catch (Exception ex)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Application.Current?.MainPage?.DisplayAlert("Hata", $"Popup kapatılırken hata: {ex.Message}", "Tamam");
+            });
+        }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 } 

@@ -157,7 +157,7 @@
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
                 Glyph="{x:Static f:FluentUI.sparkle_circle_24_regular}"
                 Size="{StaticResource IconSize}"
-                Color="{StaticResource LightOnDarkBackground}" />
+                Color="{StaticResource White}" />
         <FontImageSource
                 x:Key="IconSparkleCircle24Regular"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
@@ -167,9 +167,9 @@
         <FontImageSource
                 x:Key="IconSparkle24Regular"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
-                Glyph="{x:Static f:FluentUI.sparkle_24_regular}"
+                Glyph="{x:Static f:FluentUI.bot_sparkle_24_regular}"
                 Size="{StaticResource IconSize}"
-                Color="{StaticResource LightOnDarkBackground}" />
+                Color="{StaticResource White}" />
 
         <FontImageSource
                 x:Key="IconTargetArrow24Regular"
@@ -191,17 +191,195 @@
                 Size="{StaticResource IconSize}"
                 Color="{StaticResource White}" />
 
+        <!-- Filled Icon Versions -->
+        <FontImageSource
+                x:Key="IconDashboardFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.diagram_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconProjectsFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.list_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconMetaFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.info_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconSettingsFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.settings_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconTranscribeFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.clipboard_text_edit_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconPromptFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.prompt_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconTranslateFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.translate_auto_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconRibbonFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.ribbon_20_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconAddFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.add_32_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource White},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconEyeFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.eye_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconDocumentFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.document_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconFolderFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.folder_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconSparkleInfoFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.sparkle_circle_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource White}" />
+
+        <FontImageSource
+                x:Key="IconSparkleFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.bot_sparkle_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource White}" />
+
+        <FontImageSource
+                x:Key="IconTargetArrowFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.target_arrow_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconFolderOpenFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.folder_open_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource White}" />
+
+        <FontImageSource
+                x:Key="IconCheckboxCheckedFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.checkbox_checked_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource White}" />
+
+        <FontImageSource
+                x:Key="IconArrowCircleRightFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.arrow_circle_right_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource White}" />
+
+        <FontImageSource
+                x:Key="IconEyeOffFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.eye_off_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconSaveFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.save_24_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{StaticResource LightOnDarkBackground}" />
+
+        <FontImageSource
+                x:Key="IconDeleteFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.delete_32_filled}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconCleanFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.broom_32_filled}"
+                Size="{StaticResource size240}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconLightFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.weather_sunny_28_filled}"
+                Size="{StaticResource size240}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconDarkFilled"
+                FontFamily="{x:Static f:FluentUIFilled.FontFamily}"
+                Glyph="{x:Static f:FluentUIFilled.weather_moon_28_filled}"
+                Size="{StaticResource size240}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
         <FontImageSource
                 x:Key="IconArrowCircleRight24Regular"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
                 Glyph="{x:Static f:FluentUI.arrow_circle_right_24_regular}"
                 Size="{StaticResource IconSize}"
-                Color="{StaticResource White}" />
-
-
-
-
-
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
 
         <FontImageSource
                 x:Key="IconEyeOff"

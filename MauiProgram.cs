@@ -12,6 +12,8 @@ namespace LocalizationTabii
 {
     public static class MauiProgram
     {
+        public static IServiceProvider ServiceProvider { get; private set; } = null!;
+
         public static MauiApp CreateMauiApp()
         {
             // DEBUG: Uygulama başlangıç testi
@@ -82,9 +84,10 @@ namespace LocalizationTabii
             builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
             builder.Services.AddTransientWithShellRoute<TranslatePage, TranslatePageModel>("translate");
             builder.Services.AddTransientWithShellRoute<SettingsPage, SettingsPageModel>("settings");
-          
 
-            return builder.Build();
+            var app = builder.Build();
+            ServiceProvider = app.Services;
+            return app;
         }
     }
 }

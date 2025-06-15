@@ -7,5 +7,6 @@
     <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
     <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
     <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+    <converters:IsNotNullConverter x:Key="IsNotNullConverter" />
 
 </ResourceDictionary> 
