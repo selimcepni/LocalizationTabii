@@ -237,26 +237,30 @@
                                                 <buttons:SfButton
                                                     Command="{Binding Source={x:Reference promptsPage}, Path=BindingContext.ShowDeleteConfirmationCommand}"
                                                     CommandParameter="{Binding}"
-                                                    CornerRadius="16"
-                                                    FontAttributes="Bold"
-                                                    FontSize="12"
-                                                    HeightRequest="32"
-                                                    Text="Sil"
-                                                    TextColor="White"
-                                                    WidthRequest="70"
-                                                    BackgroundColor="{AppThemeBinding Light={StaticResource DangerLight}, Dark={StaticResource DangerDark}}" />
+                                                    CornerRadius="22"
+                                                    HeightRequest="44"
+                                                    WidthRequest="44"
+                                                    ShowIcon="True"
+                                                    ImageSource="{StaticResource IconDelete}"
+                                                    ImageSize="24"
+                                                    ImageAlignment="Default"
+                                                    Background="Transparent"
+                                                    Stroke="Transparent"
+                                                    Padding="0" />
                                                 
                                                 <buttons:SfButton
                                                     Command="{Binding Source={x:Reference promptsPage}, Path=BindingContext.ShowEditPromptCommand}"
                                                     CommandParameter="{Binding}"
-                                                    CornerRadius="16"
-                                                    FontAttributes="Bold"
-                                                    FontSize="12"
-                                                    HeightRequest="32"
-                                                    Text="Düzenle"
-                                                    TextColor="White"
-                                                    WidthRequest="80"
-                                                    BackgroundColor="{AppThemeBinding Light={StaticResource InfoLight}, Dark={StaticResource InfoDark}}" />
+                                                    CornerRadius="22"
+                                                    HeightRequest="44"
+                                                    WidthRequest="44"
+                                                    ShowIcon="True"
+                                                    ImageSource="{StaticResource IconEdit}"
+                                                    ImageSize="24"
+                                                    ImageAlignment="Default"
+                                                    Background="Transparent"
+                                                    Stroke="Transparent"
+                                                    Padding="0" />
                                             </StackLayout>
                                         </Grid>
 
