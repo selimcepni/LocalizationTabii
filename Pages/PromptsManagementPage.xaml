@@ -8,6 +8,7 @@
     xmlns:components="clr-namespace:LocalizationTabii.Components"
     xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
     xmlns:sfPopup="clr-namespace:Syncfusion.Maui.Toolkit.Popup;assembly=Syncfusion.Maui.Toolkit"
+    xmlns:syncfusion="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
     Title="Prompt Yönetimi">
 
     <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
@@ -139,12 +140,16 @@
                     </Grid>
 
                     <!--  Prompt Kartları  -->
-                    <CollectionView
-                        BackgroundColor="Transparent"
+                    <syncfusion:SfListView
+                        x:Name="promptListView"
+                        AutoFitMode="Height"
+                        ItemSize="160"
                         ItemsSource="{Binding Prompts}"
                         SelectionMode="None"
-                        ItemsLayout="VerticalList">
-                        <CollectionView.ItemTemplate>
+                        AllowSwiping="False"
+                        TapCommand="{x:Null}"
+                        SelectionChangedCommand="{x:Null}">
+                        <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
                                 <Frame
                                     Margin="0,0,0,16"
@@ -238,14 +243,8 @@
                                                     HeightRequest="32"
                                                     Text="Sil"
                                                     TextColor="White"
-                                                    WidthRequest="70">
-                                                    <buttons:SfButton.Background>
-                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                            <GradientStop Offset="0" Color="#FF5F6D" />
-                                                            <GradientStop Offset="1" Color="#FF4500" />
-                                                        </LinearGradientBrush>
-                                                    </buttons:SfButton.Background>
-                                                </buttons:SfButton>
+                                                    WidthRequest="70"
+                                                    BackgroundColor="{AppThemeBinding Light={StaticResource DangerLight}, Dark={StaticResource DangerDark}}" />
                                                 
                                                 <buttons:SfButton
                                                     Command="{Binding Source={x:Reference promptsPage}, Path=BindingContext.ShowEditPromptCommand}"
@@ -256,14 +255,8 @@
                                                     HeightRequest="32"
                                                     Text="Düzenle"
                                                     TextColor="White"
-                                                    WidthRequest="80">
-                                                    <buttons:SfButton.Background>
-                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                            <GradientStop Offset="0" Color="#4682B4" />
-                                                            <GradientStop Offset="1" Color="#B0C4DE" />
-                                                        </LinearGradientBrush>
-                                                    </buttons:SfButton.Background>
-                                                </buttons:SfButton>
+                                                    WidthRequest="80"
+                                                    BackgroundColor="{AppThemeBinding Light={StaticResource InfoLight}, Dark={StaticResource InfoDark}}" />
                                             </StackLayout>
                                         </Grid>
 
@@ -279,8 +272,8 @@
                                     </Grid>
                                 </Frame>
                             </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                        </syncfusion:SfListView.ItemTemplate>
+                    </syncfusion:SfListView>
 
                     <!--  Pagination Controls  -->
                     <Border
@@ -297,38 +290,68 @@
                             <StackLayout
                                 Grid.Column="0"
                                 Orientation="Horizontal"
-                                Spacing="8">
+                                Spacing="12">
                                 <buttons:SfButton
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
-                                                                      Dark={StaticResource DarkSurfaceColor}}"
-                                    Command="{Binding GoToFirstPageCommand}"
-                                    CornerRadius="20"
-                                    FontSize="16"
-                                    HeightRequest="40"
+                                    HeightRequest="32"
+                                    WidthRequest="32"
                                     IsEnabled="{Binding HasPreviousPage}"
-                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
-                                                             Dark={StaticResource DarkBorderColor}}"
-                                    StrokeThickness="1"
-                                    Text="⏮"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
-                                                                Dark={StaticResource DarkTextPrimaryColor}}"
-                                    WidthRequest="40" />
+                                    Command="{Binding GoToFirstPageCommand}"
+                                    ShowIcon="True"
+                                    ImageSource="{StaticResource IconFirstPage}"
+                                    ImageAlignment="Default"
+                                    ImageSize="16"
+                                    CornerRadius="16"
+                                    Background="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
+                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
+                                    StrokeThickness="1">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}" />
+                                                    <Setter Property="Opacity" Value="1.0" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="Disabled">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}" />
+                                                    <Setter Property="Opacity" Value="0.4" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </buttons:SfButton>
 
                                 <buttons:SfButton
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
-                                                                      Dark={StaticResource DarkSurfaceColor}}"
-                                    Command="{Binding GoToPreviousPageCommand}"
-                                    CornerRadius="20"
-                                    FontSize="14"
-                                    HeightRequest="40"
+                                    HeightRequest="32"
+                                    WidthRequest="32"
                                     IsEnabled="{Binding HasPreviousPage}"
-                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
-                                                             Dark={StaticResource DarkBorderColor}}"
-                                    StrokeThickness="1"
-                                    Text="◀"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
-                                                                Dark={StaticResource DarkTextPrimaryColor}}"
-                                    WidthRequest="40" />
+                                    Command="{Binding GoToPreviousPageCommand}"
+                                    ShowIcon="True"
+                                    ImageSource="{StaticResource IconPreviousPage}"
+                                    ImageAlignment="Default"
+                                    ImageSize="16"
+                                    CornerRadius="16"
+                                    Background="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
+                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
+                                    StrokeThickness="1">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}" />
+                                                    <Setter Property="Opacity" Value="1.0" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="Disabled">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}" />
+                                                    <Setter Property="Opacity" Value="0.4" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </buttons:SfButton>
                             </StackLayout>
 
                             <!--  Page Info  -->
@@ -355,38 +378,68 @@
                             <StackLayout
                                 Grid.Column="2"
                                 Orientation="Horizontal"
-                                Spacing="8">
+                                Spacing="12">
                                 <buttons:SfButton
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
-                                                                      Dark={StaticResource DarkSurfaceColor}}"
+                                    HeightRequest="32"
+                                    WidthRequest="32"
+                                    IsEnabled="{Binding HasNextPage}"
                                     Command="{Binding GoToNextPageCommand}"
-                                    CornerRadius="20"
-                                    FontSize="14"
-                                    HeightRequest="40"
-                                    IsEnabled="{Binding HasNextPage}"
-                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
-                                                             Dark={StaticResource DarkBorderColor}}"
-                                    StrokeThickness="1"
-                                    Text="▶"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
-                                                                Dark={StaticResource DarkTextPrimaryColor}}"
-                                    WidthRequest="40" />
+                                    ShowIcon="True"
+                                    ImageSource="{StaticResource IconNextPage}"
+                                    ImageSize="16"
+                                    CornerRadius="16"
+                                    ImageAlignment="Default"
+                                    Background="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
+                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
+                                    StrokeThickness="1">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}" />
+                                                    <Setter Property="Opacity" Value="1.0" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="Disabled">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}" />
+                                                    <Setter Property="Opacity" Value="0.4" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </buttons:SfButton>
 
-                                <buttons:SfButton
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceColor},
-                                                                      Dark={StaticResource DarkSurfaceColor}}"
-                                    Command="{Binding GoToLastPageCommand}"
-                                    CornerRadius="20"
-                                    FontSize="16"
-                                    HeightRequest="40"
+                                                                <buttons:SfButton 
+                                    HeightRequest="32"
+                                    WidthRequest="32"
                                     IsEnabled="{Binding HasNextPage}"
-                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor},
-                                                             Dark={StaticResource DarkBorderColor}}"
-                                    StrokeThickness="1"
-                                    Text="⏭"
-                                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimaryColor},
-                                                                Dark={StaticResource DarkTextPrimaryColor}}"
-                                    WidthRequest="40" />
+                                    Command="{Binding GoToLastPageCommand}"
+                                    ImageAlignment="Default"
+                                    ShowIcon="True"
+                                    ImageSource="{StaticResource IconLastPage}"
+                                    ImageSize="16"
+                                    CornerRadius="16"
+                                    Background="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}"
+                                    Stroke="{AppThemeBinding Light={StaticResource LightBorderColor}, Dark={StaticResource DarkBorderColor}}"
+                                    StrokeThickness="1">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}" />
+                                                    <Setter Property="Opacity" Value="1.0" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="Disabled">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightSurfaceColor}, Dark={StaticResource DarkSurfaceColor}}" />
+                                                    <Setter Property="Opacity" Value="0.4" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </buttons:SfButton>
                             </StackLayout>
                         </Grid>
                     </Border>

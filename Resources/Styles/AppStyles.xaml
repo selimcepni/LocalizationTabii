@@ -64,6 +64,39 @@
                                         Dark={StaticResource LightOnDarkBackground}}" />
 
         <FontImageSource
+                x:Key="IconLastPage"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.arrow_next_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+        <FontImageSource
+                x:Key="IconNextPage"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.arrow_right_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+        
+        <FontImageSource
+                x:Key="IconPreviousPage"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.arrow_left_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+         <FontImageSource
+                x:Key="IconFirstPage"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.arrow_previous_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}" />
+
+
+        <FontImageSource
                 x:Key="IconProjects"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
                 Glyph="{x:Static f:FluentUI.list_24_regular}"

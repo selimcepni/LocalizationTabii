@@ -77,6 +77,14 @@
     <Color x:Key="SuccessLightColor">#EDE9FE</Color>
     <Color x:Key="SuccessDarkColor">#5B21B6</Color>
 
+    <!--  Danger/Error Colors  -->
+    <Color x:Key="DangerLight">#EF4444</Color>
+    <Color x:Key="DangerDark">#DC2626</Color>
+
+    <!--  Info Colors  -->
+    <Color x:Key="InfoLight">#3B82F6</Color>
+    <Color x:Key="InfoDark">#2563EB</Color>
+
     <!-- Tag/Badge Renkleri -->
     <Color x:Key="WorkColor">#3068df</Color>
     <Color x:Key="PersonalColor">#FF4500</Color>
