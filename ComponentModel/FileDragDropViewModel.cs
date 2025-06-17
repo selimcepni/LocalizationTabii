@@ -219,10 +219,21 @@ namespace LocalizationTabii.ComponentModel
                 if (dragArgs?.Data != null)
                 {
                     // Try to get files from the data
-                    var files = dragArgs.Data.Properties.Where(p => p.Key.Contains("Files") || p.Key.Contains("StorageItems"))
-                                                         .SelectMany(p => p.Value as IEnumerable<object> ?? new object[0])
-                                                         .OfType<FileResult>()
-                                                         .ToList();
+                    var files = new List<FileResult>();
+                    
+                    if (dragArgs.Data?.Properties != null)
+                    {
+                        foreach (var property in dragArgs.Data.Properties)
+                        {
+                            if (property.Key.Contains("Files") || property.Key.Contains("StorageItems"))
+                            {
+                                if (property.Value is IEnumerable<object> enumerable)
+                                {
+                                    files.AddRange(enumerable.OfType<FileResult>());
+                                }
+                            }
+                        }
+                    }
                     
                     if (files.Any())
                     {

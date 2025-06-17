@@ -28,25 +28,27 @@
                     </sf:SfTextInputLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="0,5,0,0">
                         <syncfusion:SfButton x:Name="OpenAiEyeButton"
-                                            ShowIcon="True"
-                                            ImageSource="{StaticResource IconEye}"
                                             Clicked="OnOpenAiToggleVisibilityClicked"
-                                            BackgroundColor="{AppThemeBinding Light=#512BD4, Dark=#8A6EF9}"
-                                            TextColor="White"
-                                            CornerRadius="8"
-                                            Background="{StaticResource Magenta}" 
-                                            WidthRequest="48"
-                                            HeightRequest="40"/>
-                        <syncfusion:SfButton Text="Kaydet" 
+                                            ImageSource="{StaticResource IconEye}"
                                             ShowIcon="True"
-                                            ImageSource="{StaticResource IconSave}"
+                                           Background="Transparent"                                          
+                                           ImageSize="24"
+                                           CornerRadius="8"
+                                           WidthRequest="48"
+                                           ImageAlignment="Default"                                            
+                                           HeightRequest="40"
+                                             />
+                        <syncfusion:SfButton 
                                             Clicked="OnOpenAiKeySaveClicked"
-                                            BackgroundColor="{AppThemeBinding Light=#512BD4, Dark=#8A6EF9}"
-                                            TextColor="White"
+                                            ImageSource="{StaticResource IconSave}"
+                                            ShowIcon="True"
+                                            Background="Transparent"                                          
+                                            ImageSize="24"
                                             CornerRadius="8"
-                                            WidthRequest="110"
-                                             Background="{StaticResource Tertiary}" 
-                                            HeightRequest="40"/>
+                                            WidthRequest="48"
+                                            ImageAlignment="Default"                                            
+                                            HeightRequest="40"
+                            />
                     </StackLayout>
                 </StackLayout>
 
@@ -64,26 +66,25 @@
                     </sf:SfTextInputLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="0,5,0,0">
                         <syncfusion:SfButton x:Name="AnthropicEyeButton"
-                                            ShowIcon="True"
-                                            ImageSource="{StaticResource IconEye}"
                                             Clicked="OnAnthropicToggleVisibilityClicked"
-                                            BackgroundColor="{AppThemeBinding Light=#512BD4, Dark=#8A6EF9}"
-                                            TextColor="White"
-                                            CornerRadius="8"
-                                            WidthRequest="48"
-                                            Background="{StaticResource Magenta}" 
-                                            HeightRequest="40"/>
+                                            ImageSource="{StaticResource IconEye}"
+                                             ShowIcon="True"
+   Background="Transparent"                                          
+   ImageSize="24"
+   CornerRadius="8"
+   WidthRequest="48"
+   ImageAlignment="Default"                                            
+   HeightRequest="40"/>
                         <syncfusion:SfButton Text="Kaydet" 
-                                            ShowIcon="True"
-                                            ImageSource="{StaticResource IconSave}"
                                             Clicked="OnAnthropicKeySaveClicked"
-                                            BackgroundColor="{AppThemeBinding Light=#512BD4, Dark=#8A6EF9}"
-                                            TextColor="White"
-                                            CornerRadius="8"
-                                            WidthRequest="110"
-                                             Background="{StaticResource Tertiary}" 
-                                           
-                                            HeightRequest="40"/>
+                                            ImageSource="{StaticResource IconSave}"
+                                               ShowIcon="True"
+   Background="Transparent"                                          
+   ImageSize="24"
+   CornerRadius="8"
+   WidthRequest="48"
+   ImageAlignment="Default"                                            
+   HeightRequest="40"/>
                     </StackLayout>
                 </StackLayout>
 
@@ -101,26 +102,25 @@
                     </sf:SfTextInputLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="0,5,0,0">
                         <syncfusion:SfButton x:Name="GoogleEyeButton"
-                                            ShowIcon="True"
-                                            ImageSource="{StaticResource IconEye}"
                                             Clicked="OnGoogleToggleVisibilityClicked"
-                                            BackgroundColor="{AppThemeBinding Light=#512BD4, Dark=#8A6EF9}"
-                                            TextColor="White"
-                                            CornerRadius="8"
-                                            WidthRequest="48"
-                                            Background="{StaticResource Magenta}" 
-                                            HeightRequest="40"/>
-                        <syncfusion:SfButton Text="Kaydet" 
+                                            ImageSource="{StaticResource IconEye}"
                                             ShowIcon="True"
+   Background="Transparent"                                          
+   ImageSize="24"
+   CornerRadius="8"
+   WidthRequest="48"
+   ImageAlignment="Default"                                            
+   HeightRequest="40"/>
+                        <syncfusion:SfButton Text="Kaydet" 
                                             ImageSource="{StaticResource IconSave}"
                                             Clicked="OnGoogleKeySaveClicked"
-                                            BackgroundColor="{AppThemeBinding Light=#512BD4, Dark=#8A6EF9}"
-                                            TextColor="White"
-                                            CornerRadius="8"
-                                            
-                                            WidthRequest="110"
-                                            HeightRequest="40"
-                                         Background="{StaticResource Tertiary}" />
+                                             ShowIcon="True"
+   Background="Transparent"                                          
+   ImageSize="24"
+   CornerRadius="8"
+   WidthRequest="48"
+   ImageAlignment="Default"                                            
+   HeightRequest="40" />
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

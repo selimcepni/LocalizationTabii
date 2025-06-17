@@ -157,14 +157,18 @@
                 Size="{StaticResource IconSize}"
                 Color="{AppThemeBinding Light={StaticResource White},
                                         Dark={StaticResource LightOnDarkBackground}}" />
-        <FontImageSource
-                x:Key="IconEye"
-                FontFamily="{x:Static f:FluentUI.FontFamily}"
-                Glyph="{x:Static f:FluentUI.eye_24_regular}"
-                Size="{StaticResource IconSize}"
-                Color="{StaticResource LightOnDarkBackground}" />
 
-        <FontImageSource
+    <FontImageSource
+              x:Key="IconEye"
+              FontFamily="{x:Static f:FluentUI.FontFamily}"
+              Glyph="{x:Static f:FluentUI.eye_32_regular}"
+              Size="{StaticResource IconSize}"
+              Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                             Dark={StaticResource LightOnDarkBackground}}"/>
+
+
+
+    <FontImageSource
                 x:Key="IconDocument32Regular"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
                 Glyph="{x:Static f:FluentUI.document_24_regular}"
@@ -419,10 +423,12 @@
                 x:Key="IconEyeOff"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
                 Glyph="{x:Static f:FluentUI.eye_off_24_regular}"
-                Size="{StaticResource IconSize}"
-                Color="{StaticResource LightOnDarkBackground}" />
+                Size="{StaticResource IconSize}"                    
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                               Dark={StaticResource LightOnDarkBackground}}"/>
 
-        <FontImageSource
+
+    <FontImageSource
                 x:Key="IconCalendarEdit24Regular"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
                 Glyph="{x:Static f:FluentUI.calendar_edit_24_regular}"
@@ -442,11 +448,13 @@
         <FontImageSource
                 x:Key="IconSave"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
-                Glyph="{x:Static f:FluentUI.save_24_regular}"
-                Size="{StaticResource IconSize}"
-                Color="{StaticResource LightOnDarkBackground}" />
-                   
-        <FontImageSource
+                Glyph="{x:Static f:FluentUI.save_32_regular}"
+                       Size="{StaticResource IconSize}"
+        Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                               Dark={StaticResource LightOnDarkBackground}}"/>
+
+
+    <FontImageSource
                 x:Key="IconDocumentTextToolbox"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
                 Glyph="{x:Static f:FluentUI.document_text_toolbox_24_regular}"
