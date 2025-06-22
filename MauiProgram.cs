@@ -1,11 +1,14 @@
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using Syncfusion.Maui.Toolkit.Hosting;
 using Syncfusion.Maui.Core.Hosting;
 using LocalizationTabii.Pages;
 using LocalizationTabii.PageModels;
 using LocalizationTabii.Services;
+using LocalizationTabii.Models;
 using System.IO;
+using System.Reflection;
 
 
 namespace LocalizationTabii
@@ -30,6 +33,24 @@ namespace LocalizationTabii
             }
 
             var builder = MauiApp.CreateBuilder();
+            
+            // Configuration setup - appsettings.json dosyasını embedded resource olarak okuyoruz
+            using var appsettingsStream = Assembly.GetExecutingAssembly()
+                .GetManifestResourceStream("LocalizationTabii.appsettings.json");
+            if (appsettingsStream != null)
+            {
+                var configBuilder = new ConfigurationBuilder();
+                configBuilder.AddJsonStream(appsettingsStream);
+                var config = configBuilder.Build();
+                
+                // MAUI builder'ın configuration'ına ekle
+                foreach (var kvp in config.AsEnumerable())
+                {
+                    if (kvp.Value != null)
+                        builder.Configuration[kvp.Key] = kvp.Value;
+                }
+            }
+
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
@@ -61,6 +82,12 @@ namespace LocalizationTabii
     		builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
 
+            // Configuration setup - ModelProviderSettings'i appsettings.json'dan okuyoruz
+            builder.Services.Configure<ModelProviderSettings>(options =>
+            {
+                builder.Configuration.GetSection("ModelProviderSettings").Bind(options);
+            });
+
             builder.Services.AddSingleton<ProjectRepository>();
             builder.Services.AddSingleton<TaskRepository>();
             builder.Services.AddSingleton<CategoryRepository>();
@@ -71,6 +98,10 @@ namespace LocalizationTabii
             
             // Prompt servisleri
             builder.Services.AddSingleton<IPromptStorageService, PromptStorageService>();
+            
+            // API Key ve SemanticKernel servisleri
+            builder.Services.AddSingleton<IApiKeyService, ApiKeyService>();
+            builder.Services.AddSingleton<ISemanticKernelService, SemanticKernelService>();
             
             builder.Services.AddSingleton<MainPageModel>();
             builder.Services.AddSingleton<ProjectListPageModel>();

@@ -2,47 +2,59 @@ using Microsoft.Maui.Storage;
 
 namespace LocalizationTabii.Services
 {
-    public static class ApiKeyService
+    public class ApiKeyService : IApiKeyService
     {
         private const string OpenAiKeyPref = "OpenAI_ApiKey";
         private const string AnthropicKeyPref = "Anthropic_ApiKey";
         private const string GoogleKeyPref = "Google_ApiKey";
+        private const string DeepSeekKeyPref = "DeepSeek_ApiKey";
 
-        public static string GetOpenAiApiKey()
+        public string GetOpenAiApiKey()
         {
             return Preferences.Get(OpenAiKeyPref, string.Empty);
         }
 
-        public static string GetAnthropicApiKey()
+        public string GetAnthropicApiKey()
         {
             return Preferences.Get(AnthropicKeyPref, string.Empty);
         }
 
-        public static string GetGoogleApiKey()
+        public string GetGoogleApiKey()
         {
             return Preferences.Get(GoogleKeyPref, string.Empty);
         }
 
-        public static void SaveOpenAiApiKey(string apiKey)
+        public string GetDeepSeekApiKey()
+        {
+            return Preferences.Get(DeepSeekKeyPref, string.Empty);
+        }
+
+        public void SaveOpenAiApiKey(string apiKey)
         {
             Preferences.Set(OpenAiKeyPref, apiKey);
         }
 
-        public static void SaveAnthropicApiKey(string apiKey)
+        public void SaveAnthropicApiKey(string apiKey)
         {
             Preferences.Set(AnthropicKeyPref, apiKey);
         }
 
-        public static void SaveGoogleApiKey(string apiKey)
+        public void SaveGoogleApiKey(string apiKey)
         {
             Preferences.Set(GoogleKeyPref, apiKey);
         }
 
-        public static bool HasAnyApiKey()
+        public void SaveDeepSeekApiKey(string apiKey)
+        {
+            Preferences.Set(DeepSeekKeyPref, apiKey);
+        }
+
+        public bool HasAnyApiKey()
         {
             return !string.IsNullOrEmpty(GetOpenAiApiKey()) ||
                    !string.IsNullOrEmpty(GetAnthropicApiKey()) ||
-                   !string.IsNullOrEmpty(GetGoogleApiKey());
+                   !string.IsNullOrEmpty(GetGoogleApiKey()) ||
+                   !string.IsNullOrEmpty(GetDeepSeekApiKey());
         }
     }
 }

@@ -123,6 +123,42 @@
    HeightRequest="40" />
                     </StackLayout>
                 </StackLayout>
+
+                <!-- Divider -->
+                <BoxView HeightRequest="1" 
+                        Color="{AppThemeBinding Light=#E5E5E5, Dark=#444444}"
+                        HorizontalOptions="Fill"/>
+
+                <!-- DeepSeek -->
+                <StackLayout Spacing="10" Margin="0,10,0,0">
+                 
+                    <sf:SfTextInputLayout 
+                        Hint="Enter your DeepSeek API Key">
+                        <Entry x:Name="DeepSeekApiKeyEntry" IsPassword="True"/>
+                    </sf:SfTextInputLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="0,5,0,0">
+                        <syncfusion:SfButton x:Name="DeepSeekEyeButton"
+                                            Clicked="OnDeepSeekToggleVisibilityClicked"
+                                            ImageSource="{StaticResource IconEye}"
+                                            ShowIcon="True"
+   Background="Transparent"                                          
+   ImageSize="24"
+   CornerRadius="8"
+   WidthRequest="48"
+   ImageAlignment="Default"                                            
+   HeightRequest="40"/>
+                        <syncfusion:SfButton Text="Kaydet" 
+                                            ImageSource="{StaticResource IconSave}"
+                                            Clicked="OnDeepSeekKeySaveClicked"
+                                             ShowIcon="True"
+   Background="Transparent"                                          
+   ImageSize="24"
+   CornerRadius="8"
+   WidthRequest="48"
+   ImageAlignment="Default"                                            
+   HeightRequest="40" />
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </Frame>
