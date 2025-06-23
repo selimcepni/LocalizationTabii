@@ -117,6 +117,9 @@ namespace LocalizationTabii
             builder.Services.AddTransientWithShellRoute<TranslatePage, TranslatePageModel>("translate");
             builder.Services.AddTransientWithShellRoute<SRTToolsPage, SRTToolsPageModel>("srttools");
             builder.Services.AddTransientWithShellRoute<SettingsPage, SettingsPageModel>("settings");
+            
+            // Test sayfası
+            builder.Services.AddTransient<TestSemanticKernelPage>();
 
             var app = builder.Build();
             ServiceProvider = app.Services;

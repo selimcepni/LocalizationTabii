@@ -39,6 +39,12 @@
         Route="prompts" />   
 
     <ShellContent
+        Title="🧪 Kernel Test"
+        Icon="{StaticResource IconSettings}"
+        ContentTemplate="{DataTemplate pages:TestSemanticKernelPage}"
+        Route="kerneltest" />
+
+    <ShellContent
         Title="Settings"
         Icon="{StaticResource IconSettings}"
         ContentTemplate="{DataTemplate pages:SettingsPage}"
