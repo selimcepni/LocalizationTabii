@@ -26,7 +26,31 @@ namespace LocalizationTabii.Services
             DisplayErrorAlert(title, message).FireAndForgetSafeAsync();
         }
 
+        /// <summary>
+        /// Shows a success message with a title.
+        /// </summary>
+        /// <param name="title">Success title</param>
+        /// <param name="message">Success message</param>
+        public void ShowSuccess(string title, string message)
+        {
+            DisplaySuccessAlert(title, message).FireAndForgetSafeAsync();
+        }
+
         async Task DisplayErrorAlert(string title, string message)
+        {
+            try
+            {
+                await _semaphore.WaitAsync();
+                if (Shell.Current is Shell shell)
+                    await shell.DisplayAlert(title, message, "Tamam");
+            }
+            finally
+            {
+                _semaphore.Release();
+            }
+        }
+
+        async Task DisplaySuccessAlert(string title, string message)
         {
             try
             {

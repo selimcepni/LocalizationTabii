@@ -8,7 +8,7 @@ namespace LocalizationTabii.Services;
 /// SRT formatındaki metinleri ayrıştıran (parse) ve birleştiren (serialize)
 /// sağlam ve güvenilir bir yardımcı sınıftır.
 /// </summary>
-public static class SrtParser
+public class SrtParser : ISrtParser
 {
     // Zaman kodunu yakalamak için kullanılan, derlenmiş ve optimize edilmiş Regex deseni.
     // Örnek: "00:00:20,123 --> 00:00:22,456"
@@ -20,7 +20,7 @@ public static class SrtParser
     /// </summary>
     /// <param name="srtContent">SRT dosyasının tüm içeriği.</param>
     /// <returns>Her bir geçerli altyazı bloğu için bir SubtitleEntry içeren liste.</returns>
-    public static List<SubtitleEntry> Parse(string srtContent)
+    public List<SubtitleEntry> Parse(string srtContent)
     {
         if (string.IsNullOrWhiteSpace(srtContent))
         {
@@ -29,7 +29,6 @@ public static class SrtParser
 
         var entries = new List<SubtitleEntry>();
         
-      
         var blocks = srtContent.Split(new[] { "\r\n\r\n", "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var block in blocks)
@@ -38,28 +37,23 @@ public static class SrtParser
             {
                 var lines = block.Trim().Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
 
-           
                 if (lines.Length < 2) continue;
 
                 if (!int.TryParse(lines[0].Trim(), out int sequence))
                 {
-                 
                     continue;
                 }
 
                 var timecodeMatch = TimecodeRegex.Match(lines[1]);
                 if (!timecodeMatch.Success)
                 {
-                    
                     continue;
                 }
-
 
                 const string timeFormat = @"hh\:mm\:ss\,fff";
                 var startTime = TimeSpan.ParseExact(timecodeMatch.Groups[1].Value, timeFormat, null);
                 var endTime = TimeSpan.ParseExact(timecodeMatch.Groups[2].Value, timeFormat, null);
 
-            
                 var text = lines.Length > 2 ? string.Join(Environment.NewLine, lines.Skip(2)) : string.Empty;
 
                 entries.Add(new SubtitleEntry
@@ -72,7 +66,6 @@ public static class SrtParser
             }
             catch (Exception)
             {
-                
                 continue;
             }
         }
@@ -81,11 +74,23 @@ public static class SrtParser
     }
 
     /// <summary>
+    /// SRT dosyasını stream'den async olarak parse eder
+    /// </summary>
+    /// <param name="stream">SRT dosyası stream'i</param>
+    /// <returns>SubtitleEntry listesi</returns>
+    public async Task<List<SubtitleEntry>> ParseAsync(Stream stream)
+    {
+        using var reader = new StreamReader(stream, Encoding.UTF8);
+        var content = await reader.ReadToEndAsync();
+        return Parse(content);
+    }
+
+    /// <summary>
     /// Bir SubtitleEntry listesini standart SRT formatında bir metne dönüştürür.
     /// </summary>
     /// <param name="entries">Çevrilmiş veya orijinal SubtitleEntry listesi.</param>
     /// <returns>Dosyaya yazılmaya hazır, tam bir SRT metni.</returns>
-    public static string Serialize(List<SubtitleEntry> entries)
+    public string Serialize(List<SubtitleEntry> entries)
     {
         if (entries == null || entries.Count == 0)
         {
