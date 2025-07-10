@@ -278,9 +278,10 @@
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="15"
-                                        LineBreakMode="MiddleTruncation"
+                                        LineBreakMode="TailTruncation"
                                         MaxLines="1"
-                                        Text="{Binding UploadedFileName}" />
+                                        Text="{Binding UploadedFileName}"
+                                        ToolTipProperties.Text="{Binding UploadedFileName}" />
 
                                     <Label
                                         FontSize="13"

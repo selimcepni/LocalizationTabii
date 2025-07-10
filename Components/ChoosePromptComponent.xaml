@@ -11,7 +11,9 @@
 
 
     <ScrollView VerticalOptions="FillAndExpand">
-        <StackLayout VerticalOptions="CenterAndExpand" Margin="20" Spacing="16">
+        <StackLayout VerticalOptions="CenterAndExpand" 
+                     Margin="{OnIdiom Phone='12', Tablet='16', Desktop='20', Default='16'}" 
+                     Spacing="{OnIdiom Phone='12', Tablet='14', Desktop='16', Default='14'}">
             
             <!-- Ana zemin kartı - Dashboard ile tutarlılık -->
             <Border
@@ -24,25 +26,27 @@
                             Offset="0,2" />
                 </Border.Shadow>
             
-                <StackLayout VerticalOptions="Center" Spacing="32">
+                <StackLayout VerticalOptions="Center" 
+                             Spacing="{OnIdiom Phone='24', Tablet='28', Desktop='32', Default='28'}">
             
             <!-- Başlık -->
-            <StackLayout Spacing="20">
+            <StackLayout Spacing="{OnIdiom Phone='16', Tablet='18', Desktop='20', Default='18'}">
                 <!-- Ana başlık -->
                 <Label 
                     Text="Prompt Seçimi"
                     Style="{StaticResource Headline}"
-                    FontSize="32"
+                    FontSize="{OnPlatform Android=28, iOS=28, WinUI=32, Default=30}"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
                     Margin="0,0,0,8" />
 
-                <!-- Bilgi kartları - Responsive FlexLayout -->
+                <!-- Bilgi kartları - Optimize Responsive FlexLayout -->
                 <FlexLayout 
                     Direction="Row" 
                     Wrap="Wrap" 
-                    JustifyContent="Center" 
-                    AlignItems="Center"
+                    JustifyContent="{OnIdiom Phone=Center, Tablet=Center, Desktop=Center, Default=Center}" 
+                    AlignItems="Stretch"
                     AlignContent="Center">
                     
                     <!-- Dosya bilgisi kartı -->
@@ -51,24 +55,28 @@
                         StrokeShape="RoundRectangle 16"
                         Stroke="Transparent"
                         StrokeThickness="0"
-                        Padding="20,16"
-                        Margin="8"
-                        HeightRequest="70"
-                        FlexLayout.Basis="280"
+                        Padding="{OnIdiom Phone='12,10', Tablet='14,12', Desktop='16,14', Default='14,12'}"
+                        Margin="{OnIdiom Phone='6,8', Tablet='8,6', Desktop='6,6', Default='8,6'}"
+                        HeightRequest="{OnIdiom Phone=70, Tablet=75, Desktop=80, Default=75}"
+                        WidthRequest="{OnIdiom Phone=280, Tablet=300, Desktop=280, Default=290}"
+                        FlexLayout.Basis="{OnIdiom Phone=280, Tablet=300, Desktop=280, Default=290}"
                         FlexLayout.Grow="0"
-                        FlexLayout.Shrink="1">
+                        FlexLayout.Shrink="0"
+                        FlexLayout.AlignSelf="Center"
+                        HorizontalOptions="Center">
                         
-                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12" VerticalOptions="Center">
                             <Border 
                                 Grid.Column="0"
                                 BackgroundColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}"
-                                StrokeShape="RoundRectangle 12"
-                                Padding="10"
-                                VerticalOptions="Center">
+                                StrokeShape="RoundRectangle 10"
+                                Padding="8"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center">
                                 <Image 
                                     Source="{StaticResource IconDocument24Regular}"
-                                    WidthRequest="18"
-                                    HeightRequest="18"
+                                    WidthRequest="16"
+                                    HeightRequest="16"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center" />
                             </Border>
@@ -76,32 +84,43 @@
                             <StackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                 <Label 
                                     Text="{Binding SelectedFileName}"
-                                    FontSize="15"
+                                    FontSize="13"
                                     FontAttributes="Bold"
-                                    LineBreakMode="MiddleTruncation"
-                                    MaxLines="1" />
+                                    HorizontalOptions="FillAndExpand"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    VerticalOptions="Center"
+                                    ToolTipProperties.Text="{Binding SelectedFileName}" />
                                 
                                 <Label 
                                     Text="{Binding FileSize}"
-                                    FontSize="12"
+                                    FontSize="10"
                                     TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                    Margin="0,-1,0,0" />
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="FillAndExpand"
+                                    Margin="0,2,0,0" />
                             </StackLayout>
                         </Grid>
                     </Border>
                     
-                    <!-- Süreç ikonu - Responsive görünürlük -->
-                    <Image 
-                        Source="{StaticResource IconArrowCircleRight24Regular}"
-                        WidthRequest="24"
-                        HeightRequest="24"
-                        Margin="8,0"
-                        FlexLayout.Order="1"
-                        FlexLayout.Basis="24"
+                    <!-- Süreç ikonu - Responsive -->
+                    <StackLayout 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        FlexLayout.Basis="{OnIdiom Phone=0, Tablet=28, Desktop=36, Default=28}"
                         FlexLayout.Grow="0"
-                        FlexLayout.Shrink="0">
-
-                    </Image>
+                        FlexLayout.Shrink="0"
+                        FlexLayout.AlignSelf="Center"
+                        IsVisible="{OnIdiom Phone=False, Tablet=True, Desktop=True, Default=True}">
+                        <Image 
+                            Source="{StaticResource IconArrowCircleRight24Regular}"
+                            WidthRequest="{OnIdiom Phone=0, Tablet=18, Desktop=24, Default=20}"
+                            HeightRequest="{OnIdiom Phone=0, Tablet=18, Desktop=24, Default=20}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Opacity="{OnIdiom Phone=0, Tablet=0.5, Desktop=0.6, Default=0.5}">
+                        </Image>
+                    </StackLayout>
 
                     <!-- Model bilgisi kartı -->
                     <Border 
@@ -109,25 +128,28 @@
                         StrokeShape="RoundRectangle 16"
                         Stroke="Transparent"
                         StrokeThickness="0"
-                        Padding="20,16"
-                        Margin="8"
-                        HeightRequest="70"
-                        FlexLayout.Order="2"
-                        FlexLayout.Basis="280"
+                        Padding="{OnIdiom Phone='12,10', Tablet='14,12', Desktop='16,14', Default='14,12'}"
+                        Margin="{OnIdiom Phone='6,8', Tablet='8,6', Desktop='6,6', Default='8,6'}"
+                        HeightRequest="{OnIdiom Phone=70, Tablet=75, Desktop=80, Default=75}"
+                        WidthRequest="{OnIdiom Phone=280, Tablet=300, Desktop=280, Default=290}"
+                        FlexLayout.Basis="{OnIdiom Phone=280, Tablet=300, Desktop=280, Default=290}"
                         FlexLayout.Grow="0"
-                        FlexLayout.Shrink="1">
+                        FlexLayout.Shrink="0"
+                        FlexLayout.AlignSelf="Center"
+                        HorizontalOptions="Center">
                         
-                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12" VerticalOptions="Center">
                             <Border 
                                 Grid.Column="0"
                                 BackgroundColor="{StaticResource SuccessColor}"
-                                StrokeShape="RoundRectangle 12"
-                                Padding="10"
-                                VerticalOptions="Center">
+                                StrokeShape="RoundRectangle 10"
+                                Padding="8"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center">
                                 <Image 
                                     Source="{StaticResource IconSparkleInfo24Regular}"
-                                    WidthRequest="18"
-                                    HeightRequest="18"
+                                    WidthRequest="16"
+                                    HeightRequest="16"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center" />
                             </Border>
@@ -135,26 +157,36 @@
                             <Label 
                                 Grid.Column="1"
                                 Text="{Binding SelectedModelDisplayName}"
-                                FontSize="15"
+                                FontSize="13"
                                 FontAttributes="Bold"
                                 TextColor="{StaticResource SuccessColor}"
                                 VerticalOptions="Center"
-                                HorizontalOptions="Start" />
+                                HorizontalOptions="FillAndExpand"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                ToolTipProperties.Text="{Binding SelectedModelDisplayName}" />
                         </Grid>
                     </Border>
                     
-                    <!-- İkinci süreç ikonu - Prompt seçildiyse görünür -->
-                    <Image 
-                        Source="{StaticResource IconArrowCircleRight24Regular}"
-                        WidthRequest="24"
-                        HeightRequest="24"
-                        Margin="8,0"
-                        FlexLayout.Order="3"
-                        FlexLayout.Basis="24"
+                    <!-- İkinci süreç ikonu - Responsive -->
+                    <StackLayout 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        FlexLayout.Basis="{OnIdiom Phone=0, Tablet=28, Desktop=36, Default=28}"
                         FlexLayout.Grow="0"
                         FlexLayout.Shrink="0"
+                        FlexLayout.AlignSelf="Center"
                         IsVisible="{Binding SelectedPrompt, Converter={StaticResource IsNotNullConverter}}">
-                    </Image>
+                        <Image 
+                            Source="{StaticResource IconArrowCircleRight24Regular}"
+                            WidthRequest="{OnIdiom Phone=0, Tablet=18, Desktop=24, Default=20}"
+                            HeightRequest="{OnIdiom Phone=0, Tablet=18, Desktop=24, Default=20}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Opacity="{OnIdiom Phone=0, Tablet=0.5, Desktop=0.6, Default=0.5}"
+                            IsVisible="{OnIdiom Phone=False, Tablet=True, Desktop=True, Default=True}">
+                        </Image>
+                    </StackLayout>
 
                     <!-- Prompt bilgisi kartı -->
                     <Border 
@@ -162,26 +194,29 @@
                         StrokeShape="RoundRectangle 16"
                         Stroke="Transparent"
                         StrokeThickness="0"
-                        Padding="20,16"
-                        Margin="8"
-                        HeightRequest="70"
-                        FlexLayout.Order="4"
-                        FlexLayout.Basis="280"
+                        Padding="{OnIdiom Phone='12,10', Tablet='14,12', Desktop='16,14', Default='14,12'}"
+                        Margin="{OnIdiom Phone='6,8', Tablet='8,6', Desktop='6,6', Default='8,6'}"
+                        HeightRequest="{OnIdiom Phone=70, Tablet=75, Desktop=80, Default=75}"
+                        WidthRequest="{OnIdiom Phone=280, Tablet=300, Desktop=280, Default=290}"
+                        FlexLayout.Basis="{OnIdiom Phone=280, Tablet=300, Desktop=280, Default=290}"
                         FlexLayout.Grow="0"
-                        FlexLayout.Shrink="1"
+                        FlexLayout.Shrink="0"
+                        FlexLayout.AlignSelf="Center"
+                        HorizontalOptions="Center"
                         IsVisible="{Binding SelectedPrompt, Converter={StaticResource IsNotNullConverter}}">
                         
-                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12" VerticalOptions="Center">
                             <Border 
                                 Grid.Column="0"
                                 BackgroundColor="{StaticResource LightSecondaryColor}"
-                                StrokeShape="RoundRectangle 12"
-                                Padding="10"
-                                VerticalOptions="Center">
+                                StrokeShape="RoundRectangle 10"
+                                Padding="8"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center">
                                 <Image 
-                                    Source="{StaticResource IconSparkleFilled}"
-                                    WidthRequest="18"
-                                    HeightRequest="18"
+                                    Source="{StaticResource IconSparkle24Regular}"
+                                    WidthRequest="16"
+                                    HeightRequest="16"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center" />
                             </Border>
@@ -189,17 +224,22 @@
                             <StackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                 <Label 
                                     Text="{Binding SelectedPrompt.Title}"
-                                    FontSize="15"
+                                    FontSize="13"
                                     FontAttributes="Bold"
                                     TextColor="{StaticResource LightSecondaryColor}"
-                                    LineBreakMode="MiddleTruncation"
-                                    MaxLines="1" />
+                                    HorizontalOptions="FillAndExpand"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    VerticalOptions="Center"
+                                    ToolTipProperties.Text="{Binding SelectedPrompt.Title}" />
                                 
                                 <Label 
                                     Text="{Binding SelectedPrompt.Language}"
-                                    FontSize="12"
+                                    FontSize="10"
                                     TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                    Margin="0,-1,0,0" />
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="FillAndExpand"
+                                    Margin="0,2,0,0" />
                             </StackLayout>
                         </Grid>
                     </Border>
@@ -208,34 +248,35 @@
             </StackLayout>
 
             <!-- İçerik alanı -->
-            <StackLayout Spacing="24">
+            <StackLayout Spacing="{OnIdiom Phone='16', Tablet='18', Desktop='20', Default='18'}">
                 <Label 
                     Text="Çeviri için kullanılacak prompt'u seçin veya özelleştirin:"
-                    FontSize="17"
+                    FontSize="{OnPlatform Android=16, iOS=16, WinUI=17, Default=16}"
                     TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
                     HorizontalOptions="Center"
                     HorizontalTextAlignment="Center"
                     FontAttributes="Bold"
-                    Margin="20,0" />
+                    Margin="{OnPlatform Android='16,0', iOS='16,0', WinUI='20,0', Default='18,0'}" />
 
 
             </StackLayout>
 
-            <!-- Alt butonlar - Responsive FlexLayout -->
+            <!-- Alt butonlar - Kompakt -->
             <FlexLayout 
                 Direction="Row" 
                 Wrap="Wrap" 
                 JustifyContent="Center" 
                 AlignItems="Center"
-                AlignContent="Center"
-                Margin="0,20,0,0">
+                Margin="0,16,0,0">
                 
                 <!-- Geri dön butonu -->
                 <buttons:SfButton 
                     Style="{StaticResource SecondaryButtonStyle}"
                     Text="Geri Dön"
                     Command="{Binding GoBackCommand}"
-                    Margin="8,6" />
+                    Margin="6,4"
+                    FontSize="14"
+                    HeightRequest="40" />
                 
                 <!-- Prompt seç butonu -->
                 <buttons:SfButton 
@@ -243,7 +284,9 @@
                     Text="Prompt Seç"
                     Command="{Binding SelectPromptCommand}"
                     IsEnabled="{Binding IsSelectingPrompt, Converter={StaticResource InvertedBoolConverter}}"
-                    Margin="8,6" />
+                    Margin="6,4"
+                    FontSize="14"
+                    HeightRequest="40" />
                 
                 <!-- Çeviriye başla butonu - Sadece prompt seçildiğinde görünür -->
                 <buttons:SfButton 
@@ -251,7 +294,9 @@
                     Text="Çeviriye Başla"
                     Command="{Binding StartTranslationCommand}"
                     IsVisible="{Binding SelectedPrompt, Converter={StaticResource IsNotNullConverter}}"
-                    Margin="8,6" />
+                    Margin="6,4"
+                    FontSize="14"
+                    HeightRequest="40" />
             </FlexLayout>
             
                 </StackLayout>

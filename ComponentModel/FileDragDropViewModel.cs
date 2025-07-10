@@ -107,12 +107,6 @@ namespace LocalizationTabii.ComponentModel
 
         private async Task HandleFileDropAsync(DragEventArgs dragArgs)
         {
-            // İlk olarak alert göster - drop event çağrıldı mı?
-            if (Application.Current?.MainPage != null)
-            {
-                await Application.Current.MainPage.DisplayAlert("Debug", 
-                    "🔧 DROP EVENT ÇAĞRILDI!", "Tamam");
-            }
             
             try
             {
@@ -134,12 +128,7 @@ namespace LocalizationTabii.ComponentModel
                     var items = session.Items;
                     System.Diagnostics.Debug.WriteLine($"🔧 Items count: {items?.Length ?? 0}");
                     
-                    // Alert ile items count göster
-                    if (Application.Current?.MainPage != null)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Debug", 
-                            $"🔧 Items count: {items?.Length ?? 0}", "Tamam");
-                    }
+
                     
                     foreach (var item in items)
                     {
@@ -149,12 +138,7 @@ namespace LocalizationTabii.ComponentModel
                         var types = item.ItemProvider.RegisteredTypeIdentifiers;
                         System.Diagnostics.Debug.WriteLine($"🔧 Registered types: {string.Join(", ", types)}");
                         
-                        // Alert ile types göster
-                        if (Application.Current?.MainPage != null)
-                        {
-                            await Application.Current.MainPage.DisplayAlert("Debug", 
-                                $"🔧 Registered types: {string.Join(", ", types)}", "Tamam");
-                        }
+
                         
                         foreach (var type in types)
                         {
@@ -176,12 +160,7 @@ namespace LocalizationTabii.ComponentModel
                                         var fileName = Path.GetFileName(result.FileUrl.Path);
                                         System.Diagnostics.Debug.WriteLine($"🔧 Processing file: {fileName}");
                                         
-                                        // Alert ile dosya adını göster
-                                        if (Application.Current?.MainPage != null)
-                                        {
-                                            await Application.Current.MainPage.DisplayAlert("Debug", 
-                                                $"🔧 Dosya bulundu: {fileName}\nPath: {result.FileUrl.Path}", "Tamam");
-                                        }
+
                                         
                                         await ProcessSelectedFileFromPath(fileName, result.FileUrl.Path);
                                         return;
@@ -191,12 +170,7 @@ namespace LocalizationTabii.ComponentModel
                                 {
                                     System.Diagnostics.Debug.WriteLine($"🔧 Exception loading type {type}: {ex.Message}");
                                     
-                                    // Alert ile exception göster
-                                    if (Application.Current?.MainPage != null)
-                                    {
-                                        await Application.Current.MainPage.DisplayAlert("Debug", 
-                                            $"🔧 Exception: {ex.Message}", "Tamam");
-                                    }
+
                                     
                                     // Continue to next type
                                     continue;
@@ -207,12 +181,7 @@ namespace LocalizationTabii.ComponentModel
                 }
                 else
                 {
-                    // Alert ile DropSession null olduğunu göster
-                    if (Application.Current?.MainPage != null)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Debug", 
-                            "🔧 DropSession NULL!", "Tamam");
-                    }
+
                 }
 #else
                 // Windows implementation
@@ -253,22 +222,13 @@ namespace LocalizationTabii.ComponentModel
                     SelectFileCommand.NotifyCanExecuteChanged();
                 });
                 
-                if (Application.Current?.MainPage != null)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Debug",
-                        "🔧 Hiç dosya bulunamadı!", "Tamam");
-                }
+
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"🔧 Exception in HandleFileDropAsync: {ex}");
                 
-                // Alert ile main exception göster
-                if (Application.Current?.MainPage != null)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Debug", 
-                        $"🔧 Ana Exception: {ex.Message}", "Tamam");
-                }
+
                 
                 // State'i main thread'de sıfırla
                 MainThread.BeginInvokeOnMainThread(() =>

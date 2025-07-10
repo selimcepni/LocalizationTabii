@@ -5,18 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
     xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+    xmlns:listview="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
     xmlns:viewmodels="clr-namespace:LocalizationTabii.ComponentModel"
     xmlns:utilities="clr-namespace:LocalizationTabii.Utilities.Converters"
     x:DataType="viewmodels:ChooseModelViewModel">
 
-
-
     <ScrollView VerticalOptions="FillAndExpand">
         <StackLayout VerticalOptions="CenterAndExpand" Margin="20" Spacing="16">
             
-            <!-- Ana zemin kartı - Dashboard ile tutarlılık -->
-            <Border
-                Style="{StaticResource CardStyle}">
+            <!-- Ana zemin kartı -->
+            <Border Style="{StaticResource CardStyle}">
                 
                 <Border.Shadow>
                     <Shadow Brush="{AppThemeBinding Light={StaticResource Gray200}, Dark=Transparent}" 
@@ -25,203 +23,186 @@
                             Offset="0,2" />
                 </Border.Shadow>
             
-                <StackLayout VerticalOptions="Center" Spacing="32">
+                <StackLayout VerticalOptions="Center" Spacing="24">
             
-            <!-- Başlık ve seçilen dosya bilgisi -->
-            <StackLayout Spacing="20">
-                <!-- Ana başlık -->
-                <Label 
-                    Text="Model Seçimi"
-                    Style="{StaticResource Headline}"
-                    FontSize="32"
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center"
-                    Margin="0,0,0,8" />
+                    <!-- Başlık -->
+                    <Label 
+                        Text="Model Seçimi"
+                        Style="{StaticResource Headline}"
+                        FontSize="22"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Margin="0,0,0,8" />
 
-                <!-- Seçilen dosya bilgisi -->
-                <Border 
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
-                    StrokeShape="RoundRectangle 16"
-                    Stroke="Transparent"
-                    StrokeThickness="0"
-                    Padding="20,16"
-                    HorizontalOptions="Center"
-                    WidthRequest="300">
-                    
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
-                        <Border 
-                            Grid.Column="0"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}"
-                            StrokeShape="RoundRectangle 12"
-                            Padding="10"
-                            VerticalOptions="Center">
-                            <Image 
-                                Source="{StaticResource IconDocument24Regular}"
-                                WidthRequest="18"
-                                HeightRequest="18"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-                        </Border>
+                    <!-- Seçilen dosya bilgisi - Kompakt -->
+                    <Border 
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="Transparent"
+                        Padding="16,12"
+                        HorizontalOptions="Center"
+                        MaximumWidthRequest="350">
                         
-                        <StackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
-                            <Label 
-                                Text="{Binding SelectedFileName}"
-                                FontSize="15"
-                                FontAttributes="Bold"
-                                LineBreakMode="MiddleTruncation"
-                                MaxLines="1" />
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                            <Border 
+                                Grid.Column="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="8"
+                                VerticalOptions="Center">
+                                <Image 
+                                    Source="{StaticResource IconDocument24Regular}"
+                                    WidthRequest="16"
+                                    HeightRequest="16" />
+                            </Border>
                             
-                            <Label 
-                                Text="{Binding FileSize}"
-                                FontSize="13"
-                                TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}" />
-                        </StackLayout>
-                    </Grid>
-                </Border>
-            </StackLayout>
+                            <StackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Label 
+                                    Text="{Binding SelectedFileName}"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    ToolTipProperties.Text="{Binding SelectedFileName}" />
+                                
+                                <Label 
+                                    Text="{Binding FileSize}"
+                                    FontSize="12"
+                                    TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                            </StackLayout>
+                        </Grid>
+                    </Border>
 
-            <!-- Model seçim kartları -->
-            <StackLayout Spacing="24">
-                <Label 
-                    Text="Çeviri için kullanılacak modeli seçin:"
-                    FontSize="17"
-                    TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    FontAttributes="Bold"
-                    Margin="20,0" />
+                    <!-- Model seçim alanı - Kompakt -->
+                    <StackLayout Spacing="16">
+                        <Label 
+                            Text="Çeviri için kullanılacak modeli seçin:"
+                            FontSize="15"
+                            TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            FontAttributes="Bold" />
 
-                <!-- Model kartları -->
-                <StackLayout Spacing="12">
+                        <!-- Loading indikátörü - Küçük -->
+                        <core:SfBusyIndicator 
+                            IsVisible="{Binding IsLoading}"
+                            IsRunning="{Binding IsLoading}"
+                            IndicatorColor="{AppThemeBinding Light={StaticResource LightPrimaryColor}, Dark={StaticResource DarkPrimaryColor}}"
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            HorizontalOptions="Center"
+                            AnimationType="CircularMaterial" />
+
+                        <!-- Model listesi - Syncfusion TapCommand ile -->
+                        <Border 
+                            BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource DarkSurfaceColor}}"
+                            StrokeShape="RoundRectangle 12"
+                            Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                            StrokeThickness="1"
+                            IsVisible="{Binding IsLoading, Converter={x:Static utilities:InverseBoolConverter.Instance}}"
+                            MaximumWidthRequest="500"
+                            HorizontalOptions="Center">
+                            
+                            <listview:SfListView 
+                                ItemsSource="{Binding AvailableModels}"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedModel}"
+                                HeightRequest="200"
+                                TapCommand="{Binding SelectModelCommand}"
+                                ItemSpacing="0,8,0,8">
+                                
+                                <listview:SfListView.ItemTemplate>
+                                    <DataTemplate x:DataType="viewmodels:ModelInfo">
+                                        <ViewCell>
+                                            <Border 
+                                                BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource DarkSurfaceColor}}"
+                                                StrokeShape="RoundRectangle 12"
+                                                StrokeThickness="2"
+                                                Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}"
+                                                Padding="16,12"
+                                                Margin="8,6">
+
+                                                <Border.Triggers>
+                                                    <!-- Seçili model - Daha belirgin -->
+                                                    <DataTrigger TargetType="Border" 
+                                                                Binding="{Binding Identifier, Converter={x:Static utilities:StringEqualsConverter.Instance}, ConverterParameter={Binding Source={RelativeSource AncestorType={x:Type listview:SfListView}}, Path=BindingContext.SelectedModel.Identifier}}" 
+                                                                Value="True">
+                                                        <Setter Property="BackgroundColor" 
+                                                                Value="{AppThemeBinding Light=#E3F2FD, Dark=#1E3A8A}" />
+                                                        <Setter Property="Stroke" 
+                                                                Value="{AppThemeBinding Light=#2196F3, Dark=#3B82F6}" />
+                                                        <Setter Property="StrokeThickness" Value="3" />
+                                                    </DataTrigger>
+                                                </Border.Triggers>
+
+                                                <Grid ColumnDefinitions="*" ColumnSpacing="16">
+                                                    <!-- Model bilgileri -->
+                                                    <StackLayout Grid.Column="0" Spacing="6" VerticalOptions="Center">
+                                                        <Label Text="{Binding DisplayName}"
+                                                               FontSize="16"
+                                                               FontAttributes="Bold"
+                                                               LineBreakMode="TailTruncation">
+                                                            <Label.Triggers>
+                                                                <!-- Seçili model için farklı renk -->
+                                                                <DataTrigger TargetType="Label" 
+                                                                            Binding="{Binding Identifier, Converter={x:Static utilities:StringEqualsConverter.Instance}, ConverterParameter={Binding Source={RelativeSource AncestorType={x:Type listview:SfListView}}, Path=BindingContext.SelectedModel.Identifier}}" 
+                                                                            Value="True">
+                                                                    <Setter Property="TextColor" 
+                                                                            Value="{AppThemeBinding Light=#1976D2, Dark=#60A5FA}" />
+                                                                </DataTrigger>
+                                                            </Label.Triggers>
+                                                        </Label>
+                                                        
+                                                        <Label Text="{Binding Provider, StringFormat='Sağlayıcı: {0}'}"
+                                                               FontSize="13"
+                                                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}" />
+                                                    </StackLayout>
+                                                </Grid>
+                                            </Border>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </listview:SfListView.ItemTemplate>
+                            </listview:SfListView>
+                        </Border>
+
+                        <!-- Model bulunamadı mesajı -->
+                        <Label 
+                            Text="Hiçbir model bulunamadı. Lütfen ayarlardan API anahtarlarınızı kontrol edin."
+                            FontSize="14"
+                            TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            IsVisible="{Binding HasNoModels}"
+                            Margin="16,8" />
+                    </StackLayout>
+
+                    <!-- Alt butonlar - Kompakt -->
+                    <FlexLayout 
+                        Direction="Row" 
+                        Wrap="Wrap" 
+                        JustifyContent="Center" 
+                        AlignItems="Center"
+                        Margin="0,16,0,0">
+                        
+                        <!-- Geri dön butonu -->
+                        <buttons:SfButton 
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Text="Geri Dön"
+                            Command="{Binding GoBackCommand}"
+                            Margin="6,4"
+                            FontSize="14"
+                            HeightRequest="40" />
+
+                        <!-- Devam et butonu -->
+                        <buttons:SfButton 
+                            Style="{StaticResource SuccessButtonStyle}"
+                            Text="Devam Et"
+                            Command="{Binding StartTranslationCommand}"
+                            Margin="6,4"
+                            FontSize="14"
+                            HeightRequest="40" />
+                    </FlexLayout>
                     
-                    <!-- GPT-4 Model -->
-                    <Border 
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
-                        StrokeShape="RoundRectangle 16"
-                        Stroke="Transparent"
-                        StrokeThickness="0"
-                        Padding="24,20">
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <!-- Model bilgileri -->
-                            <StackLayout Grid.Row="0" Grid.Column="0" Spacing="8">
-                                <Label 
-                                    Text="GPT-4 Turbo"
-                                    FontSize="18"
-                                    FontAttributes="Bold" />
-                                
-                                <Label 
-                                    Text="En gelişmiş model - Yüksek kaliteli çeviri"
-                                    FontSize="14"
-                                    TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                    LineBreakMode="WordWrap" />
-                            </StackLayout>
-
-                            <!-- Seçim butonu -->
-                            <RadioButton 
-                                Grid.Row="0" 
-                                Grid.Column="1"
-                                GroupName="ModelSelection"
-                                IsChecked="{Binding IsGpt4Selected}"
-                                VerticalOptions="Center" />
-
-                            <!-- Özellikler -->
-                            <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Spacing="4" Margin="0,12,0,0">
-                                <Label Text="✓ Yüksek doğruluk" FontSize="12" TextColor="{StaticResource SuccessColor}" />
-                                <Label Text="✓ Bağlam anlayışı" FontSize="12" TextColor="{StaticResource SuccessColor}" />
-                                <Label Text="✓ Deyim ve kültürel referanslar" FontSize="12" TextColor="{StaticResource SuccessColor}" />
-                            </StackLayout>
-                        </Grid>
-                    </Border>
-
-                    <!-- GPT-3.5 Model -->
-                    <Border 
-                        BackgroundColor="{AppThemeBinding Light={StaticResource LightAccentColor}, Dark={StaticResource DarkAccentColor}}"
-                        StrokeShape="RoundRectangle 16"
-                        Stroke="Transparent"
-                        StrokeThickness="0"
-                        Padding="24,20">
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <!-- Model bilgileri -->
-                            <StackLayout Grid.Row="0" Grid.Column="0" Spacing="8">
-                                <Label 
-                                    Text="GPT-3.5 Turbo"
-                                    FontSize="18"
-                                    FontAttributes="Bold" />
-                                
-                                <Label 
-                                    Text="Hızlı ve ekonomik - İyi kaliteli çeviri"
-                                    FontSize="14"
-                                    TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource DarkTextSecondaryColor}}"
-                                    LineBreakMode="WordWrap" />
-                            </StackLayout>
-
-                            <!-- Seçim butonu -->
-                            <RadioButton 
-                                Grid.Row="0" 
-                                Grid.Column="1"
-                                GroupName="ModelSelection"
-                                IsChecked="{Binding IsGpt35Selected}"
-                                VerticalOptions="Center" />
-
-                            <!-- Özellikler -->
-                            <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Spacing="4" Margin="0,12,0,0">
-                                <Label Text="✓ Hızlı işlem" FontSize="12" TextColor="{StaticResource SuccessColor}" />
-                                <Label Text="✓ Düşük maliyet" FontSize="12" TextColor="{StaticResource SuccessColor}" />
-                                <Label Text="✓ Temel çeviri kalitesi" FontSize="12" TextColor="{StaticResource SuccessColor}" />
-                            </StackLayout>
-                        </Grid>
-                    </Border>
-
-                </StackLayout>
-            </StackLayout>
-
-            <!-- Alt butonlar -->
-            <FlexLayout 
-                Direction="Row" 
-                Wrap="Wrap" 
-                JustifyContent="Center" 
-                AlignItems="Center"
-                AlignContent="Center"
-                Margin="0,20,0,0">
-                
-                <!-- Geri dön butonu -->
-                <buttons:SfButton 
-                    Style="{StaticResource SecondaryButtonStyle}"
-                    Text="Geri Dön"
-                    Command="{Binding GoBackCommand}"
-                    Margin="8,6" />
-
-                <!-- Devam et butonu -->
-                <buttons:SfButton 
-                    Style="{StaticResource SuccessButtonStyle}"
-                    Text="Devam Et"
-                    Command="{Binding StartTranslationCommand}"
-                    Margin="8,6" />
-            </FlexLayout>
-            
                 </StackLayout>
             </Border>
             

@@ -7,6 +7,7 @@ using LocalizationTabii.Pages;
 using LocalizationTabii.PageModels;
 using LocalizationTabii.Services;
 using LocalizationTabii.Models;
+using LocalizationTabii.ComponentModel;
 using System.IO;
 using System.Reflection;
 
@@ -105,6 +106,9 @@ namespace LocalizationTabii
             // API Key ve SemanticKernel servisleri
             builder.Services.AddSingleton<IApiKeyService, ApiKeyService>();
             builder.Services.AddSingleton<ISemanticKernelService, SemanticKernelService>();
+            
+            // ViewModels
+            builder.Services.AddTransient<ChooseModelViewModel>();
             
             builder.Services.AddSingleton<MainPageModel>();
             builder.Services.AddSingleton<ProjectListPageModel>();

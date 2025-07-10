@@ -189,8 +189,9 @@ namespace LocalizationTabii.PageModels
                 // Parse edilen içeriği logla
                 LogParsedSrtContent(subtitleEntries);
 
-                _errorHandler?.ShowSuccess("Başarılı", 
-                    $"SRT dosyası başarıyla yüklendi. {subtitleEntries.Count} altyazı bloğu bulundu.");
+                // Başarı popup'ı kaldırıldı - session ready durumu yeterli feedback
+                // _errorHandler?.ShowSuccess("Başarılı", 
+                //     $"SRT dosyası başarıyla yüklendi. {subtitleEntries.Count} altyazı bloğu bulundu.");
             }
             catch (Exception ex)
             {

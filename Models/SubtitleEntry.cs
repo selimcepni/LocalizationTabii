@@ -12,7 +12,9 @@ public class SubtitleEntry
     public string OriginalText { get; set; } = string.Empty;
     public string? TranslatedText { get; set; }
     public TranslationStatus Status { get; set; } = TranslationStatus.NotTranslated;
-    public string? ErrorMessage { get; set; }
+    public string? ErrorMessage { get; set; }   
+    public string? Reference { get; set; }
+    
     public TimeSpan Duration => EndTime - StartTime;
     public string Timecode => 
         $"{StartTime:hh\\:mm\\:ss\\,fff} --> {EndTime:hh\\:mm\\:ss\\,fff}";
