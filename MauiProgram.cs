@@ -96,6 +96,7 @@ namespace LocalizationTabii
             builder.Services.AddSingleton<SeedDataService>();
             builder.Services.AddSingleton<ModalErrorHandler>();
             builder.Services.AddSingleton<SRTCleaningService>();
+            builder.Services.AddSingleton<AnalysisProjectRepository>();
             
             // SRT Parser servisi
             builder.Services.AddSingleton<ISrtParser, SrtParser>();
@@ -123,6 +124,7 @@ namespace LocalizationTabii
             builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
             builder.Services.AddTransientWithShellRoute<TranslatePage, TranslatePageModel>("translate");
             builder.Services.AddTransientWithShellRoute<SRTToolsPage, SRTToolsPageModel>("srttools");
+            builder.Services.AddTransientWithShellRoute<AnalysisToolsPage, AnalysisToolsPageModel>("analysis");
             builder.Services.AddTransientWithShellRoute<SettingsPage, SettingsPageModel>("settings");
             
             var app = builder.Build();

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    x:Class="LocalizationTabii.Components.ProjectListComponent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+    xmlns:models="clr-namespace:LocalizationTabii.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackLayout Grid.Row="0" Margin="20,20,20,10">
+            <Label 
+                Text="Analysis Tools"
+                FontSize="28"
+                FontFamily="Roboto-Medium"
+                HorizontalOptions="Center"
+                TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+            
+            <Label 
+                Text="Proje seçin veya yeni proje oluşturun"
+                FontSize="16"
+                HorizontalOptions="Center"
+                Opacity="0.7"
+                TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}" />
+        </StackLayout>
+
+        <!-- Create Project Button -->
+        <Border Grid.Row="1" 
+                Style="{StaticResource CardStyle}" 
+                Margin="20,10,20,10"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}">
+            
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CreateNewProjectCommand}" />
+            </Border.GestureRecognizers>
+
+            <Grid Padding="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0"
+                       Source="{StaticResource IconAdd}"
+                       VerticalOptions="Center"
+                       WidthRequest="24"
+                       HeightRequest="24" />
+
+                <Label Grid.Column="1"
+                       Text="Yeni Proje Oluştur"
+                       FontSize="16"
+                       FontFamily="Roboto-Medium"
+                       VerticalOptions="Center"
+                       Margin="10,0,0,0"
+                       TextColor="White" />
+            </Grid>
+        </Border>
+
+        <!-- Projects List -->
+        <ScrollView Grid.Row="2" Margin="20,10,20,20">
+            <StackLayout BindableLayout.ItemsSource="{Binding Projects}">
+                <BindableLayout.EmptyView>
+                    <StackLayout VerticalOptions="CenterAndExpand" Spacing="20">
+                        <Image 
+                            Source="{StaticResource IconFolder24Regular}"
+                            HorizontalOptions="Center"
+                            Opacity="0.3"
+                            WidthRequest="48"
+                            HeightRequest="48" />
+                        
+                        <Label 
+                            Text="Henüz proje oluşturulmamış"
+                            FontSize="18"
+                            HorizontalOptions="Center"
+                            Opacity="0.7"
+                            TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                        
+                        <Label 
+                            Text="İlk projenizi oluşturmak için yukarıdaki butona tıklayın"
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            Opacity="0.5"
+                            TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                    </StackLayout>
+                </BindableLayout.EmptyView>
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:AnalysisProject">
+                        <Border Style="{StaticResource CardStyle}" 
+                                Margin="0,5,0,5"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Gray50}, Dark={StaticResource Gray800}}">
+                            
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.SelectProjectCommand}" 
+                                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid Padding="20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Project Name -->
+                                <Label Grid.Row="0" Grid.Column="0"
+                                       Text="{Binding Name}"
+                                       FontSize="18"
+                                       FontFamily="Roboto-Medium"
+                                       TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+
+                                <!-- Delete Button -->
+                                <ImageButton Grid.Row="0" Grid.Column="1"
+                                        Source="{StaticResource IconDelete}"
+                                        BackgroundColor="Transparent"
+                                        Padding="10"
+                                        WidthRequest="40"
+                                        HeightRequest="40"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.DeleteProjectCommand}"
+                                        CommandParameter="{Binding .}" />
+
+                                <!-- Description -->
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Text="{Binding Description}"
+                                       FontSize="14"
+                                       Opacity="0.7"
+                                       Margin="0,5,0,10"
+                                       TextColor="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray300}}" />
+
+                                <!-- Info Row -->
+                                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0"
+                                           FontSize="12"
+                                           Opacity="0.6"
+                                           TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding DocumentCount}" />
+                                                <Span Text=" döküman • " />
+                                                <Span Text="{Binding UpdatedAt, StringFormat='{0:dd.MM.yyyy HH:mm}'}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Image Grid.Column="1"
+                                           Source="{StaticResource IconNextPage}"
+                                           VerticalOptions="Center"
+                                           Opacity="0.5"
+                                           WidthRequest="16"
+                                           HeightRequest="16" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator Grid.RowSpan="3"
+                          IsVisible="{Binding IsLoading}"
+                          IsRunning="{Binding IsLoading}"
+                          Color="{StaticResource Primary}"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center" />
+    </Grid>
+</ContentView> 

@@ -27,6 +27,12 @@
         Route="srttools" />
     
      <ShellContent
+        Title="Analysis Tools"
+        Icon="{StaticResource IconAnalysisTools}"
+        ContentTemplate="{DataTemplate pages:AnalysisToolsPage}"
+        Route="analysis" />
+    
+     <ShellContent
         Title="Transcribe"
         Icon="{StaticResource IconTranscribe}"
         ContentTemplate="{DataTemplate pages:TranscribePage}"

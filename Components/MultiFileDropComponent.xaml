@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    x:Class="LocalizationTabii.Components.MultiFileDropComponent"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+    xmlns:models="clr-namespace:LocalizationTabii.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header with Back Button -->
+        <Grid Grid.Row="0" Margin="20,20,20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ImageButton Grid.Column="0"
+                    Source="{StaticResource IconPreviousPage}"
+                    BackgroundColor="Transparent"
+                    WidthRequest="24"
+                    HeightRequest="24"
+                    Command="{Binding BackToProjectListCommand}" />
+
+            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                <Label 
+                    Text="{Binding SelectedProject.Name, StringFormat='Proje: {0}'}"
+                    FontSize="20"
+                    FontFamily="Roboto-Medium"
+                    HorizontalOptions="Start"
+                    TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                
+                <Label 
+                    Text="Dosyalarınızı ekleyin ve yönetin"
+                    FontSize="14"
+                    Opacity="0.7"
+                    HorizontalOptions="Start"
+                    TextColor="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray300}}" />
+            </StackLayout>
+        </Grid>
+
+        <!-- File Drop Area -->
+        <Border Grid.Row="1" 
+                Style="{StaticResource CardStyle}" 
+                Margin="20,10,20,10"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Gray50}, Dark={StaticResource Gray800}}"
+                Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}"
+                StrokeThickness="2"
+                StrokeDashArray="5,5">
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SelectFilesCommand}" />
+            </Border.GestureRecognizers>
+
+            <Grid Padding="40" MinimumHeightRequest="120">
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15">
+                    <Image 
+                        Source="{StaticResource IconAdd}"
+                        HorizontalOptions="Center"
+                        WidthRequest="48"
+                        HeightRequest="48" />
+                    
+                    <Label 
+                        Text="Dosyalarınızı buraya sürükleyin"
+                        FontSize="18"
+                        FontFamily="Roboto-Medium"
+                        HorizontalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                    
+                    <Label 
+                        Text="Veya buraya tıklayarak dosya seçin"
+                        FontSize="14"
+                        Opacity="0.7"
+                        HorizontalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray300}}" />
+                    
+                    <Label 
+                        Text="TXT, SRT, MD ve diğer metin dosyaları desteklenir"
+                        FontSize="12"
+                        Opacity="0.5"
+                        HorizontalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                </StackLayout>
+            </Grid>
+        </Border>
+
+        <!-- Documents List -->
+        <ScrollView Grid.Row="2" Margin="20,10,20,10">
+            <StackLayout BindableLayout.ItemsSource="{Binding SelectedProjectDocuments}">
+                <BindableLayout.EmptyView>
+                    <StackLayout VerticalOptions="CenterAndExpand" Spacing="20">
+                        <Image 
+                            Source="{StaticResource IconDocument24Regular}"
+                            HorizontalOptions="Center"
+                            Opacity="0.3"
+                            WidthRequest="48"
+                            HeightRequest="48" />
+                        
+                        <Label 
+                            Text="Henüz dosya eklenmemiş"
+                            FontSize="18"
+                            HorizontalOptions="Center"
+                            Opacity="0.7"
+                            TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                        
+                        <Label 
+                            Text="Yukarıdaki alana dosyalarınızı ekleyin"
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            Opacity="0.5"
+                            TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+                    </StackLayout>
+                </BindableLayout.EmptyView>
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:AnalysisDocument">
+                        <Border Style="{StaticResource CardStyle}" 
+                                Margin="0,5,0,5"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray850}}">
+
+                            <Grid Padding="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- File Icon -->
+                                <Image Grid.Row="0" Grid.Column="0"
+                                       Source="{StaticResource IconDocument24Regular}"
+                                       VerticalOptions="Center"
+                                       Margin="0,0,15,0"
+                                       WidthRequest="24"
+                                       HeightRequest="24">
+                                    <Image.Triggers>
+                                        <DataTrigger TargetType="Image" Binding="{Binding Type}" Value="Text">
+                                            <Setter Property="Source" Value="{StaticResource IconDocument24Regular}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Image" Binding="{Binding Type}" Value="Srt">
+                                            <Setter Property="Source" Value="{StaticResource IconDocumentTextToolbox}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Image" Binding="{Binding Type}" Value="Other">
+                                            <Setter Property="Source" Value="{StaticResource IconDocument24Regular}" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+
+                                <!-- File Info -->
+                                <StackLayout Grid.Row="0" Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding FileName}"
+                                           FontSize="16"
+                                           FontFamily="Roboto-Medium"
+                                           TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                                    
+                                    <Label FontSize="12"
+                                           Opacity="0.6"
+                                           TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding FormattedFileSize}" />
+                                                <Span Text=" • " />
+                                                <Span Text="{Binding AddedAt, StringFormat='{0:dd.MM.yyyy HH:mm}'}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+
+                                <!-- Delete Button -->
+                                <ImageButton Grid.Row="0" Grid.Column="2"
+                                        Source="{StaticResource IconDelete}"
+                                        BackgroundColor="Transparent"
+                                        Padding="10"
+                                        WidthRequest="40"
+                                        HeightRequest="40"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BindingContext.RemoveDocumentCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Action Buttons -->
+        <Grid Grid.Row="3" Margin="20,10,20,20" ColumnDefinitions="*, *" ColumnSpacing="10">
+            <buttons:SfButton Grid.Column="0"
+                             Text="Dosya Ekle"
+                             Style="{StaticResource OutlineButtonStyle}"
+                             Command="{Binding SelectFilesCommand}"
+                             ImageSource="{StaticResource IconAdd}" />
+
+            <buttons:SfButton Grid.Column="1"
+                             Text="Analiz Et"
+                             Style="{StaticResource PrimaryButtonStyle}"
+                             Command="{Binding AnalyzeDocumentsCommand}"
+                             IsEnabled="{Binding HasDocuments}"
+                             ImageSource="{StaticResource IconAnalysisTools}" />
+        </Grid>
+    </Grid>
+</ContentView> 

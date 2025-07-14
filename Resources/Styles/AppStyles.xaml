@@ -454,12 +454,20 @@
                                Dark={StaticResource LightOnDarkBackground}}"/>
 
 
-    <FontImageSource
+            <FontImageSource
                 x:Key="IconDocumentTextToolbox"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
                 Glyph="{x:Static f:FluentUI.document_text_toolbox_24_regular}"
                 Size="{StaticResource IconSize}"
                  Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
+                                        Dark={StaticResource LightOnDarkBackground}}"/>
+
+        <FontImageSource
+                x:Key="IconAnalysisTools"
+                FontFamily="{x:Static f:FluentUI.FontFamily}"
+                Glyph="{x:Static f:FluentUI.data_trending_24_regular}"
+                Size="{StaticResource IconSize}"
+                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground},
                                         Dark={StaticResource LightOnDarkBackground}}"/>
 
 

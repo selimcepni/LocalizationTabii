@@ -56,14 +56,64 @@ namespace LocalizationTabii.PageModels
             }
         }
 
-        private async Task SaveLogsToDesktop()
+        private string GetSavePath()
         {
             try
             {
-                // Masaüstü yolu
-                var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                // macOS sandbox uygulaması için Documents klasörünü kullan
+                if (OperatingSystem.IsMacOS())
+                {
+                    var macDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    LogMessage($"🍎 macOS algılandı - Sandbox nedeniyle Documents klasörü kullanılıyor: {macDocumentsPath}");
+                    
+                    // Documents klasörü var mı kontrol et
+                    if (Directory.Exists(macDocumentsPath))
+                    {
+                        return macDocumentsPath;
+                    }
+                    else
+                    {
+                        LogMessage("⚠️ Documents klasörü bulunamadı, standart yol deneniyor");
+                    }
+                }
+                
+                // Diğer platformlar için masaüstünü dene
+                var standardDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                
+                if (!string.IsNullOrEmpty(standardDesktopPath) && Directory.Exists(standardDesktopPath))
+                {
+                    LogMessage($"💻 Masaüstü yolu: {standardDesktopPath}");
+                    return standardDesktopPath;
+                }
+                
+                // Masaüstü bulunamazsa Documents klasörünü kullan
+                var fallbackDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                if (!string.IsNullOrEmpty(fallbackDocumentsPath) && Directory.Exists(fallbackDocumentsPath))
+                {
+                    LogMessage($"📁 Masaüstü bulunamadı, Documents klasörü kullanılıyor: {fallbackDocumentsPath}");
+                    return fallbackDocumentsPath;
+                }
+                
+                // Son çare olarak ev dizinini kullan
+                LogMessage("⚠️ Hiçbir klasör bulunamadı, ev dizini kullanılıyor");
+                return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"❌ Dosya yolu belirleme hatası: {ex.Message}");
+                // Hata durumunda ev dizinini döndür
+                return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            }
+        }
+
+        private async Task SaveLogsToFile()
+        {
+            try
+            {
+                // Dosya kaydetme yolu (macOS'te Documents, diğerlerinde masaüstü)
+                var savePath = GetSavePath();
                 var fileName = $"TranslationSession_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
-                var filePath = Path.Combine(desktopPath, fileName);
+                var filePath = Path.Combine(savePath, fileName);
                 
                 // Session bilgilerini header olarak ekle
                 var headerInfo = new List<string>
@@ -104,6 +154,10 @@ namespace LocalizationTabii.PageModels
                 var allLogs = new List<string>();
                 allLogs.AddRange(headerInfo);
                 allLogs.AddRange(_sessionLogs);
+                
+                // Chunk detaylarını ekle
+                await AddChunkDetailsToLogs(allLogs);
+                
                 allLogs.Add("");
                 allLogs.Add("==========================================");
                 allLogs.Add("Log dosyası oluşturuldu: " + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
@@ -112,16 +166,128 @@ namespace LocalizationTabii.PageModels
                 await File.WriteAllLinesAsync(filePath, allLogs, Encoding.UTF8);
                 
                 LogMessage($"📁 Log dosyası kaydedildi: {fileName}");
+                LogMessage($"📂 Tam yol: {filePath}");
                 
                 // Kullanıcıya bilgi ver
-                _errorHandler?.ShowSuccess("Log Kaydedildi", 
-                    $"Session logları masaüstüne kaydedildi:\n{fileName}");
+                var successMessage = OperatingSystem.IsMacOS() 
+                    ? $"Session logları macOS Documents klasörüne kaydedildi:\n\n📄 {fileName}\n📂 {savePath}\n\n💡 Sandbox güvenliği nedeniyle Documents klasörü kullanıldı"
+                    : $"Session logları kaydedildi:\n{fileName}";
+                    
+                _errorHandler?.ShowSuccess("Log Kaydedildi", successMessage);
             }
             catch (Exception ex)
             {
                 LogMessage($"❌ Log dosyası kaydetme hatası: {ex.Message}");
                 _errorHandler?.ShowError("Log Kaydetme Hatası", ex.Message);
             }
+        }
+
+        private async Task AddChunkDetailsToLogs(List<string> logsList)
+        {
+            try
+            {
+                if (CurrentSession == null || CurrentSession.SubtitleEntries.Count == 0)
+                {
+                    logsList.Add("");
+                    logsList.Add("CHUNK DETAYLARI:");
+                    logsList.Add("==========================================");
+                    logsList.Add("❌ Session'da altyazı verisi bulunamadı.");
+                    return;
+                }
+
+                var chunks = GenerateChunks();
+                
+                logsList.Add("");
+                logsList.Add("CHUNK DETAYLARI:");
+                logsList.Add("==========================================");
+                logsList.Add($"Toplam {chunks.Count} chunk oluşturuldu");
+                logsList.Add($"Her chunk'ta maksimum {CurrentSession.ChunkSize} altyazı bulunuyor");
+                logsList.Add("");
+
+                for (int i = 0; i < chunks.Count; i++)
+                {
+                    var chunk = chunks[i];
+                    logsList.Add($"CHUNK {i + 1}:");
+                    logsList.Add($"│ Altyazı Aralığı: {chunk.StartIndex + 1} - {chunk.EndIndex + 1}");
+                    logsList.Add($"│ Toplam Altyazı: {chunk.Entries.Count}");
+                    logsList.Add($"│ Süre Aralığı: {chunk.Entries.First().StartTime:hh\\:mm\\:ss} - {chunk.Entries.Last().EndTime:hh\\:mm\\:ss}");
+                    logsList.Add($"│ Durum: {chunk.Status}");
+                    logsList.Add("│");
+                    logsList.Add("│ İÇERİK:");
+                    
+                    foreach (var subtitle in chunk.Entries)
+                    {
+                        logsList.Add($"│   [{subtitle.Sequence}] {subtitle.Timecode}");
+                        logsList.Add($"│   │ Orijinal: {subtitle.OriginalText.Replace("\n", "\\n")}");
+                        
+                        if (!string.IsNullOrEmpty(subtitle.TranslatedText))
+                        {
+                            logsList.Add($"│   │ Çeviri: {subtitle.TranslatedText.Replace("\n", "\\n")}");
+                        }
+                        
+                        logsList.Add("│   │");
+                    }
+                    
+                    logsList.Add("│");
+                    logsList.Add($"└── Chunk {i + 1} sonu");
+                    logsList.Add("");
+                    
+                    // Her 5 chunk'ta bir ara ver (dosya boyutunu kontrol etmek için)
+                    if ((i + 1) % 5 == 0)
+                    {
+                        logsList.Add($"--- {i + 1}. chunk'a kadar işlendi ---");
+                        logsList.Add("");
+                    }
+                }
+                
+                logsList.Add("==========================================");
+                logsList.Add($"✅ Tüm {chunks.Count} chunk detayı log'a eklendi");
+                
+                LogMessage($"📋 {chunks.Count} chunk detayı log dosyasına eklendi");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"❌ Chunk detayları ekleme hatası: {ex.Message}");
+                logsList.Add("");
+                logsList.Add("CHUNK DETAYLARI:");
+                logsList.Add("==========================================");
+                logsList.Add($"❌ Chunk detayları eklenirken hata oluştu: {ex.Message}");
+            }
+        }
+
+        private List<ChunkInfo> GenerateChunks()
+        {
+            if (CurrentSession == null || CurrentSession.SubtitleEntries.Count == 0)
+                return new List<ChunkInfo>();
+
+            var chunks = new List<ChunkInfo>();
+            var subtitles = CurrentSession.SubtitleEntries.ToList();
+            var chunkSize = CurrentSession.ChunkSize;
+
+            LogMessage($"🔧 Chunk oluşturma başlatıldı - {subtitles.Count} altyazı, chunk boyutu: {chunkSize}");
+
+            for (int i = 0; i < subtitles.Count; i += chunkSize)
+            {
+                var endIndex = Math.Min(i + chunkSize - 1, subtitles.Count - 1);
+                var chunkEntries = subtitles.Skip(i).Take(endIndex - i + 1).ToList();
+
+                var chunk = new ChunkInfo
+                {
+                    ChunkIndex = chunks.Count + 1,
+                    StartIndex = i,
+                    EndIndex = endIndex,
+                    Entries = chunkEntries,
+                    Status = ChunkStatus.Pending,
+                    ProcessedAt = null
+                };
+
+                chunks.Add(chunk);
+                
+                LogMessage($"📦 Chunk {chunk.ChunkIndex} oluşturuldu: {chunkEntries.Count} altyazı (indeks {i}-{endIndex})");
+            }
+
+            LogMessage($"✅ Toplam {chunks.Count} chunk oluşturuldu");
+            return chunks;
         }
 
         public void HandleFileSelected(FileResult fileResult)
@@ -357,16 +523,50 @@ namespace LocalizationTabii.PageModels
                 UpdateSessionStatus();
                 LogSessionInfo();
 
+                // Chunk'ları oluştur ve log'la
+                LogMessage("📦 Chunk'lar oluşturuluyor...");
+                var chunks = GenerateChunks();
+                
+                if (chunks.Count > 0)
+                {
+                    LogMessage($"✅ {chunks.Count} chunk başarıyla oluşturuldu");
+                    LogMessage($"📊 Chunk özeti:");
+                    LogMessage($"     • Toplam altyazı sayısı: {CurrentSession.TotalSubtitles}");
+                    LogMessage($"     • Chunk boyutu: {CurrentSession.ChunkSize}");
+                    LogMessage($"     • Oluşturulan chunk sayısı: {chunks.Count}");
+                    
+                    // Her chunk'ın özetini logla
+                    for (int i = 0; i < Math.Min(chunks.Count, 3); i++) // İlk 3 chunk'ı özet olarak göster
+                    {
+                        var chunk = chunks[i];
+                        LogMessage($"     📦 Chunk {chunk.ChunkIndex}: {chunk.Entries.Count} altyazı " +
+                                 $"(sıra {chunk.StartIndex + 1}-{chunk.EndIndex + 1})");
+                    }
+                    
+                    if (chunks.Count > 3)
+                    {
+                        LogMessage($"     ... ve {chunks.Count - 3} chunk daha");
+                    }
+                }
+                else
+                {
+                    LogMessage("⚠️ Hiç chunk oluşturulamadı - altyazı verisi bulunamadı");
+                }
+
                 // TODO: Burada TranslationCoordinator'ı çağıracağız
                 // await _translationCoordinator.StartTranslationAsync(CurrentSession);
                 
                 LogMessage("⏳ Çeviri süreci başlatma işlemi tamamlandı (henüz LLM çağrısı yok)");
-                LogMessage("📁 Session logları masaüstüne kaydediliyor...");
+                LogMessage("📁 Session logları ve chunk detayları masaüstüne kaydediliyor...");
                 
-                // Logları masaüstüne kaydet
-                await SaveLogsToDesktop();
+                // Logları dosyaya kaydet
+                await SaveLogsToFile();
                 
-                _errorHandler?.ShowSuccess("Başarılı", "Çeviri süreci başlatıldı ve loglar kaydedildi.");
+                _errorHandler?.ShowSuccess("Başarılı", 
+                    $"Çeviri süreci başlatıldı!\n\n" +
+                    $"• {chunks.Count} chunk oluşturuldu\n" +
+                    $"• Detaylı log dosyası masaüstüne kaydedildi\n" +
+                    $"• Chunk içerikleri log dosyasında görüntülenebilir");
             }
             catch (Exception ex)
             {
